@@ -1,14 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
+import {AppHeader} from './components/AppHeader/AppHeader';
+import {BurgerIngredients} from './components/BurgerIngredients/BurgerIngredients'
+import {BurgerConstructor} from './components/BurgerConstructor/BurgerConstructor'
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <>
+      <AppHeader />
+      <main style={{display: 'flex', justifyContent: 'center'}}>
+        <BurgerIngredients />
+        <BurgerConstructor />
+      </main>
+    </>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,0 +1,39 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  width: 1280px;
+  margin: 18px auto;
+}
+
+.profile {
+  margin-left: 300px;
+}
+
+.orderList {
+  width: 197px;
+  margin-left: 8px;
+}
+
+.left-header-buttons {
+  display: flex;
+  margin-right: 115px;
+}
+
+.ico {
+  margin: 5px 8px auto;
+}
+
+.headerButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.constructor {
+  width: 178px;
+  margin-left: 4px;
+}
+
+.notActive {
+  color: #8585AD
+}

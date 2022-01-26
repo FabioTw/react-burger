@@ -1,0 +1,7 @@
+.burger-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px; 
+  margin: 100px 16px 40px 16px;
+}
