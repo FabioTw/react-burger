@@ -3,12 +3,7 @@ import PropTypes from "prop-types";
 import { DragIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ingredientsInfo } from "../../utils/data.js";
 import burgerConstructor from "./burger-constructor.module.css";
-
-let selectedBun = '60666c42cc7b410027a1a9b1';
-let orderList = ["60666c42cc7b410027a1a9b5", "60666c42cc7b410027a1a9b3", 
-  "60666c42cc7b410027a1a9b6", "60666c42cc7b410027a1a9bd", "60666c42cc7b410027a1a9be", 
-  "60666c42cc7b410027a1a9be", "60666c42cc7b410027a1a9be", "60666c42cc7b410027a1a9be",
-  "60666c42cc7b410027a1a9be",];
+import {selectedBun, orderList} from '../../utils/order.js'
 
 export const BurgerConstructor = () => {
   return (

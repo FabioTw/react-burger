@@ -1,9 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import app from './app.module.css';
-import {AppHeader} from './components/AppHeader/AppHeader';
-import {BurgerIngredients} from './components/BurgerIngredients/BurgerIngredients'
-import {BurgerConstructor} from './components/BurgerConstructor/BurgerConstructor'
+import {AppHeader} from '../AppHeader/AppHeader';
+import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
+import {BurgerConstructor} from '../BurgerConstructor/BurgerConstructor'
 
 function App() {
   return (

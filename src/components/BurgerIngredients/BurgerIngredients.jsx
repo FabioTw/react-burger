@@ -16,19 +16,19 @@ export const BurgerIngredients = () => {
           Булки
         </p>
         <div className={burgerIngredients["ingredients-block"]}>
-          <CardFinder array={ingredientsInfo} find="bun" />
+          <CardList array={ingredientsInfo} find="bun" />
         </div>
         <p id="sauce" className="text text_type_main-medium mt-4 mb-6">
           Соусы
         </p>
         <div className={burgerIngredients["ingredients-block"]}>
-          <CardFinder array={ingredientsInfo} find="sauce" />
+          <CardList array={ingredientsInfo} find="sauce" />
         </div>
         <p id="other" className="text text_type_main-medium mt-4 mb-6">
           Начинки
         </p>
         <div className={burgerIngredients["ingredients-block"]}>
-          <CardFinder array={ingredientsInfo} find="main" />
+          <CardList array={ingredientsInfo} find="main" />
         </div>
       </div>
     </section>
@@ -80,7 +80,7 @@ const Tabs = () => {
   );
 };
 
-const CardFinder = ({ array, find }) => {
+const CardList = ({ array, find }) => {
   const correct = [];
   array.map((item) => {
     if (item.type === find) {
