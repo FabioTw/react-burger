@@ -9,7 +9,7 @@
   margin-left: 300px;
 }
 
-.orderList {
+.order-list {
   width: 197px;
   margin-left: 8px;
 }
@@ -23,7 +23,7 @@
   margin: 5px 8px auto;
 }
 
-.headerButton {
+.header-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,6 +34,6 @@
   margin-left: 4px;
 }
 
-.notActive {
+.not-active {
   color: #8585AD
 }

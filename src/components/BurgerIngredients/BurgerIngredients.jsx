@@ -1,17 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import {ingredientsInfo} from '../../utils/data.js'
-import './title/title.css'
-import './burger-ingredients.css'
-import './tabs/tabs.css'
-import './card/card.css'
-import './ingredients/ingredients.css'
+import burgerIngredients from './burger-ingredients.module.css'
 
 export const BurgerIngredients = () => {
-  return <section className="burger-ingredients">
+  return <section className={burgerIngredients['burger-ingredients']}>
     <p className="text text_type_main-large title">Соберите бургер</p>
     <Tabs />
-    <div className="ingredients">
+    <div className={burgerIngredients.ingredients}>
       <p id='bun' className="text text_type_main-medium">Булки</p>
       <div style={{display: 'flex', marginLeft: '4px'}}>
         <FindCard array={ingredientsInfo} find='bun'/>
@@ -29,7 +26,7 @@ export const BurgerIngredients = () => {
 }
 
 const Card = ({img, price, text}) => {
-  return <div className="card">
+  return <div className={burgerIngredients.card}>
     <img src={img} alt="булка" />
     <div style={{display: 'flex', margin: '4px auto', width: '64px', justifyContent: 'space-between'}}>
       <p style={{marginRight: '9px'}} className="text text_type_digits-default">{price}</p>
@@ -39,10 +36,16 @@ const Card = ({img, price, text}) => {
   </div>
 }
 
+Card.propTypes = {
+  image: PropTypes.string,
+  price: PropTypes.number,
+  name: PropTypes.string
+}
+
 const Tabs = () => {
   const [current, setCurrent] = React.useState('one')
   return (
-    <div className='tabs'>
+    <div className={burgerIngredients.tabs}>
       <a href='#bun'><Tab value="one" active={current === 'one'} onClick={setCurrent}>
         Булки
       </Tab></a>

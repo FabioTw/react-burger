@@ -1,6 +1,18 @@
+.burger-constructor {
+  width: 600px;
+}
+
+.burger-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px; 
+  margin: 100px 16px 40px 16px;
+}
+
 .ingredients-list {
   overflow: auto;
-  height: 464px;
+  max-height: 464px;
   scrollbar-color: #66667e;
 }
 
@@ -12,3 +24,4 @@ background: #2F2F37;
 .ingredients-list::-webkit-scrollbar-thumb {
 background: #8585AD;
 }
+

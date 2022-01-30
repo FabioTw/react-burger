@@ -1,0 +1,38 @@
+.burger-ingredients {
+  width: 610px;
+  margin-right: 40px;
+}
+
+.title {
+  margin: 40px auto 20px;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.ingredients {
+  height: 664px;
+  overflow: auto;
+  scrollbar-color: #66667e;
+}
+
+.ingredients::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  height: 492px;
+}
+
+.card {
+  margin: 24px 12px;
+  width: 272px;
+  height: 208px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
