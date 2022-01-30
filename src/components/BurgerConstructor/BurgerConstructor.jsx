@@ -1,64 +1,92 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import {ingredientsInfo} from '../../utils/data.js'
-import burgerConstructor from './burger-constructor.module.css';
+import React from "react";
+import PropTypes from "prop-types";
+import { DragIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ingredientsInfo } from "../../utils/data.js";
+import burgerConstructor from "./burger-constructor.module.css";
+
+let selectedBun = '60666c42cc7b410027a1a9b1';
+let orderList = ["60666c42cc7b410027a1a9b5", "60666c42cc7b410027a1a9b3", 
+  "60666c42cc7b410027a1a9b6", "60666c42cc7b410027a1a9bd", "60666c42cc7b410027a1a9be", 
+  "60666c42cc7b410027a1a9be", "60666c42cc7b410027a1a9be", "60666c42cc7b410027a1a9be",
+  "60666c42cc7b410027a1a9be",];
 
 export const BurgerConstructor = () => {
-  return <section className={burgerConstructor['burger-constructor']}>
-    <div className={burgerConstructor['burger-list']}>
-      <CreateElement array={ingredientsInfo} _id={'60666c42cc6b410027a1a9b1'}/>
-      <div className={burgerConstructor['ingredients-list']}>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9b3'}/>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9b6'}/>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9b5'}/>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9bd'}/>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9be'}/>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9be'}/>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9be'}/>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9be'}/>
-        <CreateElement array={ingredientsInfo} _id={'60666c42cc7b410027a1a9be'}/>
+  return (
+    <section className={burgerConstructor["burger-constructor"]}>
+      <div className={`${burgerConstructor["burger-list"]} mt-25 mr-4 mb-10 ml-4`}>
+        <ElementCreator
+          array={ingredientsInfo}
+          _id={selectedBun}
+          isTop={true}
+        />
+        <div className={burgerConstructor["ingredients-list"]}>
+          {orderList.map((item, index) => (
+            <ElementCreator
+            key={`id_${item}-${index}}`}
+            array={ingredientsInfo}
+            _id={item}
+          />
+          ))}
+        </div>
+        <ElementCreator
+          array={ingredientsInfo}
+          _id={selectedBun}
+          isTop={false}
+        />
       </div>
-      <CreateElement array={ingredientsInfo} _id={'60666c42cc7a410027a1a9b2'}/>
-    </div>
-    <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-      <p style={{marginRight: '8px'}} className="text text_type_digits-medium">???</p>
-      <img style={{marginRight: '40px'}} src={require("./../../images/Subtract.svg").default} alt="иконка денег" />
-      <Button type="primary" size="medium">Оформить заказ</Button>
-    </div>
-  </section>
-}
+      <div className={burgerConstructor["buy-info"]}>
+        <p className={`text text_type_digits-medium mr-2`}>???</p>
+        <img
+          className="mr-10"
+          src={require("./../../images/Subtract.svg").default}
+          alt="иконка денег"
+        />
+        <Button type="primary" size="medium">
+          Оформить заказ
+        </Button>
+      </div>
+    </section>
+  );
+};
 
-const CreateElement = ({array, _id}) => {
-  const correct = []
-  array.map(item => {
+const ElementCreator = ({ array, _id, isTop }) => {
+  const correct = [];
+  array.map((item) => {
     if (item._id === _id) {
-      correct.push(item)
+      correct.push(item);
     }
-  })
-  return correct.map(item => {if (item.type === 'top' || item.type === 'bottom') {
-    return (<ConstructorElement
-      key={item._id}
-      type={item.type}
-      isLocked={true}
-      text={item.name}
-      price={item.price}
-      thumbnail={item.image}
-    />)
-  } else {
-    return (<div key={item._id} style={{display:'flex', alignItems: 'center', marginBottom: '8px', }}><div><DragIcon type="primary" />
+  });
+  return correct.map((item) => {
+    if (item.type === "bun") {
+      return (
         <ConstructorElement
-          text={item.name}
+          key={item._id}
+          type={isTop ? 'top' : 'bottom'}
+          isLocked={true}
+          text={isTop ? `${item.name} (верх)`: `${item.name} (низ)`}
           price={item.price}
-          thumbnail={item.image}/>
-      </div>
-    </div>
-    )}
-  })
-}
+          thumbnail={item.image}
+        />
+      );
+    } else {
+      return (
+        <div key={item._id} className={`${burgerConstructor.filling} mb-2`}>
+          <div>
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text={item.name}
+              price={item.price}
+              thumbnail={item.image}
+            />
+          </div>
+        </div>
+      );
+    }
+  });
+};
 
-CreateElement.propTypes = {
-  image: PropTypes.string,
-  price: PropTypes.number,
-  name: PropTypes.string
-}
+ElementCreator.propTypes = {
+  array: PropTypes.array.isRequired,
+  _id: PropTypes.string.isRequired,
+  isTop: PropTypes.bool,
+};
