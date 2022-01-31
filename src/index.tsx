@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
+import App from './components/App/App'
+
 
 
 ReactDOM.render(
