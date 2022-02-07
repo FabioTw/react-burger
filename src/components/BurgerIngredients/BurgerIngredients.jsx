@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientsInfo } from "../../utils/data.js";
 import burgerIngredients from "./burger-ingredients.module.css";
 
-export const BurgerIngredients = () => {
+export const BurgerIngredients = ({ingredientsInfo, updateBun, updateIngridients}) => {
   return (
     <section className={`${burgerIngredients["burger-ingredients"]} mr-10`}>
       <p className="text text_type_main-large mt-10 mb-5">
@@ -16,28 +15,39 @@ export const BurgerIngredients = () => {
           Булки
         </p>
         <div className={burgerIngredients["ingredients-block"]}>
-          <CardList array={ingredientsInfo} find="bun" />
+          <CardList array={ingredientsInfo} update={updateBun} find="bun" />
         </div>
         <p id="sauce" className="text text_type_main-medium mt-4 mb-6">
           Соусы
         </p>
         <div className={burgerIngredients["ingredients-block"]}>
-          <CardList array={ingredientsInfo} find="sauce" />
+          <CardList array={ingredientsInfo} update={updateIngridients} find="sauce" />
         </div>
         <p id="other" className="text text_type_main-medium mt-4 mb-6">
           Начинки
         </p>
         <div className={burgerIngredients["ingredients-block"]}>
-          <CardList array={ingredientsInfo} find="main" />
+          <CardList array={ingredientsInfo} update={updateIngridients} find="main" />
         </div>
       </div>
     </section>
   );
 };
 
-const Card = ({ img, price, text }) => {
+BurgerIngredients.propTypes = {
+  ingredientsInfo: PropTypes.array.isRequired,
+  updateBun: PropTypes.func.isRequired,
+  updateIngridients: PropTypes.func.isRequired,
+}
+
+const Card = ({id, img, price, text, update }) => {
+
+  const addIngrenient = () => {
+    update(id);
+  }
+
   return (
-    <div className={`${burgerIngredients.card} mt-6 mb-6 ml-3 mr-3`}>
+    <div className={`${burgerIngredients.card} mt-6 mb-6 ml-3 mr-3`} onClick={addIngrenient}>
       <img src={img} alt="булка" />
       <div className={`${burgerIngredients["card-info"]} mt-1 mb-1`}>
         <p className="text text_type_digits-default mr-2">{price}</p>
@@ -55,6 +65,7 @@ Card.propTypes = {
   img: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
+  update: PropTypes.func.isRequired
 };
 
 const Tabs = () => {
@@ -80,7 +91,7 @@ const Tabs = () => {
   );
 };
 
-const CardList = ({ array, find }) => {
+const CardList = ({ array, find, update }) => {
   const correct = [];
   array.map((item) => {
     if (item.type === find) {
@@ -88,6 +99,12 @@ const CardList = ({ array, find }) => {
     }
   });
   return correct.map((item) => (
-    <Card key={item._id} img={item.image} price={item.price} text={item.name} />
+    <Card key={item._id} id={item._id} img={item.image} price={item.price} text={item.name} update={update} />
   ));
 };
+
+CardList.propTypes = {
+  array: PropTypes.array.isRequired,
+  find: PropTypes.string.isRequired,
+  update: PropTypes.func.isRequired,
+}
