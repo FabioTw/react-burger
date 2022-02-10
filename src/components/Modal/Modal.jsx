@@ -8,9 +8,8 @@ import { CloseIcon, } from "@ya.praktikum/react-developer-burger-ui-components";
 const modalRoot = document.getElementById('modal');
 
 export const Modal = (props) => {
-  
   return ReactDOM.createPortal(
-    <ModalOverlay>
+    <ModalOverlay toggleModal={props.toggleModal}>
       <div className={modalStyle.modal}>
         <div className={`${modalStyle.title} mt-10`}>
           <p className={`${modalStyle.header} text text_type_main-large mr-9`}>{props.title}</p>
@@ -22,3 +21,9 @@ export const Modal = (props) => {
       modalRoot
     )
 }
+
+Modal.propTypes = {
+  toggleModal: PropTypes.func, 
+  title: PropTypes.string, 
+  children: PropTypes.node.isRequired
+};

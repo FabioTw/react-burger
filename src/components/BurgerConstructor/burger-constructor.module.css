@@ -15,11 +15,6 @@
   align-items: center;
 }
 
-.filling {
-  display: flex;
-  align-items: center;
-}
-
 .ingredients-list {
   overflow: auto;
   max-height: 464px;

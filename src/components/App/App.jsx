@@ -11,7 +11,7 @@ const dataLink = 'https://norma.nomoreparties.space/api/ingredients';
 const App = () => {
   const [data, setState] = React.useState([]);
   const [bun, selectBun] = React.useState('')
-  const [ingridients, addIngridients] = React.useState([])
+  const [ingredients, addIngredients] = React.useState([])
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
   const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
   const [ingredientsItem, setIngredientsItem] = React.useState(null)
@@ -24,33 +24,49 @@ const App = () => {
     toggleIngredientOverlay(!ingredientOverlay);
   }
 
-  const updateIngredientItem = (props) => {
-    setIngredientsItem(props.item);
+  const updateIngredientItem = (item) => {
+    setIngredientsItem(item);
   }
 
   const updateBun = (value) => {
     selectBun(value)
   }
 
-  const updateIngridients = (value) => {
-    addIngridients([...ingridients, value])
+  const updateIngredients = (value) => {
+    addIngredients([...ingredients, value])
   }
 
   const onRemoveItem = (id) => {
-    const array = ingridients
+    const array = ingredients
     let index = array.indexOf(id);
     if (index > -1) {
       array.splice(index, 1);
-    }
-    addIngridients([...ingridients, array])
+    } 
+    if (typeof(array[0]) === 'object') { 
+      array.shift()
+    } 
+    addIngredients([array, ...array])
   };
+
+  const showIngredientDetailsModal = (item) => {
+    updateIngredientOverlay()
+    updateIngredientItem(item)
+  }
 
   React.useEffect(()=>{
     fetch(dataLink)
+      .then(status)
       .then(res => res.json())
       .then(res => setState(res.data))
       .catch(res => console.log(`Ошибка: ${res.status}`))
   },[]);
+
+  const status = (res) => {
+    if (!res.ok) {
+        return Promise.reject()
+    }
+    return res;
+  }
 
   return (
     <>
@@ -59,16 +75,15 @@ const App = () => {
         <BurgerIngredients 
           ingredientsInfo={data} 
           updateBun={updateBun} 
-          updateIngridients={updateIngridients}
+          updateIngredients={updateIngredients}
+          showIngredientDetailsModal={showIngredientDetailsModal}
         />
         <BurgerConstructor 
           ingredientsInfo={data} 
           bun={bun} 
-          ingridients={ingridients} 
+          ingredients={ingredients} 
           onRemoveItem={onRemoveItem} 
           updateOrderOverlay={updateOrderOverlay} 
-          updateIngredientOverlay={updateIngredientOverlay} 
-          updateIngredientItem={updateIngredientItem} 
         />
         {
           orderOverlay && <OrderDetails updateOrderOverlay={updateOrderOverlay}/>

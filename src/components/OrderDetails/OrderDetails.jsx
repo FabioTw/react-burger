@@ -1,9 +1,13 @@
 import React from "react";
+import ReactDOM from "react-dom";
+import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
+import { CheckMarkIcon, } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderDetails from './order-details.module.css'
 
 export const OrderDetails = ({updateOrderOverlay}) => {
   const rnd = Math.floor(Math.random() * 1000000);
+
   return (
     <Modal toggleModal={updateOrderOverlay}>
       <p className={`${orderDetails['order-digits']} text text_type_digits-large mt-4 mb-8`}>{rnd}</p>
@@ -19,3 +23,7 @@ export const OrderDetails = ({updateOrderOverlay}) => {
     </Modal>
   )
 }
+
+OrderDetails.propTypes = {
+  updateOrderOverlay: PropTypes.func.isRequired
+};

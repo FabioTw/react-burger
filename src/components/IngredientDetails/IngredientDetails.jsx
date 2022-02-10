@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
 import ingredientDetails from './ingredient-details.module.css'
-
 
 export const IngredientDetails = ({updateIngredientOverlay, name, image, proteins, fat, carbohydrates, calories}) => {
   return (
@@ -33,3 +33,13 @@ export const IngredientDetails = ({updateIngredientOverlay, name, image, protein
     </Modal>
   )
 }
+
+IngredientDetails.propTypes = {
+  updateIngredientOverlay: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired, 
+  image: PropTypes.string.isRequired, 
+  proteins: PropTypes.number.isRequired, 
+  fat: PropTypes.number.isRequired, 
+  carbohydrates: PropTypes.number.isRequired, 
+  calories: PropTypes.number.isRequired
+};
