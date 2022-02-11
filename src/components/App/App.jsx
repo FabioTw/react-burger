@@ -37,12 +37,8 @@ const App = () => {
   }
 
   const onRemoveItem = (id) => {
-    let array = ingredients
-    let index = array.indexOf(id);
-    if (index > -1) {
-      array.splice(index, 1);
-    } 
-    array = array.filter((item)=> typeof(item) === 'string')
+    let deletedIndex = ingredients.indexOf(id);
+    let array = ingredients.filter((item, index)=> index !== deletedIndex)
     addIngredients(array)
   };
 
