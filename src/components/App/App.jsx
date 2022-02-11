@@ -44,7 +44,7 @@ const App = () => {
     } 
     if (typeof(array[0]) === 'object') { 
       array.shift()
-    } 
+    }    
     addIngredients([array, ...array])
   };
 
@@ -55,17 +55,16 @@ const App = () => {
 
   React.useEffect(()=>{
     fetch(dataLink)
-      .then(status)
-      .then(res => res.json())
+      .then(checkError)
       .then(res => setState(res.data))
       .catch(res => console.log(`Ошибка: ${res.status}`))
   },[]);
 
-  const status = (res) => {
+  const checkError = (res) => {
     if (!res.ok) {
         return Promise.reject()
     }
-    return res;
+    return res.json();
   }
 
   return (

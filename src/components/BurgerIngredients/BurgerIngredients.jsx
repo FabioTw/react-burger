@@ -6,6 +6,20 @@ import burgerIngredients from "./burger-ingredients.module.css";
 import { ingredientsPropType } from "../../utils/propTypes";
 
 export const BurgerIngredients = ({ingredientsInfo, updateBun, updateIngredients, showIngredientDetailsModal}) => {
+  const bun = {name:'Булки', type:'bun', array:[]}
+  const sauce = {name:'Соусы', type:'sauce', array:[]}
+  const main = {name:'Начинки', type:'main', array:[]}
+
+  ingredientsInfo.forEach((item) => {
+    if (item.type === bun.type) {
+      bun.array.push(item);
+    } else if (item.type === sauce.type) {
+      sauce.array.push(item);
+    } else if (item.type === main.type) {
+      main.array.push(item);
+    } 
+  });
+
   return (
     <section className={`${burgerIngredients["burger-ingredients"]} mr-10`}>
       <p className="text text_type_main-large mt-10 mb-5">
@@ -13,24 +27,9 @@ export const BurgerIngredients = ({ingredientsInfo, updateBun, updateIngredients
       </p>
       <Tabs />
       <div className={burgerIngredients.ingredients}>
-        <p id="bun" className="text text_type_main-medium">
-          Булки
-        </p>
-        <div className={burgerIngredients["ingredients-block"]}>
-          <CardList array={ingredientsInfo} updateIngredient={updateBun} finding="bun" showIngredientDetailsModal={showIngredientDetailsModal} />
-        </div>
-        <p id="sauce" className="text text_type_main-medium mt-4 mb-6">
-          Соусы
-        </p>
-        <div className={burgerIngredients["ingredients-block"]}>
-          <CardList array={ingredientsInfo} updateIngredient={updateIngredients} finding="sauce" showIngredientDetailsModal={showIngredientDetailsModal} />
-        </div>
-        <p id="other" className="text text_type_main-medium mt-4 mb-6">
-          Начинки
-        </p>
-        <div className={burgerIngredients["ingredients-block"]}>
-          <CardList array={ingredientsInfo} updateIngredient={updateIngredients} finding="main" showIngredientDetailsModal={showIngredientDetailsModal}/>
-        </div>
+          <CardList data={bun} updateIngredient={updateBun} showIngredientDetailsModal={showIngredientDetailsModal} />
+          <CardList data={sauce} updateIngredient={updateIngredients} showIngredientDetailsModal={showIngredientDetailsModal}  />
+          <CardList data={main} updateIngredient={updateIngredients} showIngredientDetailsModal={showIngredientDetailsModal} />
       </div>
     </section>
   );

@@ -19,7 +19,7 @@ export const BurgerConstructor = ({ingredientsInfo, bun, ingredients, onRemoveIt
             <ElementCreator
             key={`id_${item}-${index}}`}
             array={ingredientsInfo}
-            _id={item}
+            _id={typeof(item) !== 'object'? item: ''}
             onRemoveItem={onRemoveItem}
           />
           ))}
@@ -43,13 +43,13 @@ export const BurgerConstructor = ({ingredientsInfo, bun, ingredients, onRemoveIt
   );
 };
 
-const priceCalc = (order, array, bun) => {
+const priceCalc = (ingredientsWithoutBun, array, bun) => {
   let price = 0;
   array.forEach((item) => {
     if (item._id === bun) {
       price += item.price * 2
     }
-    order.forEach((id) => {
+    ingredientsWithoutBun.forEach((id) => {
       if (item._id === id) {
         price += item.price
       } 
@@ -60,8 +60,8 @@ const priceCalc = (order, array, bun) => {
 
 BurgerConstructor.propTypes = {
   ingredientsInfo: ingredientsPropType, 
-  bun: PropTypes.string.isRequired, 
-  ingredients: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.array, PropTypes.string ])).isRequired, 
+  bun: PropTypes.string, 
+  ingredients: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string ])), 
   onRemoveItem: PropTypes.func.isRequired,
   updateOrderOverlay: PropTypes.func.isRequired, 
 };

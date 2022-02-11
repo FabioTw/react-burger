@@ -5,7 +5,6 @@ import { ingredientsPropType } from "../../utils/propTypes";
 
 export const ElementCreator = ({ array, _id, isTop, onRemoveItem}) => {
   const correct = [];
-
   //сдесь осуществляется поиск элемента из массива, состоящего только из _id в основном массиве где хранится полностью обьект со всеми параметрами
   //чтобы выбрать нужный элемент, и в массив correct передается не только id элемента а также другая информация по типу имени, цены, картинки и тд
   array.forEach((item) => {
@@ -46,7 +45,7 @@ export const ElementCreator = ({ array, _id, isTop, onRemoveItem}) => {
 
 ElementCreator.propTypes = {
   array: ingredientsPropType,
-  _id: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired,
+  _id: PropTypes.string,
   isTop: PropTypes.bool,
   onRemoveItem: PropTypes.func,
 };

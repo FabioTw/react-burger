@@ -1,8 +1,6 @@
-import React from "react";
-import ReactDOM from "react-dom";
+
 import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
-import { CheckMarkIcon, } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderDetails from './order-details.module.css'
 
 export const OrderDetails = ({updateOrderOverlay}) => {

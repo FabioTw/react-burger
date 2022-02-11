@@ -4,18 +4,18 @@ import card from './card.module.css'
 
 export const Card = ({id, img, price, text, updateIngredient, onClick}) => {
 
-  const addIngrenientInList = () => {
+  const addIngredientInList = () => {
     updateIngredient(id);
   }
 // при клике на картинку открывает описание ингридиента, при клике на название или цену добавляет в заказ
   return (
     <div className={`${card.card} mt-6 mb-6 ml-3 mr-3`} >
       <img src={img} alt="ингредиент бургера" onClick={onClick} />
-      <div className={`${card["card-info"]} mt-1 mb-1`} onClick={addIngrenientInList}>
+      <div className={`${card["card-info"]} mt-1 mb-1`} onClick={addIngredientInList}>
         <p className="text text_type_digits-default mr-2">{price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className={`${card["card-name"]} text text_type_main-default`} onClick={addIngrenientInList}>{text}</p>
+      <p className={`${card["card-name"]} text text_type_main-default`} onClick={addIngredientInList}>{text}</p>
     </div>
   );
 };
