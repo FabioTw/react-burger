@@ -37,15 +37,13 @@ const App = () => {
   }
 
   const onRemoveItem = (id) => {
-    const array = ingredients
+    let array = ingredients
     let index = array.indexOf(id);
     if (index > -1) {
       array.splice(index, 1);
     } 
-    if (typeof(array[0]) === 'object') { 
-      array.shift()
-    }    
-    addIngredients([array, ...array])
+    array = array.filter((item)=> typeof(item) === 'string')
+    addIngredients(array)
   };
 
   const showIngredientDetailsModal = (item) => {

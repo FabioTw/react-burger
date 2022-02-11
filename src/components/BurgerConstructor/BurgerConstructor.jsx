@@ -19,7 +19,7 @@ export const BurgerConstructor = ({ingredientsInfo, bun, ingredients, onRemoveIt
             <ElementCreator
             key={`id_${item}-${index}}`}
             array={ingredientsInfo}
-            _id={typeof(item) !== 'object'? item: ''}
+            _id={item}
             onRemoveItem={onRemoveItem}
           />
           ))}
@@ -61,7 +61,7 @@ const priceCalc = (ingredientsWithoutBun, array, bun) => {
 BurgerConstructor.propTypes = {
   ingredientsInfo: ingredientsPropType, 
   bun: PropTypes.string, 
-  ingredients: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.string), PropTypes.string ])), 
+  ingredients: PropTypes.arrayOf(PropTypes.string), 
   onRemoveItem: PropTypes.func.isRequired,
   updateOrderOverlay: PropTypes.func.isRequired, 
 };

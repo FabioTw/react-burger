@@ -6,16 +6,16 @@ import burgerIngredients from "./burger-ingredients.module.css";
 import { ingredientsPropType } from "../../utils/propTypes";
 
 export const BurgerIngredients = ({ingredientsInfo, updateBun, updateIngredients, showIngredientDetailsModal}) => {
-  const bun = {name:'Булки', type:'bun', array:[]}
-  const sauce = {name:'Соусы', type:'sauce', array:[]}
-  const main = {name:'Начинки', type:'main', array:[]}
+  const bun = {name:'Булки', array:[]}
+  const sauce = {name:'Соусы', array:[]}
+  const main = {name:'Начинки', array:[]}
 
   ingredientsInfo.forEach((item) => {
-    if (item.type === bun.type) {
+    if (item.type === 'bun') {
       bun.array.push(item);
-    } else if (item.type === sauce.type) {
+    } else if (item.type === 'sauce') {
       sauce.array.push(item);
-    } else if (item.type === main.type) {
+    } else if (item.type === 'main') {
       main.array.push(item);
     } 
   });

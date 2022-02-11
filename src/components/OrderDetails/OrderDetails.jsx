@@ -1,4 +1,3 @@
-
 import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
 import orderDetails from './order-details.module.css'

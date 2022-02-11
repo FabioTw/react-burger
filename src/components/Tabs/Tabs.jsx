@@ -16,7 +16,7 @@ export const Tabs = () => {
           Соусы
         </Tab>
       </a>
-      <a href="#other">
+      <a href="#main">
         <Tab value="three" active={current === "three"} onClick={setCurrent}>
           Начинки
         </Tab>
