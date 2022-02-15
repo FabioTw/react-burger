@@ -5,6 +5,7 @@ import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
 import {BurgerConstructor} from '../BurgerConstructor/BurgerConstructor'
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IngredientDetails} from '../IngredientDetails/IngredientDetails';
+import { IngredientsContext } from '../../services/ingredientsContext';
 
 const dataLink = 'https://norma.nomoreparties.space/api/ingredients';
 
@@ -63,6 +64,7 @@ const App = () => {
 
   return (
     <>
+    
       <AppHeader />
       <main className={app.app}>
         <BurgerIngredients 
@@ -71,13 +73,15 @@ const App = () => {
           updateIngredients={updateIngredients}
           showIngredientDetailsModal={showIngredientDetailsModal}
         />
-        <BurgerConstructor 
-          ingredientsInfo={data} 
-          bun={bun} 
-          ingredients={ingredients} 
-          onRemoveItem={onRemoveItem} 
-          updateOrderOverlay={updateOrderOverlay} 
-        />
+        <IngredientsContext.Provider value={ingredients}>
+          <BurgerConstructor 
+            ingredientsInfo={data} 
+            bun={bun} 
+            // ingredients={ingredients} 
+            onRemoveItem={onRemoveItem} 
+            updateOrderOverlay={updateOrderOverlay} 
+          />
+        </IngredientsContext.Provider>
         {
           orderOverlay && <OrderDetails updateOrderOverlay={updateOrderOverlay}/>
         }

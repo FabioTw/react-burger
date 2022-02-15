@@ -4,8 +4,11 @@ import { Button, CurrencyIcon   } from "@ya.praktikum/react-developer-burger-ui-
 import { ElementCreator } from '../ElementCreator/ElementCreator'
 import burgerConstructor from "./burger-constructor.module.css";
 import { ingredientsPropType } from "../../utils/propTypes";
+import { IngredientsContext } from "../../services/ingredientsContext";
 
-export const BurgerConstructor = ({ingredientsInfo, bun, ingredients, onRemoveItem, updateOrderOverlay,}) => {
+export const BurgerConstructor = ({ingredientsInfo, bun, onRemoveItem, updateOrderOverlay,}) => {
+  const ingredients = React.useContext(IngredientsContext);
+
   return (
     <section className={burgerConstructor["burger-constructor"]}>
       <div className={`${burgerConstructor["burger-list"]} mt-25 mr-4 mb-10 ml-4`}>
@@ -61,7 +64,7 @@ const priceCalc = (ingredientsWithoutBun, array, bun) => {
 BurgerConstructor.propTypes = {
   ingredientsInfo: ingredientsPropType, 
   bun: PropTypes.string, 
-  ingredients: PropTypes.arrayOf(PropTypes.string), 
+  // ingredients: PropTypes.arrayOf(PropTypes.string), 
   onRemoveItem: PropTypes.func.isRequired,
   updateOrderOverlay: PropTypes.func.isRequired, 
 };
