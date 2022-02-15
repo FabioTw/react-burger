@@ -1,0 +1,10 @@
+.ingredient-stats {
+  color: #8585AD;
+  display: flex;
+  text-align: center;
+}
+
+.photo {
+  width: 520px;
+  height: 240px;
+}

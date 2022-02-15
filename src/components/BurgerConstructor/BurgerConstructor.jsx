@@ -1,42 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { DragIcon, ConstructorElement, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { ingredientsInfo } from "../../utils/data.js";
+import { Button, CurrencyIcon   } from "@ya.praktikum/react-developer-burger-ui-components";
+import { ElementCreator } from '../ElementCreator/ElementCreator'
 import burgerConstructor from "./burger-constructor.module.css";
-import {selectedBun, orderList} from '../../utils/order.js'
+import { ingredientsPropType } from "../../utils/propTypes";
 
-export const BurgerConstructor = () => {
+export const BurgerConstructor = ({ingredientsInfo, bun, ingredients, onRemoveItem, updateOrderOverlay,}) => {
   return (
     <section className={burgerConstructor["burger-constructor"]}>
       <div className={`${burgerConstructor["burger-list"]} mt-25 mr-4 mb-10 ml-4`}>
         <ElementCreator
           array={ingredientsInfo}
-          _id={selectedBun}
+          _id={bun}
           isTop={true}
         />
         <div className={burgerConstructor["ingredients-list"]}>
-          {orderList.map((item, index) => (
+          {ingredients.map((item, index) => (
             <ElementCreator
             key={`id_${item}-${index}}`}
             array={ingredientsInfo}
             _id={item}
+            onRemoveItem={onRemoveItem}
           />
           ))}
         </div>
         <ElementCreator
           array={ingredientsInfo}
-          _id={selectedBun}
+          _id={bun}
           isTop={false}
         />
       </div>
-      <div className={burgerConstructor["buy-info"]}>
-        <p className={`text text_type_digits-medium mr-2`}>???</p>
-        <img
-          className="mr-10"
-          src={require("./../../images/Subtract.svg").default}
-          alt="иконка денег"
-        />
-        <Button type="primary" size="medium">
+      <div className={`${burgerConstructor["buy-info"]}`}>
+        <div className={`${burgerConstructor["buy-info"]} mr-10`}>
+          <p className={`text text_type_digits-medium mr-2`}>{priceCalc(ingredients, ingredientsInfo, bun)}</p>
+          <CurrencyIcon type="primary" />
+        </div>
+        <Button type="primary" size="medium" onClick={updateOrderOverlay}>
           Оформить заказ
         </Button>
       </div>
@@ -44,44 +43,28 @@ export const BurgerConstructor = () => {
   );
 };
 
-const ElementCreator = ({ array, _id, isTop }) => {
-  const correct = [];
-  array.map((item) => {
-    if (item._id === _id) {
-      correct.push(item);
+const priceCalc = (ingredientsWithoutBun, array, bun) => {
+  let price = 0;
+  array.forEach((item) => {
+    if (item._id === bun) {
+      price += item.price * 2
     }
-  });
-  return correct.map((item) => {
-    if (item.type === "bun") {
-      return (
-        <ConstructorElement
-          key={item._id}
-          type={isTop ? 'top' : 'bottom'}
-          isLocked={true}
-          text={isTop ? `${item.name} (верх)`: `${item.name} (низ)`}
-          price={item.price}
-          thumbnail={item.image}
-        />
-      );
-    } else {
-      return (
-        <div key={item._id} className={`${burgerConstructor.filling} mb-2`}>
-          <div>
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={item.name}
-              price={item.price}
-              thumbnail={item.image}
-            />
-          </div>
-        </div>
-      );
-    }
-  });
+    ingredientsWithoutBun.forEach((id) => {
+      if (item._id === id) {
+        price += item.price
+      } 
+    })
+  })
+  return price
+}
+
+BurgerConstructor.propTypes = {
+  ingredientsInfo: ingredientsPropType, 
+  bun: PropTypes.string, 
+  ingredients: PropTypes.arrayOf(PropTypes.string), 
+  onRemoveItem: PropTypes.func.isRequired,
+  updateOrderOverlay: PropTypes.func.isRequired, 
 };
 
-ElementCreator.propTypes = {
-  array: PropTypes.array.isRequired,
-  _id: PropTypes.string.isRequired,
-  isTop: PropTypes.bool,
-};
+
+

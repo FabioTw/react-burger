@@ -6,17 +6,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 10px; 
+  gap: 8px; 
 }
 
 .buy-info {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
-}
-
-.filling {
-  display: flex;
   align-items: center;
 }
 

@@ -1,0 +1,11 @@
+
+.filling {
+  display: flex;
+  align-items: center;
+}
+
+.element {
+  display: flex;
+  min-width: 531px;
+  align-items: stretch;
+}
