@@ -66,7 +66,7 @@ const App = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        "ingredients": ingredients
+        ingredients
       })
     })
       .then(checkError)
@@ -102,7 +102,7 @@ const App = () => {
         </IngredientsContext.Provider>
         {
           orderOverlay && 
-          <OrderContext.Provider value={orderNumber}>
+          <OrderContext.Provider value={orderNumber.number}>
             <OrderDetails updateOrderOverlay={updateOrderOverlay}/>
           </OrderContext.Provider>
         }

@@ -63,8 +63,7 @@ const priceCalc = (ingredientsWithoutBun, array, bun) => {
 
 BurgerConstructor.propTypes = {
   ingredientsInfo: ingredientsPropType, 
-  bun: PropTypes.string, 
-  // ingredients: PropTypes.arrayOf(PropTypes.string), 
+  bun: PropTypes.string,  
   onRemoveItem: PropTypes.func.isRequired,
   updateOrderOverlay: PropTypes.func.isRequired, 
 };

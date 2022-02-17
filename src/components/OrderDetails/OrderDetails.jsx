@@ -5,11 +5,11 @@ import { Modal } from "../Modal/Modal";
 import orderDetails from './order-details.module.css'
 
 export const OrderDetails = ({updateOrderOverlay}) => {
-  const orderNumber = React.useContext(OrderContext)
+  const orderNumber = React.useContext(OrderContext);
 
   return (
     <Modal toggleModal={updateOrderOverlay}>
-      <p className={`${orderDetails['order-digits']} text text_type_digits-large mt-4 mb-8`}>{orderNumber.number}</p>
+      <p className={`${orderDetails['order-digits']} text text_type_digits-large mt-4 mb-8`}>{orderNumber}</p>
       <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
       <img
           className={`${orderDetails['done-button']} mb-15`}
