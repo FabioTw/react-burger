@@ -5,19 +5,24 @@ import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
 import {BurgerConstructor} from '../BurgerConstructor/BurgerConstructor'
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IngredientDetails} from '../IngredientDetails/IngredientDetails';
+import { IngredientsContext } from '../../services/ingredientsContext';
+import { OrderContext } from '../../services/orderContext';
 
 const dataLink = 'https://norma.nomoreparties.space/api/ingredients';
+const orderLink = 'https://norma.nomoreparties.space/api/orders';
 
 const App = () => {
   const [data, setState] = React.useState([]);
   const [bun, selectBun] = React.useState('')
   const [ingredients, addIngredients] = React.useState([])
+  const [orderNumber, setOrderNumber] = React.useState('')
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
   const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
   const [ingredientsItem, setIngredientsItem] = React.useState(null)
 
   const updateOrderOverlay = () => {
     toggleOrderOverlay(!orderOverlay);
+    checkout(ingredients);
   }
 
   const updateIngredientOverlay = () => {
@@ -54,6 +59,21 @@ const App = () => {
       .catch(res => console.log(`Ошибка: ${res.status}`))
   },[]);
 
+  const checkout = (ingredients) => {
+    return fetch(orderLink, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ingredients
+      })
+    })
+      .then(checkError)
+      .then(res => setOrderNumber(res.order))
+      .catch(res => console.log(`Ошибка: ${res.status}`))
+  }
+
   const checkError = (res) => {
     if (!res.ok) {
         return Promise.reject()
@@ -63,6 +83,7 @@ const App = () => {
 
   return (
     <>
+    
       <AppHeader />
       <main className={app.app}>
         <BurgerIngredients 
@@ -71,15 +92,19 @@ const App = () => {
           updateIngredients={updateIngredients}
           showIngredientDetailsModal={showIngredientDetailsModal}
         />
-        <BurgerConstructor 
-          ingredientsInfo={data} 
-          bun={bun} 
-          ingredients={ingredients} 
-          onRemoveItem={onRemoveItem} 
-          updateOrderOverlay={updateOrderOverlay} 
-        />
+        <IngredientsContext.Provider value={ingredients}>
+          <BurgerConstructor 
+            ingredientsInfo={data} 
+            bun={bun} 
+            onRemoveItem={onRemoveItem} 
+            updateOrderOverlay={updateOrderOverlay} 
+          />
+        </IngredientsContext.Provider>
         {
-          orderOverlay && <OrderDetails updateOrderOverlay={updateOrderOverlay}/>
+          orderOverlay && 
+          <OrderContext.Provider value={orderNumber.number}>
+            <OrderDetails updateOrderOverlay={updateOrderOverlay}/>
+          </OrderContext.Provider>
         }
         {
           ingredientOverlay && 
