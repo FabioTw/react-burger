@@ -1,121 +1,76 @@
 import React from 'react';
 import app from './app.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { getIngredients } from '../../services/thunk/getIngredients';
+import {getOrder} from '../../services/thunk/getOrder';
 import {AppHeader} from '../AppHeader/AppHeader';
 import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
 import {BurgerConstructor} from '../BurgerConstructor/BurgerConstructor'
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IngredientDetails} from '../IngredientDetails/IngredientDetails';
-import { IngredientsContext } from '../../services/ingredientsContext';
-import { OrderContext } from '../../services/orderContext';
-
-const dataLink = 'https://norma.nomoreparties.space/api/ingredients';
-const orderLink = 'https://norma.nomoreparties.space/api/orders';
+import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN } from '../../services/actions/ingredients';
+import { SELECT_INGREDIENT } from '../../services/actions/ingredient';
 
 const App = () => {
-  const [data, setState] = React.useState([]);
-  const [bun, selectBun] = React.useState('')
-  const [ingredients, addIngredients] = React.useState([])
-  const [orderNumber, setOrderNumber] = React.useState('')
+  const dispatch = useDispatch();
+  const { constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
   const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
-  const [ingredientsItem, setIngredientsItem] = React.useState(null)
 
   const updateOrderOverlay = () => {
     toggleOrderOverlay(!orderOverlay);
-    checkout(ingredients);
+    dispatch(getOrder(constructorIngredients, selectedBun));
   }
 
   const updateIngredientOverlay = () => {
     toggleIngredientOverlay(!ingredientOverlay);
+    dispatch({type: SELECT_INGREDIENT, value:''})
   }
 
-  const updateIngredientItem = (item) => {
-    setIngredientsItem(item);
+  const updateBun = (item) => {
+    dispatch({type: SELECT_CONSTRUCTOR_BUN, value: item})
   }
 
-  const updateBun = (value) => {
-    selectBun(value)
-  }
-
-  const updateIngredients = (value) => {
-    addIngredients([...ingredients, value])
+  const updateIngredients = (item) => {
+    dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: [...constructorIngredients, item]})
   }
 
   const onRemoveItem = (id) => {
-    const deletedIndex = ingredients.indexOf(id);
-    const array = ingredients.filter((item, index)=> index !== deletedIndex)
-    addIngredients(array)
+    const deletedIndex = constructorIngredients.indexOf(id);
+    const array = constructorIngredients.filter((item, index)=> index !== deletedIndex)
+    dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: array})
   };
 
   const showIngredientDetailsModal = (item) => {
     updateIngredientOverlay()
-    updateIngredientItem(item)
+    dispatch({type: SELECT_INGREDIENT, value:item})
   }
 
   React.useEffect(()=>{
-    fetch(dataLink)
-      .then(checkError)
-      .then(res => setState(res.data))
-      .catch(res => console.log(`Ошибка: ${res.status}`))
+    dispatch(getIngredients())
   },[]);
-
-  const checkout = (ingredients) => {
-    return fetch(orderLink, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ingredients
-      })
-    })
-      .then(checkError)
-      .then(res => setOrderNumber(res.order))
-      .catch(res => console.log(`Ошибка: ${res.status}`))
-  }
-
-  const checkError = (res) => {
-    if (!res.ok) {
-        return Promise.reject()
-    }
-    return res.json();
-  }
 
   return (
     <>
-    
       <AppHeader />
       <main className={app.app}>
         <BurgerIngredients 
-          ingredientsInfo={data} 
           updateBun={updateBun} 
           updateIngredients={updateIngredients}
           showIngredientDetailsModal={showIngredientDetailsModal}
         />
-        <IngredientsContext.Provider value={ingredients}>
           <BurgerConstructor 
-            ingredientsInfo={data} 
-            bun={bun} 
             onRemoveItem={onRemoveItem} 
             updateOrderOverlay={updateOrderOverlay} 
           />
-        </IngredientsContext.Provider>
         {
           orderOverlay && 
-          <OrderContext.Provider value={orderNumber.number}>
-            <OrderDetails updateOrderOverlay={updateOrderOverlay}/>
-          </OrderContext.Provider>
+          <OrderDetails updateOrderOverlay={updateOrderOverlay}/>
         }
         {
           ingredientOverlay && 
           <IngredientDetails 
             updateIngredientOverlay={updateIngredientOverlay} 
-            name={ingredientsItem.name} 
-            image={ingredientsItem.image}
-            proteins={ingredientsItem.proteins}
-            fat={ingredientsItem.fat}
-            carbohydrates={ingredientsItem.carbohydrates}
-            calories={ingredientsItem.calories}
           />
         }
       </main>

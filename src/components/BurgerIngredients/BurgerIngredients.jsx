@@ -4,13 +4,16 @@ import { Tabs } from "../Tabs/Tabs";
 import { CardList } from "../CardList/CardList";
 import burgerIngredients from "./burger-ingredients.module.css";
 import { ingredientsPropType } from "../../utils/propTypes";
+import { useSelector } from "react-redux";
 
-export const BurgerIngredients = ({ingredientsInfo, updateBun, updateIngredients, showIngredientDetailsModal}) => {
+export const BurgerIngredients = ({updateBun, updateIngredients, showIngredientDetailsModal}) => {
+  const { standartIngredients} = useSelector(state => state.ingredients);
+
   const bun = {name:'Булки', array:[]}
   const sauce = {name:'Соусы', array:[]}
   const main = {name:'Начинки', array:[]}
 
-  ingredientsInfo.forEach((item) => {
+  standartIngredients.forEach((item) => {
     if (item.type === 'bun') {
       bun.array.push(item);
     } else if (item.type === 'sauce') {
@@ -36,7 +39,6 @@ export const BurgerIngredients = ({ingredientsInfo, updateBun, updateIngredients
 };
 
 BurgerIngredients.propTypes = {
-  ingredientsInfo: ingredientsPropType,
   updateBun: PropTypes.func.isRequired, 
   updateIngredients: PropTypes.func.isRequired,
   showIngredientDetailsModal: PropTypes.func.isRequired
