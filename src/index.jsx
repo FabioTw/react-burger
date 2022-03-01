@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import App from './components/App/App';

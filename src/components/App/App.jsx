@@ -1,4 +1,6 @@
 import React from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import app from './app.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/thunk/getIngredients';
@@ -13,9 +15,12 @@ import { SELECT_INGREDIENT } from '../../services/actions/ingredient';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
+  const { standartIngredients, constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
   const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
+
+  // const [elements, setElements] = React.useState([]);
+  // const [draggedElements, setDraggedElements] = React.useState([]);
 
   const updateOrderOverlay = () => {
     toggleOrderOverlay(!orderOverlay);
@@ -32,7 +37,7 @@ const App = () => {
   }
 
   const updateIngredients = (item) => {
-    dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: [...constructorIngredients, item]})
+    dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: [...constructorIngredients, item.id]})
   }
 
   const onRemoveItem = (id) => {
@@ -54,15 +59,17 @@ const App = () => {
     <>
       <AppHeader />
       <main className={app.app}>
-        <BurgerIngredients 
-          updateBun={updateBun} 
-          updateIngredients={updateIngredients}
-          showIngredientDetailsModal={showIngredientDetailsModal}
-        />
-          <BurgerConstructor 
-            onRemoveItem={onRemoveItem} 
-            updateOrderOverlay={updateOrderOverlay} 
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients 
+            showIngredientDetailsModal={showIngredientDetailsModal}
           />
+            <BurgerConstructor 
+              onRemoveItem={onRemoveItem} 
+              updateBun={updateBun}
+              updateIngredients={updateIngredients}
+              updateOrderOverlay={updateOrderOverlay} 
+            />
+        </DndProvider>
         {
           orderOverlay && 
           <OrderDetails updateOrderOverlay={updateOrderOverlay}/>
@@ -73,6 +80,7 @@ const App = () => {
             updateIngredientOverlay={updateIngredientOverlay} 
           />
         }
+        
       </main>
     </>
   );

@@ -4,12 +4,24 @@ import { Button, CurrencyIcon   } from "@ya.praktikum/react-developer-burger-ui-
 import { ElementCreator } from '../ElementCreator/ElementCreator'
 import burgerConstructor from "./burger-constructor.module.css";
 import { useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
 
-export const BurgerConstructor = ({ onRemoveItem, updateOrderOverlay,}) => {
+export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, updateOrderOverlay,}) => {
   const { standartIngredients , constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
 
+  const [, dropTarget] = useDrop({
+    accept: ["main",'sauce', 'bun'],
+    drop(itemId) {
+      if (itemId.type === 'bun') { 
+        updateBun(itemId.id)
+      } else {
+        updateIngredients(itemId)
+      }
+    },
+});
+  
   return (
-    <section className={burgerConstructor["burger-constructor"]}>
+    <section className={burgerConstructor["burger-constructor"]} ref={dropTarget}>
       <div className={`${burgerConstructor["burger-list"]} mt-25 mr-4 mb-10 ml-4`}>
         <ElementCreator
           array={standartIngredients}
@@ -61,8 +73,10 @@ const priceCalc = (ingredientsWithoutBun, array, bun) => {
 }
 
 BurgerConstructor.propTypes = {
+  updateBun: PropTypes.func.isRequired,
   onRemoveItem: PropTypes.func.isRequired,
   updateOrderOverlay: PropTypes.func.isRequired, 
+  updateIngredients: PropTypes.func.isRequired, 
 };
 
 

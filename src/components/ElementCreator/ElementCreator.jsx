@@ -2,11 +2,22 @@ import PropTypes from "prop-types";
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import elementCreator from "./element-creator.module.css";
 import { ingredientsPropType } from "../../utils/propTypes";
+import { useDrag } from "react-dnd";
 
 export const ElementCreator = ({ array, _id, isTop, onRemoveItem}) => {
   const correct = [];
   //сдесь осуществляется поиск элемента из массива, состоящего только из _id в основном массиве где хранится полностью обьект со всеми параметрами
   //чтобы выбрать нужный элемент, и в массив correct передается не только id элемента а также другая информация по типу имени, цены, картинки и тд
+
+  console.log(correct)
+  // const [{ opacity }, dragRef] = useDrag({
+  //   type: item.type,
+  //   item: {item},
+  //   collect: monitor => ({
+  //     opacity: monitor.isDragging() ? 0.5 : 1
+  //   })
+  // });
+
   array.forEach((item) => {
     if (item._id === _id) {
       correct.push(item);

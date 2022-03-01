@@ -6,7 +6,7 @@ import burgerIngredients from "./burger-ingredients.module.css";
 import { ingredientsPropType } from "../../utils/propTypes";
 import { useSelector } from "react-redux";
 
-export const BurgerIngredients = ({updateBun, updateIngredients, showIngredientDetailsModal}) => {
+export const BurgerIngredients = ({showIngredientDetailsModal}) => {
   const { standartIngredients} = useSelector(state => state.ingredients);
 
   const bun = {name:'Булки', array:[]}
@@ -30,16 +30,14 @@ export const BurgerIngredients = ({updateBun, updateIngredients, showIngredientD
       </p>
       <Tabs />
       <div className={burgerIngredients.ingredients}>
-          <CardList data={bun} updateIngredient={updateBun} showIngredientDetailsModal={showIngredientDetailsModal} />
-          <CardList data={sauce} updateIngredient={updateIngredients} showIngredientDetailsModal={showIngredientDetailsModal}  />
-          <CardList data={main} updateIngredient={updateIngredients} showIngredientDetailsModal={showIngredientDetailsModal} />
+          <CardList data={bun} showIngredientDetailsModal={showIngredientDetailsModal} />
+          <CardList data={sauce} showIngredientDetailsModal={showIngredientDetailsModal}  />
+          <CardList data={main} showIngredientDetailsModal={showIngredientDetailsModal} />
       </div>
     </section>
   );
 };
 
 BurgerIngredients.propTypes = {
-  updateBun: PropTypes.func.isRequired, 
-  updateIngredients: PropTypes.func.isRequired,
   showIngredientDetailsModal: PropTypes.func.isRequired
 }
