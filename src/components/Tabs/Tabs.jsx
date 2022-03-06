@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import tabs from './tabs.module.css'
 
-export const Tabs = () => {
-  const [current, setCurrent] = React.useState("one");
+
+export const Tabs = ({current,setCurrent}) => {
   return (
     <div className={`${tabs.tabs} mb-10`}>
       <a href="#bun">
@@ -25,3 +26,7 @@ export const Tabs = () => {
   );
 };
 
+Tabs.propTypes = {
+  current: PropTypes.string.isRequired,
+  setCurrent: PropTypes.func.isRequired,
+};

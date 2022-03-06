@@ -6,7 +6,7 @@ import burgerConstructor from "./burger-constructor.module.css";
 import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
-export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, updateOrderOverlay,}) => {
+export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, updateOrderOverlay, moveIngredients}) => {
   const { standartIngredients , constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
 
   const [, dropTarget] = useDrop({
@@ -15,11 +15,20 @@ export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, u
       if (itemId.type === 'bun') { 
         updateBun(itemId.id)
       } else {
-        updateIngredients(itemId)
+        updateIngredients(itemId.id)
       }
     },
-});
+  });
   
+  const moveCard = (dragIndex, hoverIndex) => {
+    const dragItem = constructorIngredients[dragIndex]
+    if (typeof(dragItem) === 'string') {
+      const coppiedStateArray = constructorIngredients;
+      const prevItem = coppiedStateArray.splice(hoverIndex, 1, dragItem);
+      coppiedStateArray.splice(dragIndex, 1, prevItem[0])
+      moveIngredients(coppiedStateArray)
+    }
+  }
   return (
     <section className={burgerConstructor["burger-constructor"]} ref={dropTarget}>
       <div className={`${burgerConstructor["burger-list"]} mt-25 mr-4 mb-10 ml-4`}>
@@ -35,6 +44,8 @@ export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, u
             array={standartIngredients}
             _id={item}
             onRemoveItem={onRemoveItem}
+            index={index}
+            moveCard={moveCard}
           />
           ))}
         </div>
@@ -77,6 +88,7 @@ BurgerConstructor.propTypes = {
   onRemoveItem: PropTypes.func.isRequired,
   updateOrderOverlay: PropTypes.func.isRequired, 
   updateIngredients: PropTypes.func.isRequired, 
+  moveIngredients: PropTypes.func.isRequired,
 };
 
 

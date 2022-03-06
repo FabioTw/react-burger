@@ -8,10 +8,36 @@ import { useSelector } from "react-redux";
 
 export const BurgerIngredients = ({showIngredientDetailsModal}) => {
   const { standartIngredients} = useSelector(state => state.ingredients);
+  const [activeTab, setTab] = React.useState('one')
 
   const bun = {name:'Булки', array:[]}
   const sauce = {name:'Соусы', array:[]}
   const main = {name:'Начинки', array:[]}
+
+  React.useEffect(()=>{
+    function scroll() {
+      let options = {
+        root: document.querySelector(`.${burgerIngredients["burger-ingredients"]}`),
+        rootMargin: '0px 0px -500px 0px',
+        threshold: 0
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting ) {
+            entry.target.id === 'bun' ? 
+              setTab('one') : 
+              entry.target.id === 'sauce'? 
+              setTab('two') : 
+              setTab('three');
+          }
+        })
+      }, options)
+        const id = [document.getElementById('bun'), document.getElementById('sauce'), document.getElementById('main')]
+        id.forEach((section) => observer.observe(section))
+    }
+    setTimeout(scroll, 800)
+  },[])
 
   standartIngredients.forEach((item) => {
     if (item.type === 'bun') {
@@ -28,7 +54,7 @@ export const BurgerIngredients = ({showIngredientDetailsModal}) => {
       <p className="text text_type_main-large mt-10 mb-5">
         Соберите бургер
       </p>
-      <Tabs />
+      <Tabs current={activeTab} setCurrent={setTab}/>
       <div className={burgerIngredients.ingredients}>
           <CardList data={bun} showIngredientDetailsModal={showIngredientDetailsModal} />
           <CardList data={sauce} showIngredientDetailsModal={showIngredientDetailsModal}  />

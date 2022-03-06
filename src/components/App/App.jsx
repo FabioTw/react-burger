@@ -19,9 +19,6 @@ const App = () => {
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
   const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
 
-  // const [elements, setElements] = React.useState([]);
-  // const [draggedElements, setDraggedElements] = React.useState([]);
-
   const updateOrderOverlay = () => {
     toggleOrderOverlay(!orderOverlay);
     dispatch(getOrder(constructorIngredients, selectedBun));
@@ -37,7 +34,11 @@ const App = () => {
   }
 
   const updateIngredients = (item) => {
-    dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: [...constructorIngredients, item.id]})
+    dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: [...constructorIngredients, item]})
+  }
+
+  const moveIngredients = (item) => {
+    dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: item})
   }
 
   const onRemoveItem = (id) => {
@@ -67,6 +68,7 @@ const App = () => {
               onRemoveItem={onRemoveItem} 
               updateBun={updateBun}
               updateIngredients={updateIngredients}
+              moveIngredients={moveIngredients}
               updateOrderOverlay={updateOrderOverlay} 
             />
         </DndProvider>
@@ -80,7 +82,6 @@ const App = () => {
             updateIngredientOverlay={updateIngredientOverlay} 
           />
         }
-        
       </main>
     </>
   );

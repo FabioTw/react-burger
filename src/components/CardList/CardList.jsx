@@ -6,21 +6,23 @@ import cardList from "./card-list.module.css"
 export const CardList = ({ data, showIngredientDetailsModal }) => {
   return  (
     <>
-      <p id={data.array.length>0 ? data.array[0].type : null} className="text text_type_main-medium mb-6"> 
-        {data.name}
-      </p>
-      <div className={`${cardList["card-block"]} mb-4`}>
-        {data.array.map((item) => (
-          <Card 
-            key={item._id} 
-            id={item._id} 
-            img={item.image} 
-            price={item.price} 
-            text={item.name} 
-            type={item.type}
-            onClick={()=> showIngredientDetailsModal(item)} 
-          />
-        ))}
+      <div id={data.array.length>0 ? data.array[0].type : null} className="text text_type_main-medium mb-6">
+        <p> 
+          {data.name}
+        </p>
+        <div className={`${cardList["card-block"]} mb-4`}>
+          {data.array.map((item) => (
+            <Card 
+              key={item._id} 
+              id={item._id} 
+              img={item.image} 
+              price={item.price} 
+              text={item.name} 
+              type={item.type}
+              onClick={()=> showIngredientDetailsModal(item)} 
+            />
+          ))}
+        </div>
       </div>
     </>
   )
