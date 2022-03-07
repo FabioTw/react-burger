@@ -3,15 +3,14 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_SUCCESS
 } from '../actions/ingredients';
-const dataLink = 'https://norma.nomoreparties.space/api/ingredients';
-
+import { baseUrl, checkError } from '../apiSettings';
 
 export function getIngredients() {
   return function(dispatch) {
     dispatch({
       type: GET_INGREDIENTS
     })
-    fetch(dataLink)
+    fetch(`${baseUrl}/ingredients`)
     .then(checkError)
     .then( res  => {
       if (res.success) {
@@ -32,10 +31,3 @@ export function getIngredients() {
     })
   }
 } 
-
-const checkError = (res) => {
-  if (!res.ok) {
-      return Promise.reject()
-  }
-  return res.json();
-}

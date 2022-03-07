@@ -5,6 +5,7 @@ import { ElementCreator } from '../ElementCreator/ElementCreator'
 import burgerConstructor from "./burger-constructor.module.css";
 import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from 'uuid'
 
 export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, updateOrderOverlay, moveIngredients}) => {
   const { standartIngredients , constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
@@ -40,7 +41,7 @@ export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, u
         <div className={burgerConstructor["ingredients-list"]}>
           {constructorIngredients.map((item, index) => (
             <ElementCreator
-            key={`id_${item}-${index}}`}
+            key={uuidv4()}
             array={standartIngredients}
             _id={item}
             onRemoveItem={onRemoveItem}

@@ -4,7 +4,8 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_CONSTRUCTOR_INGREDIENTS,
   CHANGE_CONSTRUCTOR_INGREDIENTS,
-  SELECT_CONSTRUCTOR_BUN
+  SELECT_CONSTRUCTOR_BUN,
+  CLEAR_INGREDIENTS
 } from '../actions/ingredients.js'
 
 const initialState = {
@@ -48,6 +49,13 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedBun: action.value
+      }
+    }
+    case CLEAR_INGREDIENTS: {
+      return {
+        ...state,
+        constructorIngredients: [],
+        selectedBun: '',
       }
     }
     default: {

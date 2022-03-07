@@ -11,17 +11,24 @@ export const CardList = ({ data, showIngredientDetailsModal }) => {
           {data.name}
         </p>
         <div className={`${cardList["card-block"]} mb-4`}>
-          {data.array.map((item) => (
-            <Card 
-              key={item._id} 
-              id={item._id} 
-              img={item.image} 
-              price={item.price} 
-              text={item.name} 
-              type={item.type}
-              onClick={()=> showIngredientDetailsModal(item)} 
-            />
-          ))}
+          {data.array.map((item) => {
+            const result = []
+            data.selected.forEach(element => {
+              if (item._id === element) {result.push(element)}
+            });
+            return (
+              <Card 
+                key={item._id} 
+                id={item._id} 
+                img={item.image} 
+                price={item.price} 
+                text={item.name} 
+                type={item.type}
+                onClick={()=> showIngredientDetailsModal(item)}
+                counterList={result} 
+              />
+            )
+            })}
         </div>
       </div>
     </>

@@ -1,11 +1,12 @@
+import { CLEAR_INGREDIENTS } from '../actions/ingredients';
 import {
   GET_ORDER,
   GET_ORDER_FAILED,
   GET_ORDER_SUCCESS
 } from '../actions/order';
+import { baseUrl, checkError } from '../apiSettings';
 
 export function getOrder(constructorIngredients, selectedBun) {
-  const orderLink = 'https://norma.nomoreparties.space/api/orders';
   const order = [selectedBun];
   constructorIngredients.forEach(element => {
     order.push(element);
@@ -14,7 +15,7 @@ export function getOrder(constructorIngredients, selectedBun) {
     dispatch({
       type: GET_ORDER
     })
-    fetch(orderLink, {
+    fetch(`${baseUrl}/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -30,6 +31,7 @@ export function getOrder(constructorIngredients, selectedBun) {
           type: GET_ORDER_SUCCESS,
           number: res.order.number
         })
+        dispatch({type: CLEAR_INGREDIENTS})
       } else {
         dispatch({
           type: GET_ORDER_FAILED
@@ -44,9 +46,3 @@ export function getOrder(constructorIngredients, selectedBun) {
   }
 } 
 
-const checkError = (res) => {
-  if (!res.ok) {
-      return Promise.reject()
-  }
-  return res.json();
-}

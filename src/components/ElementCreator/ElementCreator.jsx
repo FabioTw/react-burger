@@ -18,33 +18,23 @@ export const ElementCreator = ({ array, _id, isTop, onRemoveItem, index, moveCar
 
   const [, dropDragableItem] = useDrop({
     accept: 'ingredients',
-    hover(item, monitor) {
-      if (!ref.current) {
-        return;
+    drop(item, monitor) {
+      if (!monitor.isDragging && item) {
+        setTimeout(() => {      
+          moveCard(item.index, index);
+          item.index = index;
+        });
       }
-      const dragIndex = item.index;
-      const hoverIndex = index;
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      } 
-      item.index = hoverIndex;
-      moveCard(dragIndex, hoverIndex);
-  }})
+    },
 
+  })
 
-  const [, pickDragableItem] = useDrag({
+  const [{opacity}, pickDragableItem] = useDrag({
     type: 'ingredients',
     item: { _id , index},
+    collect: monitor => ({
+      opacity: monitor.isDragging() ? 0.5 : 1
+    })
   })
 
   pickDragableItem(dropDragableItem(ref));
@@ -64,7 +54,7 @@ export const ElementCreator = ({ array, _id, isTop, onRemoveItem, index, moveCar
       );
     } else {
       return  (
-        <div key={item._id} className={`${elementCreator.filling} mb-2 mt-2`} ref={ref}>
+        <div key={item._id} className={`${elementCreator.filling} mb-2 mt-2`} ref={ref} style={{opacity}}>
           <DragIcon type="primary" />
           <div className={elementCreator.element}>
             <ConstructorElement
