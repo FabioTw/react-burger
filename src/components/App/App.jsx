@@ -19,7 +19,6 @@ const App = () => {
   const { standartIngredients, constructorIngredients, selectedBun, constructorKeys } = useSelector(state => state.ingredients);
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
   const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
-  console.log(constructorKeys)
   const updateOrderOverlay = () => {
     toggleOrderOverlay(!orderOverlay);
     dispatch(getOrder(constructorIngredients, selectedBun))
