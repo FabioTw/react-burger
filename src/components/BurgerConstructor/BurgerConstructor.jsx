@@ -8,7 +8,7 @@ import { useDrop } from "react-dnd";
 import { v4 as uuidv4 } from 'uuid'
 
 export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, updateOrderOverlay, moveIngredients}) => {
-  const { standartIngredients , constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
+  const { standartIngredients , constructorIngredients, selectedBun, constructorKeys } = useSelector(state => state.ingredients);
 
   const [, dropTarget] = useDrop({
     accept: ["main",'sauce', 'bun'],
@@ -23,11 +23,15 @@ export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, u
   
   const moveCard = (dragIndex, hoverIndex) => {
     const dragItem = constructorIngredients[dragIndex]
+    const dragKey = constructorKeys[dragIndex]
     if (typeof(dragItem) === 'string') {
       const coppiedStateArray = constructorIngredients;
       const prevItem = coppiedStateArray.splice(hoverIndex, 1, dragItem);
       coppiedStateArray.splice(dragIndex, 1, prevItem[0])
-      moveIngredients(coppiedStateArray)
+      const coppiedKeyArray = constructorKeys;
+      const prevKeyItem = coppiedKeyArray.splice(hoverIndex, 1, dragKey);
+      coppiedKeyArray.splice(dragIndex, 1, prevKeyItem[0])
+      moveIngredients(coppiedStateArray, coppiedKeyArray)
     }
   }
   return (
@@ -41,7 +45,7 @@ export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, u
         <div className={burgerConstructor["ingredients-list"]}>
           {constructorIngredients.map((item, index) => (
             <ElementCreator
-            key={uuidv4()}
+            key={constructorKeys[index] === undefined ? item: constructorKeys[index]}
             array={standartIngredients}
             _id={item}
             onRemoveItem={onRemoveItem}

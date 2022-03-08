@@ -10,18 +10,19 @@ import {BurgerIngredients} from '../BurgerIngredients/BurgerIngredients'
 import {BurgerConstructor} from '../BurgerConstructor/BurgerConstructor'
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IngredientDetails} from '../IngredientDetails/IngredientDetails';
-import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN } from '../../services/actions/ingredients';
+import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN, CHANGE_CONSTRUCTOR_KEYS } from '../../services/actions/ingredients';
 import { SELECT_INGREDIENT } from '../../services/actions/ingredient';
+import { v4 as uuidv4 } from 'uuid'
 
 const App = () => {
   const dispatch = useDispatch();
-  const { standartIngredients, constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
+  const { standartIngredients, constructorIngredients, selectedBun, constructorKeys } = useSelector(state => state.ingredients);
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
   const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
-
+  console.log(constructorKeys)
   const updateOrderOverlay = () => {
     toggleOrderOverlay(!orderOverlay);
-    dispatch(getOrder(constructorIngredients, selectedBun));
+    dispatch(getOrder(constructorIngredients, selectedBun))
   }
 
   const updateIngredientOverlay = () => {
@@ -34,17 +35,22 @@ const App = () => {
   }
 
   const updateIngredients = (item) => {
+    const key = uuidv4()
     dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: [...constructorIngredients, item]})
+    dispatch({type: CHANGE_CONSTRUCTOR_KEYS, value: [...constructorKeys, key]})
   }
 
-  const moveIngredients = (item) => {
+  const moveIngredients = (item, key) => {
     dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: item})
+    dispatch({type: CHANGE_CONSTRUCTOR_KEYS, value: key})
   }
 
   const onRemoveItem = (id) => {
     const deletedIndex = constructorIngredients.indexOf(id);
     const array = constructorIngredients.filter((item, index)=> index !== deletedIndex)
+    const keys = constructorKeys.filter((item, index)=> index !== deletedIndex)
     dispatch({type: CHANGE_CONSTRUCTOR_INGREDIENTS, value: array})
+    dispatch({type: CHANGE_CONSTRUCTOR_KEYS, value: keys})
   };
 
   const showIngredientDetailsModal = (item) => {
