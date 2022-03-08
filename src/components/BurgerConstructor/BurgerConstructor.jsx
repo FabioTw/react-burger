@@ -16,22 +16,18 @@ export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, u
       if (itemId.type === 'bun') { 
         updateBun(itemId.id)
       } else {
-        updateIngredients(itemId.id)
+        updateIngredients(itemId)
       }
     },
   });
   
   const moveCard = (dragIndex, hoverIndex) => {
     const dragItem = constructorIngredients[dragIndex]
-    const dragKey = constructorKeys[dragIndex]
-    if (typeof(dragItem) === 'string') {
+    if (typeof(dragItem) === 'object') {
       const coppiedStateArray = constructorIngredients;
       const prevItem = coppiedStateArray.splice(hoverIndex, 1, dragItem);
       coppiedStateArray.splice(dragIndex, 1, prevItem[0])
-      const coppiedKeyArray = constructorKeys;
-      const prevKeyItem = coppiedKeyArray.splice(hoverIndex, 1, dragKey);
-      coppiedKeyArray.splice(dragIndex, 1, prevKeyItem[0])
-      moveIngredients(coppiedStateArray, coppiedKeyArray)
+      moveIngredients(coppiedStateArray)
     }
   }
   return (
@@ -45,9 +41,9 @@ export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, u
         <div className={burgerConstructor["ingredients-list"]}>
           {constructorIngredients.map((item, index) => (
             <ElementCreator
-            key={constructorKeys[index] === undefined ? item: constructorKeys[index]}
+            key={item.uuid}
             array={standartIngredients}
-            _id={item}
+            _id={item.id}
             onRemoveItem={onRemoveItem}
             index={index}
             moveCard={moveCard}

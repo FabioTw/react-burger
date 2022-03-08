@@ -9,7 +9,7 @@ import { baseUrl, checkError } from '../apiSettings';
 export function getOrder(constructorIngredients, selectedBun) {
   const order = [selectedBun];
   constructorIngredients.forEach(element => {
-    order.push(element);
+    order.push(element.id);
   });
   return function(dispatch) {
     dispatch({

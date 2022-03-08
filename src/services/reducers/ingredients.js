@@ -3,7 +3,6 @@ import {
   GET_INGREDIENTS_SUCCESS,
   GET_INGREDIENTS_FAILED,
   CHANGE_CONSTRUCTOR_INGREDIENTS,
-  CHANGE_CONSTRUCTOR_KEYS,
   SELECT_CONSTRUCTOR_BUN,
   CLEAR_INGREDIENTS
 } from '../actions/ingredients.js'
@@ -11,7 +10,6 @@ import {
 const initialState = {
   standartIngredients: [],
   constructorIngredients: [],
-  constructorKeys: [],
   selectedBun: '',
   ingredientsRequest: false,
   ingredientsFailed: false,
@@ -46,12 +44,6 @@ export const ingredientsReducer = (state = initialState, action) => {
         constructorIngredients: action.value,
       }
     }
-    case CHANGE_CONSTRUCTOR_KEYS: {
-      return {
-        ...state,
-        constructorKeys: action.value,
-      }
-    }
     case SELECT_CONSTRUCTOR_BUN: {
       return {
         ...state,
@@ -62,7 +54,6 @@ export const ingredientsReducer = (state = initialState, action) => {
       return {
         ...state,
         constructorIngredients: [],
-        constructorKeys: [],
         selectedBun: '',
       }
     }
