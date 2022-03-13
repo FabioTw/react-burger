@@ -1,11 +1,10 @@
-import React from "react";
 import PropTypes from "prop-types";
-import { OrderContext } from "../../services/orderContext";
 import { Modal } from "../Modal/Modal";
 import orderDetails from './order-details.module.css'
+import { useSelector } from "react-redux";
 
 export const OrderDetails = ({updateOrderOverlay}) => {
-  const orderNumber = React.useContext(OrderContext);
+  const { orderNumber } = useSelector(state => state.order);
 
   return (
     <Modal toggleModal={updateOrderOverlay}>
