@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import app from './app.module.css';
 import {AppHeader} from '../AppHeader/AppHeader';
-import { LoginPage, HomePage } from './pages/index'
+import { LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage} from './pages/index'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
@@ -21,13 +21,13 @@ const App = () => {
                 <LoginPage />
               </Route>
               <Route path="/register" exact={true}>
-                {/* <RegisterPage /> */}
+                <RegisterPage />
               </Route>
               <Route path="/forgot-password" exact={true}>
-                {/* <ForgotPage /> */}
+                <ForgotPage />
               </Route>
               <Route path="/reset-password" exact={true}>
-                {/* <ResetPage /> */}
+                <ResetPage />
               </Route>
               <Route path="/profile" exact={true}>
                 {/* <Profile /> */}
