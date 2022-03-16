@@ -1,24 +1,33 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIngredients } from '../../../../services/thunk/getIngredients';
-import {getOrder} from '../../../../services/thunk/getOrder';
-import {BurgerIngredients} from '../../../BurgerIngredients/BurgerIngredients'
-import {BurgerConstructor} from '../../../BurgerConstructor/BurgerConstructor'
-import { OrderDetails } from '../../../OrderDetails/OrderDetails';
-import { IngredientDetails} from '../../../IngredientDetails/IngredientDetails';
-import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN } from '../../../../services/actions/ingredients';
-import { SELECT_INGREDIENT } from '../../../../services/actions/ingredient';
+import { getIngredients } from '../../../services/thunk/getIngredients';
+import {getOrder} from '../../../services/thunk/getOrder';
+import {BurgerIngredients} from '../../BurgerIngredients/BurgerIngredients'
+import {BurgerConstructor} from '../../BurgerConstructor/BurgerConstructor'
+import { OrderDetails } from '../../OrderDetails/OrderDetails';
+import { IngredientDetails} from '../../IngredientDetails/IngredientDetails';
+import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN } from '../../../services/actions/ingredients';
+import { SELECT_INGREDIENT } from '../../../services/actions/ingredient';
 import { v4 as uuidv4 } from 'uuid'
+import { useHistory } from 'react-router-dom';
+import { getUser } from '../../../services/thunk/getUser';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
+  const {user} = useSelector(state => state.profile)
   const { standartIngredients, constructorIngredients, selectedBun, constructorKeys } = useSelector(state => state.ingredients);
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
   const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
+  const history = useHistory();
+
   const updateOrderOverlay = () => {
-    toggleOrderOverlay(!orderOverlay);
-    if (!orderOverlay) {
-      dispatch(getOrder(constructorIngredients, selectedBun))
+    if (!user.name) {
+      history.replace({ pathname: '/login', state: [{ path: '/', url: '/', title: 'Home' }] });
+    } else {
+      toggleOrderOverlay(!orderOverlay);
+      if (!orderOverlay) {
+        dispatch(getOrder(constructorIngredients, selectedBun))
+     }
     }
   }
 
@@ -59,7 +68,12 @@ export const HomePage = () => {
 
   React.useEffect(()=>{
     dispatch(getIngredients())
+    init();
   },[]);
+
+  const init = async () => {
+    await dispatch(getUser())
+  };
 
   return (
     <>

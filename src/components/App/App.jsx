@@ -3,16 +3,18 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import app from './app.module.css';
 import {AppHeader} from '../AppHeader/AppHeader';
-import { LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage} from './pages/index'
+import { LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage, NotFound404, Profile} from './pages/index'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 
 const App = () => {
   return (
     <>
-      <AppHeader />
-      <main className={app.app}>
+      
         <DndProvider backend={HTML5Backend}>
           <Router>
+            <AppHeader />
+            <main className={app.app}>
             <Switch>
               <Route path="/" exact={true}>
                 <HomePage />
@@ -29,16 +31,20 @@ const App = () => {
               <Route path="/reset-password" exact={true}>
                 <ResetPage />
               </Route>
-              <Route path="/profile" exact={true}>
-                {/* <Profile /> */}
-              </Route>
+              <ProtectedRoute path="/profile" exact={true}>
+                <Profile />
+              </ProtectedRoute>
               <Route path="/ingredients/:id" exact={true}>
                 {/* <Ingridients /> */}
               </Route>
+              <Route>
+                <NotFound404 />
+              </Route>
             </Switch>
+            </main>
           </Router>
         </DndProvider>
-      </main>
+
     </>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import headerStyles from "./app-header.module.css";
+import { Link } from 'react-router-dom';
 
 export const AppHeader = () => {
   return (
@@ -10,7 +11,7 @@ export const AppHeader = () => {
           <div className={`mt-1 mr-2 ml-2`}>
             <BurgerIcon type="primary" />
           </div>
-          <p className="text text_type_main-default">Конструктор</p>
+          <Link to="/" className="text text_type_main-default">Конструктор</Link>
         </nav>
         <nav className={`${headerStyles["header-button"]} ${headerStyles["order-list"]} ${headerStyles["not-active"]} ml-2`}>
           <div className={`mt-1 mr-2 ml-2`}>
@@ -24,7 +25,7 @@ export const AppHeader = () => {
         <div className={`mt-1 mr-2 ml-2`}>
           <ProfileIcon type="secondary" />
         </div>
-        <p className="text text_type_main-default">Личный кабинет</p>
+        <Link to="/profile" className="text text_type_main-default">Личный кабинет</Link>
       </nav>
     </header>
   );
