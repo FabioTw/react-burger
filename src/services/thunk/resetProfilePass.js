@@ -23,13 +23,14 @@ export function forgotPass (form) {
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(form)
     })
-    .then(checkError)
+    .then(res => res.json())
     .then(data => {
       if (data.success) {
         dispatch({
           type: FORGOT_PASSWORD_SUCCESS,
         })
       } else {
+        alert(data.message)
         dispatch({
           type: FORGOT_PASSWORD_FAILED
         })

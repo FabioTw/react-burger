@@ -8,9 +8,9 @@ import {
   LOGIN_PROFILE,
   LOGIN_PROFILE_SUCCESS,
   LOGIN_PROFILE_FAILED,
-  GET_LOGOUT,
-  GET_LOGOUT_SUCCESS,
-  GET_LOGOUT_FAILED,
+  LOGOUT_PROFILE,
+  LOGOUT_PROFILE_SUCCESS,
+  LOGOUT_PROFILE_FAILED,
   GET_USER,
   GET_USER_SUCCESS,
   GET_USER_FAILED,
@@ -20,6 +20,9 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAILED,
+  PATCH_PROFILE,
+  PATCH_PROFILE_SUCCESS,
+  PATCH_PROFILE_FAILED,
 } from '../actions/profile';
 
 
@@ -43,6 +46,12 @@ const initialState = {
   userRequest: false,
   userFailed: false,
 
+  patchRequest: false,
+  patchFailed: false,
+
+  logoutRequest: false,
+  logoutFailed: false,
+
   emailSended: false,
 };
 
@@ -58,7 +67,6 @@ export const profileReducer = (state = initialState, action) => {
     case GET_TOKEN_SUCCESS: {
       return {
         ...state,
-        user: action.user,
         tokenRequest: false
       }
     }
@@ -142,8 +150,9 @@ export const profileReducer = (state = initialState, action) => {
     case FORGOT_PASSWORD_SUCCESS: {
       return {
         ...state,
+        emailSended: true,
         forgotRequest: false,
-        emailSended: true
+        
       }
     }
     case FORGOT_PASSWORD_FAILED: {
@@ -172,6 +181,49 @@ export const profileReducer = (state = initialState, action) => {
         ...state,
         resetRequest: false,
         resetFailed: true,
+      }
+    }
+    case PATCH_PROFILE: {
+      return {
+        ...state,
+        patchRequest: true,
+        patchFailed: false,
+      }
+    }
+    case PATCH_PROFILE_SUCCESS: {
+      return {
+        ...state,
+        user: action.user,
+        patchRequest: false
+      }
+    }
+    case PATCH_PROFILE_FAILED: {
+      return {
+        ...state,
+        patchRequest: false,
+        patchFailed: true,
+      }
+    }
+    case LOGOUT_PROFILE: {
+      return {
+        ...state,
+        logoutRequest: true,
+        logoutFailed: false,
+      }
+    }
+    case LOGOUT_PROFILE_SUCCESS: {
+      return {
+        ...state,
+        user: {},
+        logoutRequest: false,
+        
+      }
+    }
+    case LOGOUT_PROFILE_FAILED: {
+      return {
+        ...state,
+        logoutRequest: false,
+        logoutFailed: true,
       }
     }
     default: {

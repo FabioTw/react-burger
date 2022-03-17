@@ -2,27 +2,25 @@ import {
   GET_TOKEN,
   GET_TOKEN_SUCCESS,
   GET_TOKEN_FAILED,
-  LOGIN_PROFILE,
-  LOGIN_PROFILE_SUCCESS,
-  LOGIN_PROFILE_FAILED,
 } from '../actions/profile';
-import { setCookie } from '../cookie.js';
+import { getCookie, setCookie } from '../cookie';
 import { baseUrl, checkError } from "../apiSettings";
+import { getUser } from './getUser';
 
-export function signIn (form) {
+export function updateToken () {
   return function (dispatch) {
-    dispatch({ type: LOGIN_PROFILE })
-    fetch(`${baseUrl}/auth/login`, {
+    dispatch({ type: GET_TOKEN })
+    fetch(`${baseUrl}/auth/token`, {
       method: 'POST',
       mode: 'cors',
       cache: 'no-cache',
       credentials: 'same-origin',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
-      body: JSON.stringify(form)
+      body: JSON.stringify({token: getCookie('refreshToken')})
     })
     .then(res => res.json())
     .then(data => {
@@ -35,14 +33,14 @@ export function signIn (form) {
           setCookie('refreshToken', refreshToken);
         }
         dispatch({
-          type: LOGIN_PROFILE_SUCCESS,
-          user: data.user
+          type: GET_TOKEN_SUCCESS,
         })
       } else {
         dispatch({
-          type: LOGIN_PROFILE_FAILED
+          type: GET_TOKEN_FAILED
         })
       }
+      return data.success
     });
-  } 
+  }
 }

@@ -1,0 +1,9 @@
+.input-fields {
+  display: flex;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  align-self: end;
+}

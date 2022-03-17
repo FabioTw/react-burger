@@ -72,7 +72,9 @@ export const HomePage = () => {
   },[]);
 
   const init = async () => {
-    await dispatch(getUser())
+    if (!user.name) {
+      await dispatch(getUser())
+    }
   };
 
   return (

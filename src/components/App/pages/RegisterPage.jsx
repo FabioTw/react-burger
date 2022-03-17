@@ -16,14 +16,17 @@ export const RegisterPage = () => {
   const [passValue, setPassValue] = React.useState('')
   const passRef = React.useRef(null)
   const dispatch = useDispatch();
-  const onIconClick = () => {
-    setTimeout(() => passRef.current.focus(), 0)
-    alert('Icon Click Callback')
-  }
+
   const registration = () => {
     dispatch(signUp({email:emailValue, password:passValue, name:nameValue}))
   }
   const history = useHistory(); 
+
+  const [watchPass, setPassWatch] = React.useState(false)
+  const onIconClick = () => {
+    setTimeout(() => passRef.current.focus(), 0)
+    setPassWatch(!watchPass)
+  }
 
   useEffect(()=>{
     dispatch(getUser())
@@ -68,10 +71,10 @@ export const RegisterPage = () => {
       </div>
       <div className="mb-6">
         <Input
-          type={'password'}
+          type={watchPass? 'text' : 'password' }
           placeholder={'Пароль'}
           onChange={e => setPassValue(e.target.value)}
-          icon={'ShowIcon'}
+          icon={watchPass? 'HideIcon' : 'ShowIcon'}
           value={passValue}
           name={'password'}
           error={false}

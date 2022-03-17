@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import { useHistory } from 'react-router-dom'; 
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { forgotPass } from '../../../services/thunk/resetProfilePass';
 
 export const ForgotPage = () => {
-  const {forgotFailed, forgotRequest} = useSelector(state => state.profile)
+  const {emailSended} = useSelector(state => state.profile)
 
   const [emailValue, setEmailValue] = React.useState('')
   const emailRef = React.useRef(null)
@@ -17,12 +17,16 @@ export const ForgotPage = () => {
   const reset = useCallback(
     () => {
       dispatch(forgotPass({email:emailValue})) 
-      if (!forgotFailed && !forgotRequest) {
-        history.replace({ pathname: '/reset-password' });
-      }
     },
-    [history, emailValue, forgotRequest, forgotFailed]
+    [emailSended, history, emailValue, ]
   ); 
+
+  useEffect(()=> {
+    if (emailSended) {
+      history.replace({ pathname: '/reset-password' });
+    }
+  },[emailSended])
+
   return (
     <div className={`${styles.field} mt-15`}>
       <p className="text text_type_main-medium mt-30 mb-6">

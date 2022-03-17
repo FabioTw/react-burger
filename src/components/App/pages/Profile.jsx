@@ -1,10 +1,12 @@
-import { Edit } from "../../Edit/Edit"
+import React from "react"
+import { EditProfile } from "../../EditProfile/EditProfile"
+import { NavigationProfile } from "../../NavigationProfile/NavigationProfile"
 
 export const Profile = () => {
   return (
     <>
-      <Edit />
-      {/* <Navigation /> */}
+      <NavigationProfile />
+      <EditProfile />
     </>
   )
 }

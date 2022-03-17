@@ -24,16 +24,16 @@ export function signUp (form) {
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(form)
     })
-    .then(checkError)
+    .then(res => res.json())
     .then(data => {
-      let authToken, refreshToken;
-      authToken = data.accessToken.split('Bearer ')[1];
-      refreshToken = data.refreshToken
-      if (authToken) {
-        setCookie('token', authToken);
-        setCookie('refreshToken', refreshToken);
-      }
       if (data.success) {
+        let authToken, refreshToken;
+        authToken = data.accessToken.split('Bearer ')[1];
+        refreshToken = data.refreshToken
+        if (authToken) {
+          setCookie('token', authToken);
+          setCookie('refreshToken', refreshToken);
+        }
         dispatch({
           type: REGISTER_PROFILE_SUCCESS,
           user: data.user

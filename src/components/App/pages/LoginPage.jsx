@@ -1,23 +1,25 @@
 import React, { useCallback } from "react"
+import { getUser } from "../../../services/thunk/getUser";
+import { useDispatch, useSelector } from "react-redux";
 import styles from './index.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../../services/thunk/loginProfile";
 import { getCookie } from "../../../services/cookie";
-import { getUser } from "../../../services/thunk/getUser";
+import { updateToken } from "../../../services/thunk/updateToken";
 
 export const LoginPage = () => {
-  const {user} = useSelector(state => state.profile)
+  const dispatch = useDispatch();
+  const { user, userFailed, tokenRequest, tokenFailed } = useSelector(state => state.profile)
   const [emailValue, setEmailValue] = React.useState('')
   const emailRef = React.useRef(null)
   const [passValue, setPassValue] = React.useState('')
   const passRef = React.useRef(null)
-  const dispatch = useDispatch();
+  const [watchPass, setPassWatch] = React.useState(false)
   const history = useHistory();
   const onIconClick = () => {
     setTimeout(() => passRef.current.focus(), 0)
-    alert('Icon Click Callback')
+    setPassWatch(!watchPass)
   }
 
   const login = useCallback(
@@ -30,13 +32,22 @@ export const LoginPage = () => {
   );
 
   React.useEffect(() => {
-    dispatch(getUser())
+    if (getCookie('token') !== undefined) {
+      dispatch(getUser())
+      if (userFailed) {
+        dispatch(updateToken())
+        if (!tokenRequest && !tokenFailed) {
+          dispatch(getUser())
+        }
+      }
+    }
     if (user.name) {
       setEmailValue('');
       setPassValue('');
       history.replace({ pathname: '/' })
     }
-  },[user, history])
+  },[userFailed, user, history, tokenRequest, tokenFailed])
+
   return (
     <div className={`${styles.field} mt-15`}>
       <p className="text text_type_main-medium mt-30 mb-6">
@@ -57,10 +68,10 @@ export const LoginPage = () => {
       </div>
       <div className="mb-6">
         <Input
-          type={'password'}
+          type={watchPass? 'text' : 'password' }
           placeholder={'Пароль'}
           onChange={e => setPassValue(e.target.value)}
-          icon={'ShowIcon'}
+          icon={watchPass? 'HideIcon' : 'ShowIcon'}
           value={passValue}
           name={'name'}
           error={false}

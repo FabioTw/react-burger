@@ -10,13 +10,16 @@ export const ResetPage = () => {
   const emailRef = React.useRef(null)
   const [passValue, setPassValue] = React.useState('')
   const passRef = React.useRef(null)
-  const onIconClick = () => {
-    setTimeout(() => passRef.current.focus(), 0)
-    alert('Icon Click Callback')
-  }
   const {resetFailed, resetRequest, emailSended} = useSelector(state => state.profile)
   const history = useHistory(); 
   const dispatch = useDispatch();
+
+
+  const [watchPass, setPassWatch] = React.useState(false)
+  const onIconClick = () => {
+    setTimeout(() => passRef.current.focus(), 0)
+    setPassWatch(!watchPass)
+  }
 
   const reset = useCallback(
     () => {
@@ -41,10 +44,10 @@ export const ResetPage = () => {
       </p>
       <div className="mb-6">
         <Input
-          type={'password'}
+          type={watchPass? 'text' : 'password'}
           placeholder={'Введите новый пароль'}
           onChange={e => setPassValue(e.target.value)}
-          icon={'ShowIcon'}
+          icon={watchPass? 'HideIcon' : 'ShowIcon'}
           value={passValue}
           name={'name'}
           error={false}
