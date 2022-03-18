@@ -7,18 +7,21 @@ import {BurgerConstructor} from '../../BurgerConstructor/BurgerConstructor'
 import { OrderDetails } from '../../OrderDetails/OrderDetails';
 import { IngredientDetails} from '../../IngredientDetails/IngredientDetails';
 import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN } from '../../../services/actions/ingredients';
-import { SELECT_INGREDIENT } from '../../../services/actions/ingredient';
+import { CLOSE_INGREDIENT, SELECT_INGREDIENT } from '../../../services/actions/ingredient';
 import { v4 as uuidv4 } from 'uuid'
-import { useHistory } from 'react-router-dom';
+import { Route,useHistory, useLocation } from 'react-router-dom';
 import { getUser } from '../../../services/thunk/getUser';
+import { deleteCookie, getCookie } from '../../../services/cookie';
+import { updateToken } from '../../../services/thunk/updateToken';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
   const {user} = useSelector(state => state.profile)
+  const {userFailed, tokenRequest, tokenFailed} = useSelector(state => state.profile)
   const { standartIngredients, constructorIngredients, selectedBun, constructorKeys } = useSelector(state => state.ingredients);
   const [orderOverlay, toggleOrderOverlay] = React.useState(false)
-  const [ingredientOverlay, toggleIngredientOverlay] = React.useState(false)
   const history = useHistory();
+  const {isClick} = useSelector(state => state.ingredient)
 
   const updateOrderOverlay = () => {
     if (!user.name) {
@@ -32,8 +35,11 @@ export const HomePage = () => {
   }
 
   const updateIngredientOverlay = () => {
-    toggleIngredientOverlay(!ingredientOverlay);
-    dispatch({type: SELECT_INGREDIENT, value:''})
+    if (isClick) {
+      dispatch({type: CLOSE_INGREDIENT})
+    } else {
+      dispatch({type: SELECT_INGREDIENT})
+    }
   }
 
   const updateBun = (item) => {
@@ -66,16 +72,40 @@ export const HomePage = () => {
     dispatch({type: SELECT_INGREDIENT, value:item})
   }
 
-  React.useEffect(()=>{
-    dispatch(getIngredients())
-    init();
-  },[]);
-
   const init = async () => {
-    if (!user.name) {
-      await dispatch(getUser())
+    if (getCookie('token') !== undefined) {
+      dispatch(getUser())
+      if (userFailed) {
+        dispatch(updateToken())
+        if (!tokenRequest && !tokenFailed) {
+          dispatch(getUser())
+        }
+      }
     }
   };
+
+  React.useEffect(()=>{
+    if (!user.name){
+      if (getCookie('token') !== undefined) {
+        dispatch(getUser())
+        if (userFailed) {
+          dispatch(updateToken())
+          if (!tokenRequest && !tokenFailed) {
+            dispatch(getUser())
+          }
+          if (tokenFailed) {
+            deleteCookie('token');
+            deleteCookie('refreshToken');
+          }
+        }
+      }
+    }
+    if (standartIngredients) {
+      dispatch(getIngredients())
+    }
+  },[userFailed, tokenRequest, tokenFailed]);
+
+
 
   return (
     <>
@@ -92,12 +122,6 @@ export const HomePage = () => {
       {
         orderOverlay && 
         <OrderDetails updateOrderOverlay={updateOrderOverlay}/>
-      }
-      {
-        ingredientOverlay && 
-        <IngredientDetails 
-          updateIngredientOverlay={updateIngredientOverlay} 
-        />
       }
     </>
   )

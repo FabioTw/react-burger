@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
-import ingredientDetails from './ingredient-details.module.css'
-import { useSelector } from "react-redux";
+import styles from './ingredient.module.css'
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams} from "react-router-dom";
+import { getIngredients } from "../../services/thunk/getIngredients";
+import React from "react";
 
-export const IngredientDetails = () => {
-  const { selectedIngredient } = useSelector(state => state.ingredient);
+export const Ingredient = () => {
   const { standartIngredients } = useSelector(state => state.ingredients);
-
+  const dispatch = useDispatch();
+  
   let history = useHistory();
   let { id } = useParams();
   const selected = []
@@ -16,17 +18,21 @@ export const IngredientDetails = () => {
       selected.push(item)
     }
   })
+  console.log(selected)
+  React.useEffect(()=> {
+    dispatch(getIngredients())
+  },[])
+  
   if (!selected[0]) return null;
-
   return (
-    <Modal title={'Детали ингредиента'}>
+    <div className={`${styles.info} mt-30`}>
         <img
-          className={`${ingredientDetails.photo} mb-4`}
+          className={`${styles.photo} mb-4`}
           src={selected[0].image}
           alt="фото ингредиента"
         />
       <p className="text text_type_main-medium mb-8">{selected[0].name}</p>
-      <div className={`${ingredientDetails['ingredient-stats']}`}>
+      <div className={`${styles['ingredient-stats']}`}>
         <div className="mr-5">
           <p className="text text_type_main-default mb-2">Калории,ккал</p>
           <p className="text text_type_main-default mb-8">{selected[0].calories}</p>
@@ -44,6 +50,6 @@ export const IngredientDetails = () => {
           <p className="text text_type_main-default mb-8">{selected[0].carbohydrates}</p>
         </div>
       </div>
-    </Modal>
+    </div>
   )
 }

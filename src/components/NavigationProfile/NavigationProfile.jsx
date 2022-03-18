@@ -15,25 +15,25 @@ export const NavigationProfile = () => {
       if (!user.name) {
         history.replace({ pathname: '/login' });
       }
-    },[history]
+    },[history, user]
   );
 
   return (
     <div className="mr-15">
       <div className={`${styles['nav-button']} mt-30`}>
-        <p className={`text text_type_main-medium `}>
+        <p className={`${styles['nav-button-text']} text text_type_main-medium `}>
           Профиль
         </p>
       </div>
       <div className={`${styles['nav-button']}`}>
-        <Link className={`text text_type_main-medium text_color_inactive`}>
+        <p className={`${styles['nav-button-text']} text text_type_main-medium text_color_inactive`}>
           История заказов
-        </Link>
+        </p>
       </div>
       <div className={`${styles['nav-button']}`}>
-        <Link className={`text text_type_main-medium text_color_inactive`} onClick={exit}>
+        <p className={`${styles['nav-button-text']} text text_type_main-medium text_color_inactive`} onClick={exit}>
           Выход
-        </Link>
+        </p>
       </div>
       <p className="text text_type_main-default text_color_inactive mt-20">
         В этом разделе вы можете <br/>

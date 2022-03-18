@@ -1,9 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 import modalOverlay from './modal-overlay.module.css'
+import { CLOSE_INGREDIENT } from "../../services/actions/ingredient";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 export const ModalOverlay = (props) => {
+  let history = useHistory();
+  const dispatch = useDispatch(); 
 
+  const back = e => {
+    e.stopPropagation();
+    dispatch({type: CLOSE_INGREDIENT})
+    history.goBack();
+  };
   React.useEffect(()=>{
     document.addEventListener('keydown', closeEscButton);
     return()=>{
@@ -13,13 +23,13 @@ export const ModalOverlay = (props) => {
 
   function closeEscButton (e) {
     if (e.key === 'Escape') {
-      props.toggleModal()
+      back(e)
     }
   };
 
   function onBackgroundClick(e) {
     if(e.target.className === modalOverlay.overlay){
-      props.toggleModal()
+      back(e)
     }
   } 
 
@@ -32,5 +42,4 @@ export const ModalOverlay = (props) => {
 
 ModalOverlay.propTypes = {
   children: PropTypes.node.isRequired,
-  toggleModal: PropTypes.func.isRequired
 };

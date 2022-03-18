@@ -22,7 +22,7 @@ export function ProtectedRoute({ children, ...rest }) {
         }
       }
     }
-    setTimeout(()=> setUserLoaded(true), 600)
+    setTimeout(()=> setUserLoaded(true), 800)
   };
 
   useEffect(() => {
