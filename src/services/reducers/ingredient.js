@@ -1,14 +1,7 @@
-import { SELECT_INGREDIENT } from "../actions/ingredient";
+import { SELECT_INGREDIENT, CLOSE_INGREDIENT } from "../actions/ingredient";
 
 const initialState = {
-  selectedIngredient: {
-    name: '',
-    image:'',
-    proteins: '',
-    fat: '',
-    carbohydrates: '',
-    calories: '',
-  }
+  isClick: false
 }
 
 export const ingredientReducer = (state = initialState, action) => {
@@ -16,14 +9,13 @@ export const ingredientReducer = (state = initialState, action) => {
     case SELECT_INGREDIENT: {
       return {
         ...state,
-        selectedIngredient: {
-          name: action.value.name,
-          image:action.value.image,
-          proteins: action.value.proteins,
-          fat: action.value.fat,
-          carbohydrates: action.value.carbohydrates,
-          calories: action.value.calories,
-        }
+        isClick: true
+      }
+    }
+    case CLOSE_INGREDIENT: {
+      return {
+        ...state,
+        isClick: false
       }
     }
     default: {

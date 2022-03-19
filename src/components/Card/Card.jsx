@@ -2,8 +2,12 @@ import PropTypes from "prop-types";
 import { CurrencyIcon, Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import card from './card.module.css'
 import { useDrag } from "react-dnd";
-
+import {
+  NavLink,
+  useLocation,
+} from "react-router-dom";
 export const Card = ({id, img, price, text, type, onClick, counterList}) => {
+  let location = useLocation();
   const [{ opacity }, dragRef] = useDrag({
     type: type,
     item: { id , type},
@@ -12,7 +16,7 @@ export const Card = ({id, img, price, text, type, onClick, counterList}) => {
     })
   });
   return (
-    <div className={`${card.card} mt-6 mb-6 ml-3 mr-3`} ref={dragRef} style={{opacity}} onClick={onClick}>
+    <NavLink to={{pathname: `/ingredients/${id}`, state: {background: location}}} className={`${card.card} mt-6 mb-6 ml-3 mr-3`} ref={dragRef} style={{opacity}} onClick={onClick}>
       {counterList.length > 0 &&  (
         <div className={`${card.counter}`}>
           <Counter count={counterList.length} size="default" />
@@ -24,7 +28,7 @@ export const Card = ({id, img, price, text, type, onClick, counterList}) => {
         <CurrencyIcon type="primary" />
       </div>
       <p className={`${card["card-name"]} text text_type_main-default`}>{text}</p>
-    </div>
+    </NavLink>
   );
 };
 

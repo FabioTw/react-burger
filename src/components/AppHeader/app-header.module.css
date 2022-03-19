@@ -32,3 +32,19 @@
 .not-active {
   color: #8585AD
 }
+
+.link {
+  color: #8585AD
+}
+
+.link:visited {
+  color: #8585AD
+}
+
+.active {
+  color: #F2F2F3
+}
+
+.active:visited {
+  color: #F2F2F3
+}

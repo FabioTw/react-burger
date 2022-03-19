@@ -1,0 +1,11 @@
+.nav-button {
+  width: 320px;
+  height: 64px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center
+}
+
+.nav-button-text:hover {
+  cursor: pointer;
+}

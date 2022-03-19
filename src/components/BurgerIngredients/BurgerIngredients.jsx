@@ -47,11 +47,11 @@ export const BurgerIngredients = ({showIngredientDetailsModal}) => {
       main.array.push(item);
     } 
     constructorIngredients.forEach((element) => {
-      if (item._id === element) {
+      if (item._id === element.id) {
        if (type==='sauce') {
-          sauce.selected.push(element)
+          sauce.selected.push(element.id)
         } else {
-          main.selected.push(element)
+          main.selected.push(element.id)
         } 
       } 
       })
