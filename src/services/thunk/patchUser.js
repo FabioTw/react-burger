@@ -4,7 +4,7 @@ import {
   PATCH_PROFILE_FAILED,
 } from '../actions/profile';
 import { getCookie } from '../cookie';
-import { baseUrl } from "../apiSettings";
+import { baseUrl, checkError } from "../apiSettings";
 
 export function patchUser (form) {
   return function (dispatch) {
@@ -22,7 +22,7 @@ export function patchUser (form) {
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(form)
     })
-    .then(res => res.json())
+    .then(checkError)
     .then(data => {
       if (data.success) {
         dispatch({
@@ -34,7 +34,11 @@ export function patchUser (form) {
           type: PATCH_PROFILE_FAILED
         })
       }
-      return data.success
+    })
+    .catch( err => {
+      dispatch({
+          type: PATCH_PROFILE_FAILED
+      })
     })
   }
 }

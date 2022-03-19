@@ -1,13 +1,14 @@
 import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
 import ingredientDetails from './ingredient-details.module.css'
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams} from "react-router-dom";
+import { CLOSE_INGREDIENT } from "../../services/actions/ingredient";
 
 export const IngredientDetails = () => {
   const { selectedIngredient } = useSelector(state => state.ingredient);
   const { standartIngredients } = useSelector(state => state.ingredients);
-
+  const dispatch = useDispatch(); 
   let history = useHistory();
   let { id } = useParams();
   const selected = []
@@ -16,10 +17,17 @@ export const IngredientDetails = () => {
       selected.push(item)
     }
   })
+
+  const back = e => {
+    e.stopPropagation();
+    dispatch({type: CLOSE_INGREDIENT})
+    history.goBack();
+  };
+
   if (!selected[0]) return null;
 
   return (
-    <Modal title={'Детали ингредиента'}>
+    <Modal toggleModal={back} title={'Детали ингредиента'}>
         <img
           className={`${ingredientDetails.photo} mb-4`}
           src={selected[0].image}

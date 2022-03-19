@@ -66,7 +66,11 @@ export function resetPass (form) {
           type: RESET_PASSWORD_FAILED
         })
       }
-      return data.success
-    });
+    })
+    .catch( err => {
+      dispatch({
+          type: RESET_PASSWORD_FAILED
+      })
+    })
   } 
 }

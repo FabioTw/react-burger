@@ -4,7 +4,7 @@ import {
   GET_USER_FAILED,
 } from '../actions/profile';
 import { getCookie } from '../cookie';
-import { baseUrl } from "../apiSettings";
+import { baseUrl, checkError } from "../apiSettings";
 
 export function getUser () {
   return function (dispatch) {
@@ -21,7 +21,7 @@ export function getUser () {
       redirect: 'follow',
       referrerPolicy: 'no-referrer'
     })
-    .then(res => res.json())
+    .then(checkError)
     .then(data => {
       if (data.success) {
         dispatch({
@@ -33,7 +33,11 @@ export function getUser () {
           type: GET_USER_FAILED
         })
       }
-      return data.success
+    })
+    .catch( err => {
+      dispatch({
+          type: GET_USER_FAILED
+      })
     })
   }
 }

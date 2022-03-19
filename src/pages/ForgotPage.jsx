@@ -4,7 +4,7 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { Link } from 'react-router-dom';
 import styles from './index.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { forgotPass } from '../../../services/thunk/resetProfilePass';
+import { forgotPass } from '../services/thunk/resetProfilePass';
 
 export const ForgotPage = () => {
   const {emailSended} = useSelector(state => state.profile)
@@ -15,7 +15,8 @@ export const ForgotPage = () => {
   const dispatch = useDispatch();
 
   const reset = useCallback(
-    () => {
+    (e) => {
+      e.preventDefault();
       dispatch(forgotPass({email:emailValue})) 
     },
     [emailSended, history, emailValue, ]
@@ -28,7 +29,7 @@ export const ForgotPage = () => {
   },[emailSended])
 
   return (
-    <div className={`${styles.field} mt-15`}>
+    <form className={`${styles.field} mt-15`} onSubmit={reset}>
       <p className="text text_type_main-medium mt-30 mb-6">
         Восстановление пароля
       </p>
@@ -43,14 +44,15 @@ export const ForgotPage = () => {
           ref={emailRef}
           errorText={'Ошибка, адрес почты введен не верно!'}
           size={'default'}
+          required
         />
       </div>
-      <Button type="primary" size="medium" onClick={reset}>
+      <Button type="primary" size="medium">
         Восстановить
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20 mb-4">
         Вспомнили пароль? <Link to="/login" className={styles.link}>Войти</Link>
       </p>
-    </div>
+    </form>
   )
 }

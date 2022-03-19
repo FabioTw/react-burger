@@ -1,12 +1,12 @@
 import React, { useCallback } from "react"
-import { getUser } from "../../../services/thunk/getUser";
+import { getUser } from "../services/thunk/getUser";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './index.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useHistory } from 'react-router-dom';
-import { signIn } from "../../../services/thunk/loginProfile";
-import { getCookie } from "../../../services/cookie";
-import { updateToken } from "../../../services/thunk/updateToken";
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { signIn } from "../services/thunk/loginProfile";
+import { getCookie } from "../services/cookie";
+import { updateToken } from "../services/thunk/updateToken";
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,8 @@ export const LoginPage = () => {
   const passRef = React.useRef(null)
   const [watchPass, setPassWatch] = React.useState(false)
   const history = useHistory();
+  let location = useLocation();
+  console.log(location)
   const onIconClick = () => {
     setTimeout(() => passRef.current.focus(), 0)
     setPassWatch(!watchPass)
@@ -44,12 +46,12 @@ export const LoginPage = () => {
     if (user.name) {
       setEmailValue('');
       setPassValue('');
-      history.replace({ pathname: '/' })
+      history.replace(location.state? location.state.from: {pathname: '/'})
     }
   },[userFailed, user, history, tokenRequest, tokenFailed])
 
   return (
-    <div className={`${styles.field} mt-15`}>
+    <form className={`${styles.field} mt-15`} onSubmit={login}>
       <p className="text text_type_main-medium mt-30 mb-6">
         Вход
       </p>
@@ -64,6 +66,7 @@ export const LoginPage = () => {
           ref={emailRef}
           errorText={'Ошибка, адрес почты введен не верно!'}
           size={'default'}
+          required
         />
       </div>
       <div className="mb-6">
@@ -79,9 +82,10 @@ export const LoginPage = () => {
           onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
+          required
         />
       </div>
-      <Button type="primary" size="medium" onClick={login}>
+      <Button type="primary" size="medium">
         Войти
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20 mb-4">
@@ -90,6 +94,6 @@ export const LoginPage = () => {
       <p className="text text_type_main-default text_color_inactive">
         Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
       </p>
-    </div>
+    </form>
   )
 }

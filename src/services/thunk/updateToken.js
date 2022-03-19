@@ -22,7 +22,7 @@ export function updateToken () {
       referrerPolicy: 'no-referrer',
       body: JSON.stringify({token: getCookie('refreshToken')})
     })
-    .then(res => res.json())
+    .then(checkError)
     .then(data => {
       if (data.success) {
         let authToken, refreshToken;
@@ -40,7 +40,11 @@ export function updateToken () {
           type: GET_TOKEN_FAILED
         })
       }
-      return data.success
-    });
+    })
+    .catch( err => {
+      dispatch({
+          type: GET_TOKEN_FAILED
+      })
+    })
   }
 }

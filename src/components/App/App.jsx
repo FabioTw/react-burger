@@ -3,7 +3,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import app from './app.module.css';
 import {AppHeader} from '../AppHeader/AppHeader';
-import { LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage, NotFound404, Profile} from './pages/index'
+import { LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage, NotFound404, Profile} from '../../pages/index'
 import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { Ingredient } from '../Ingredient/Ingredient';

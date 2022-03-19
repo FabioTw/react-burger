@@ -3,8 +3,8 @@ import styles from './index.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { signUp } from "../../../services/thunk/registerProfile";
-import { getUser } from "../../../services/thunk/getUser";
+import { signUp } from "../services/thunk/registerProfile";
+import { getUser } from "../services/thunk/getUser";
 
 
 export const RegisterPage = () => {
@@ -17,7 +17,8 @@ export const RegisterPage = () => {
   const passRef = React.useRef(null)
   const dispatch = useDispatch();
 
-  const registration = () => {
+  const registration = (e) => {
+    e.preventDefault();
     dispatch(signUp({email:emailValue, password:passValue, name:nameValue}))
   }
   const history = useHistory(); 
@@ -39,7 +40,7 @@ export const RegisterPage = () => {
   },[user, history])
 
   return (
-    <div className={`${styles.field} mt-15`}>
+    <form className={`${styles.field} mt-15`} onSubmit={registration}>
       <p className="text text_type_main-medium mt-30 mb-6">
         Регистрация
       </p>
@@ -54,6 +55,7 @@ export const RegisterPage = () => {
           ref={nameRef}
           errorText={'Ошибка'}
           size={'default'}
+          required
         />
       </div>
       <div className="mb-6">
@@ -67,6 +69,7 @@ export const RegisterPage = () => {
           ref={emailRef}
           errorText={'Ошибка, адрес почты введен не верно!'}
           size={'default'}
+          required
         />
       </div>
       <div className="mb-6">
@@ -82,14 +85,15 @@ export const RegisterPage = () => {
           onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
+          required
         />
       </div>
-      <Button type="primary" size="medium" onClick={registration}>
+      <Button type="primary" size="medium">
         Зарегистрироваться
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20 mb-4">
         Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link>
       </p>
-    </div>
+    </form>
   )
 }

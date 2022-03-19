@@ -4,7 +4,7 @@ import {
   LOGOUT_PROFILE_SUCCESS,
   LOGOUT_PROFILE_FAILED,
 } from '../actions/profile';
-import { baseUrl } from "../apiSettings";
+import { baseUrl, checkError } from "../apiSettings";
 
 
 export function logOut () {
@@ -22,7 +22,7 @@ export function logOut () {
       referrerPolicy: 'no-referrer',
       body: JSON.stringify({token: getCookie('refreshToken')})
     })
-    .then(res => res.json())
+    .then(checkError)
     .then(data => {
       if (data.success) {
         deleteCookie('token');
@@ -35,6 +35,11 @@ export function logOut () {
           type: LOGOUT_PROFILE_FAILED
         })
       }
-    });
+    })
+    .catch( err => {
+      dispatch({
+          type: LOGOUT_PROFILE_FAILED
+      })
+    })
   } 
 }

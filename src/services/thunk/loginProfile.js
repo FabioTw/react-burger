@@ -24,7 +24,7 @@ export function signIn (form) {
       referrerPolicy: 'no-referrer',
       body: JSON.stringify(form)
     })
-    .then(res => res.json())
+    .then(checkError)
     .then(data => {
       if (data.success) {
         let authToken, refreshToken;
@@ -43,6 +43,11 @@ export function signIn (form) {
           type: LOGIN_PROFILE_FAILED
         })
       }
-    });
+    })
+    .catch( err => {
+      dispatch({
+          type: LOGIN_PROFILE_FAILED
+      })
+    })
   } 
 }

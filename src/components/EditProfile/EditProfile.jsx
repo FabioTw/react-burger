@@ -44,7 +44,8 @@ export const EditProfile = () => {
     setPassIsEdit(true)
   }
 
-  const saveChanges = () => {
+  const saveChanges = (e) => {
+    e.preventDefault();
     dispatch(patchUser({email: emailValue, name: nameValue}))
     setNameIsEdit(true)
     setEmailIsEdit(true)
@@ -54,7 +55,7 @@ export const EditProfile = () => {
   }
 
   return (
-    <div className={`${styles['input-fields']} mt-30 pr-30 mr-30`}>
+    <form className={`${styles['input-fields']} mt-30 pr-30 mr-30`} onSubmit={saveChanges}>
       <div className="mb-6">
         <Input
           type={'text'}
@@ -105,15 +106,17 @@ export const EditProfile = () => {
       </div>
       { nameValue !== user.name || emailValue !== user.email || passValue.length > 0 ? (
         <div className={`${styles.buttons}`}>
-          <Button type="secondary" size="medium" onClick={cancel}>
-            Отмена
-          </Button>
-          <Button type="primary" size="medium" onClick={saveChanges}>
+          <Button type="primary" size="medium" >
             Сохранить
           </Button>
+          <div className={`${styles['cancel-button']}`}>
+            <Button type="secondary" size="medium" onClick={cancel}>
+              Отмена
+            </Button>
+          </div>
         </div>) 
         : null
       }
-    </div>
+    </form>
   )
 }
