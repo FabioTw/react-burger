@@ -5,10 +5,9 @@ import { ElementCreator } from '../ElementCreator/ElementCreator'
 import burgerConstructor from "./burger-constructor.module.css";
 import { useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-import { v4 as uuidv4 } from 'uuid'
 
 export const BurgerConstructor = ({updateBun, onRemoveItem, updateIngredients, updateOrderOverlay, moveIngredients}) => {
-  const { standartIngredients , constructorIngredients, selectedBun, constructorKeys } = useSelector(state => state.ingredients);
+  const { standartIngredients , constructorIngredients, selectedBun } = useSelector(state => state.ingredients);
 
   const [, dropTarget] = useDrop({
     accept: ["main",'sauce', 'bun'],
@@ -75,8 +74,8 @@ const priceCalc = (ingredientsWithoutBun, array, bun) => {
     if (item._id === bun) {
       price += item.price * 2
     }
-    ingredientsWithoutBun.forEach((id) => {
-      if (item._id === id) {
+    ingredientsWithoutBun.forEach((ingredient) => {
+      if (item._id === ingredient.id) {
         price += item.price
       } 
     })

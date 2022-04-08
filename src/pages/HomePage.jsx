@@ -72,18 +72,6 @@ export const HomePage = () => {
     dispatch({type: SELECT_INGREDIENT, value:item})
   }
 
-  const init = async () => {
-    if (getCookie('token') !== undefined) {
-      dispatch(getUser())
-      if (userFailed) {
-        dispatch(updateToken())
-        if (!tokenRequest && !tokenFailed) {
-          dispatch(getUser())
-        }
-      }
-    }
-  };
-
   React.useEffect(()=>{
     if (!user.name){
       if (getCookie('token') !== undefined) {

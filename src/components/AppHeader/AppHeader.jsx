@@ -10,15 +10,15 @@ export const AppHeader = () => {
       <div className={`${headerStyles["left-header-buttons"]} mr-30`}>
         <nav className={`${headerStyles["header-button"]} ${headerStyles.constructor} ml-1`}>
           <div className={`mt-1 mr-2 ml-2`}>
-            <BurgerIcon type={`${location.pathname === '/profile'? 'secondary' : 'primary' }`} />
+            <BurgerIcon type={`${location.pathname === '/'? 'primary' : 'secondary' }`} />
           </div>
-          <Link to="/" className={`${headerStyles["link"]} ${location.pathname === '/profile'? null : headerStyles["active"]} text text_type_main-default`}>Конструктор</Link>
+          <Link to="/" className={`${headerStyles["link"]} ${location.pathname === '/'? headerStyles["active"] : null} text text_type_main-default`}>Конструктор</Link>
         </nav>
         <nav className={`${headerStyles["header-button"]} ${headerStyles["order-list"]} ${headerStyles["not-active"]} ml-2`}>
           <div className={`mt-1 mr-2 ml-2`}>
-            <ListIcon type="secondary" />
+            <ListIcon type={`${location.pathname === '/feed'? 'primary' : 'secondary' }`} />
           </div>
-          <p className="text text_type_main-default">Лента заказов</p>
+          <Link to="/feed" className={`${headerStyles["link"]} ${location.pathname === '/feed'? headerStyles["active"] : null} text text_type_main-default`}>Лента заказов</Link>
         </nav>
       </div>
       <Logo />

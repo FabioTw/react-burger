@@ -8,6 +8,23 @@ export const NavigationProfile = () => {
   const dispatch = useDispatch();
   const history = useHistory()
   const {user} = useSelector(state => state.profile)
+  console.log(history.location === '/profile/orders')
+
+  const profile = useCallback(
+    () => {
+      if (user.name) {
+        history.replace({ pathname: '/profile' });
+      }
+    },[history, user]
+  );
+
+  const story = useCallback(
+    () => {
+      if (user.name) {
+        history.replace({ pathname: '/profile/orders' });
+      }
+    },[history, user]
+  );
 
   const exit = useCallback(
     () => {
@@ -21,12 +38,12 @@ export const NavigationProfile = () => {
   return (
     <div className="mr-15">
       <div className={`${styles['nav-button']} mt-30`}>
-        <p className={`${styles['nav-button-text']} text text_type_main-medium `}>
+        <p className={`${styles['nav-button-text']} text text_type_main-medium ${history.location.pathname === '/profile' ? null : 'text_color_inactive'}`} onClick={profile}>
           Профиль
         </p>
       </div>
       <div className={`${styles['nav-button']}`}>
-        <p className={`${styles['nav-button-text']} text text_type_main-medium text_color_inactive`}>
+        <p className={`${styles['nav-button-text']} text text_type_main-medium ${history.location.pathname === '/profile/orders' ? null : 'text_color_inactive'}`} onClick={story}>
           История заказов
         </p>
       </div>
@@ -36,8 +53,11 @@ export const NavigationProfile = () => {
         </p>
       </div>
       <p className="text text_type_main-default text_color_inactive mt-20">
-        В этом разделе вы можете <br/>
-        изменить свои персональные данные
+        {
+          history.location.pathname === '/profile/orders' ?
+          <p className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете <br/>просмотреть свою историю заказов </p> : 
+          <p className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете <br/>изменить свои персональные данные</p>
+        }
       </p>
     </div>
   )

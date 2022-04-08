@@ -12,3 +12,12 @@
 .link:visited {
   color: #4C4CFF;
 }
+
+.page-header {
+  width: 1240px;
+  height: 40px;
+}
+
+.feed {
+  flex-direction: row;
+}
