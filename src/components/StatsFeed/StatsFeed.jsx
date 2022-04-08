@@ -14,7 +14,7 @@ export const StatsFeed = () => {
             <p className="text text_type_digits-default">123456</p>
             {orders.forEach(element => {
               if(element.status === 'done'){
-                return (<p className="text text_type_digits-default">{element._id}</p>)
+                (<p className="text text_type_digits-default">{element._id}</p>)
               }
             })}
           </div>
