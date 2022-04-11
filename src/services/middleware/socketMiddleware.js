@@ -11,7 +11,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       }
       if (socket) {
         socket.onopen = event => {
-          console.log(' Подключение')
           dispatch({ type: onOpen, payload: event });
           socket.send('test')
         }
@@ -21,7 +20,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         }
 
         socket.onmessage = event => {
-          console.log('Данные получены')
           const { data } = event;
           const parsedData = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;

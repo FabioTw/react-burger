@@ -2,11 +2,12 @@ import {
   GET_ORDER,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
+  CLEAN_ORDER
 } from '../actions/order';
 
 
 const initialState = {
-  orderNumber : '',
+  orderNumber : 'Загрузка',
   orderRequest: false,
   orderFailed: false,
 };
@@ -32,6 +33,12 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderRequest: false,
         orderFailed: true,
+      }
+    }
+    case CLEAN_ORDER: {
+      return {
+        ...state,
+        orderNumber: 'Загрузка',
       }
     }
     default: {

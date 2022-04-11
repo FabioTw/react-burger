@@ -13,6 +13,7 @@ import { Route,useHistory, useLocation } from 'react-router-dom';
 import { getUser } from '../services/thunk/getUser';
 import { deleteCookie, getCookie } from '../services/cookie';
 import { updateToken } from '../services/thunk/updateToken';
+import { CLEAN_ORDER } from '../services/actions/order';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ export const HomePage = () => {
     if (!user.name) {
       history.replace({ pathname: '/login', state: [{ path: '/', url: '/', title: 'Home' }] });
     } else {
+      dispatch({type: CLEAN_ORDER})
       toggleOrderOverlay(!orderOverlay);
       if (!orderOverlay) {
         dispatch(getOrder(constructorIngredients, selectedBun))

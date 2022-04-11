@@ -5,6 +5,7 @@ import {
   GET_ORDER_SUCCESS
 } from '../actions/order';
 import { baseUrl, checkError } from '../apiSettings';
+import { getCookie } from '../cookie';
 
 export function getOrder(constructorIngredients, selectedBun) {
   const order = [selectedBun];
@@ -18,7 +19,8 @@ export function getOrder(constructorIngredients, selectedBun) {
     fetch(`${baseUrl}/orders`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + getCookie('token')
       },
       body: JSON.stringify({
         ingredients: order

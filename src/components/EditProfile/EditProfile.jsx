@@ -46,7 +46,7 @@ export const EditProfile = () => {
 
   const saveChanges = (e) => {
     e.preventDefault();
-    dispatch(patchUser({email: emailValue, name: nameValue}))
+    dispatch(patchUser({email: emailValue, name: nameValue, password: passValue}))
     setNameIsEdit(true)
     setEmailIsEdit(true)
     setPassIsEdit(true)
