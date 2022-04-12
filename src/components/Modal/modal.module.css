@@ -23,6 +23,7 @@
 .closeButton {
   background: none;
   border: none;
+  z-index: 1;
 }
 
 .closeButton:hover {

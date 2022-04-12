@@ -1,0 +1,69 @@
+.image {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  box-sizing: border-box;
+  object-fit: cover;
+  border: double 2px transparent;
+  border-radius: 100px;
+  background-image: linear-gradient(#131316, #131316), radial-gradient(circle at left, #801AB2,#4C4CFF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.order-block {
+  background: #1C1C21;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06), 0px 0px 1px rgba(0, 0, 0, 0.04);
+  border-radius: 40px;
+  width: 584px;
+  height: 214px;
+  z-index: 2;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.order-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.order-price {
+  display: flex;
+}
+
+.order-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-ingredients {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.pic-number {
+  position: relative;
+  left: -163px;
+  top: 1px;
+  text-align: center;
+  line-height: 60px;
+  background-color:rgba(0, 0, 0, 0.6);
+  border-radius: 100px;
+  width: 62px;
+  height: 62px;
+  z-index: -7;
+}
+
+.pic-ingredients-box {
+  height: 70px;
+}
+
+.pic-ingredients {
+  display: flex;
+  position: relative;
+  top: -68px;
+  left: 325px;
+}

@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
+import { FeedDetails } from "../components/FeedDetails/FeedDetails";
 import { OrdersFeed } from "../components/OrdersFeed/OrdersFeed"
 import { StatsFeed } from "../components/StatsFeed/StatsFeed"
 import { WS_CONNECTION_START, WS_GET_MESSAGE } from "../services/actions/wsActionTypes";
@@ -10,6 +11,12 @@ export const Feed = () => {
   const dispatch = useDispatch()
   const {standartIngredients} = useSelector(state => state.ingredients);
   const { total, totalToday, orders, wsConnected} = useSelector(state => state.ws);
+  const [feedOverlay, setFeedOverlay] = useState(false)
+
+  const toggleFeedOverlay = () => {
+    setFeedOverlay(!feedOverlay)
+  }
+
   React.useEffect(()=>{
     if (standartIngredients[0] === undefined) {
       dispatch(getIngredients())
@@ -20,7 +27,6 @@ export const Feed = () => {
     () => {
       if(!wsConnected){
         dispatch({ type: WS_CONNECTION_START });
-        
       }
     },
     [wsConnected]
@@ -29,9 +35,10 @@ export const Feed = () => {
     <div className={`${styles.field}`}>
       <p className={`${styles['page-header']} text text_type_main-large mt-10`}>Лента заказов</p>
       <div className={`${styles.field} ${styles.feed}`}>
-        <OrdersFeed />
+        <OrdersFeed toggleFeedOverlay={toggleFeedOverlay}/>
         <StatsFeed />
       </div>
+      {/* {feedOverlay && <FeedDetails updateFeedOverlay={toggleFeedOverlay}/>} */}
     </div>
   )
 }

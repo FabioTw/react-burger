@@ -5,7 +5,6 @@ import {getOrder} from '../services/thunk/getOrder';
 import {BurgerIngredients} from '../components/BurgerIngredients/BurgerIngredients'
 import {BurgerConstructor} from '../components/BurgerConstructor/BurgerConstructor'
 import { OrderDetails } from '../components/OrderDetails/OrderDetails';
-import { IngredientDetails} from '../components/IngredientDetails/IngredientDetails';
 import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN } from '../services/actions/ingredients';
 import { CLOSE_INGREDIENT, SELECT_INGREDIENT } from '../services/actions/ingredient';
 import { v4 as uuidv4 } from 'uuid'
@@ -94,8 +93,6 @@ export const HomePage = () => {
       dispatch(getIngredients())
     }
   },[userFailed, tokenRequest, tokenFailed]);
-
-
 
   return (
     <>

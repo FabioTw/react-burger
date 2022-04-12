@@ -2,11 +2,14 @@ import {
   WS_CONNECTION_CLOSED, 
   WS_CONNECTION_ERROR, 
   WS_CONNECTION_SUCCESS, 
-  WS_GET_MESSAGE } from "../actions/wsActionTypes";
+  WS_GET_MESSAGE,
+  WS_SELECT_ORDER,
+} from "../actions/wsActionTypes";
 
 const initialState = {
   wsConnected: false,
   orders: [],
+  selectedOrder: [],
   total: 0,
   totalToday: 0,
   error: undefined
@@ -42,6 +45,11 @@ export const wsReducer = (state = initialState, action) => {
           totalToday: action.payload.totalToday,
           total: action.payload.total,
       };
+    case WS_SELECT_ORDER: 
+      return { 
+        ...state,
+        selectedOrder: action.payload
+      }
     default:
       return state;
   }
