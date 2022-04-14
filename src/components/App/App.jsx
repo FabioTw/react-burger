@@ -80,6 +80,18 @@ function ModalSwitch() {
         <ProtectedRoute path="/profile/orders" exact={true}>
           <ProfileOrders />
         </ProtectedRoute>
+        {
+          !feedOverlay &&
+          <ProtectedRoute path='/profile/orders/:id' exact={true}>
+            <FeedInfo />
+          </ProtectedRoute>
+        }
+        {
+          feedOverlay &&
+          <ProtectedRoute path='/profile/orders/:id' exact={true}>
+            <ProfileOrders />
+          </ProtectedRoute>
+        }
         <Route>
           <NotFound404 />
         </Route>
@@ -87,6 +99,12 @@ function ModalSwitch() {
       {
         feedOverlay &&
         <Route path="/feed/:id" exact={true}>
+          <FeedDetails />
+        </Route>
+      }
+      {
+        feedOverlay &&
+        <Route path="/profile/orders/:id" exact={true}>
           <FeedDetails />
         </Route>
       }

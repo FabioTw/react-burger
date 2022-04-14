@@ -18,7 +18,15 @@ export const OrdersFeed = ({toggleFeedOverlay}) => {
   return (
     <div className={`${styles.orders}`}>
       {orders.map((element)=> {
-        return <OrderBlock key={element._id} element={element} toggleFeedOverlay={toggleFeedOverlay} />
+        return <OrderBlock 
+        key={element._id} 
+        element={element} 
+        toggleFeedOverlay={toggleFeedOverlay} 
+        pathname={`/feed/${element._id}`} 
+        width={'584px'}
+        height={'214px'} 
+        status={false}
+        />
       })}
     </div>
   )

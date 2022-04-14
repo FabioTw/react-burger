@@ -11,7 +11,7 @@ export const Feed = () => {
   const dispatch = useDispatch()
   const {standartIngredients} = useSelector(state => state.ingredients);
   const { total, totalToday, orders, wsConnected, feedOverlay} = useSelector(state => state.ws);
-
+  
   const toggleFeedOverlay = () => {
     if (feedOverlay) {
       dispatch({type: WS_CLOSE_ORDER})

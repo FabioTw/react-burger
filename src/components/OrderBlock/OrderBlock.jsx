@@ -8,8 +8,9 @@ import {
   useLocation,
 } from "react-router-dom";
 
-export const OrderBlock = ({element, toggleFeedOverlay}) => {
+export const OrderBlock = ({element, toggleFeedOverlay, pathname, width, height, status}) => {
   let orderPrice = 0;
+  const needStatus = status
   const dispatch = useDispatch();
   let location = useLocation();
   const { standartIngredients,} = useSelector(state => state.ingredients);
@@ -18,14 +19,18 @@ export const OrderBlock = ({element, toggleFeedOverlay}) => {
     toggleFeedOverlay()
     dispatch({type: WS_SELECT_ORDER, payload: element});
   }
-
+console.log(status)
   return (
-    <NavLink to={{pathname: `/feed/${element._id}`, state: {background: location}}} className={`${styles['order-block']} pl-6 pr-6 mb-4 mt-5 mr-2`} onClick={selectOrder}>
+    <NavLink to={{pathname: `${pathname}`, state: {background: location}}} className={`${styles['order-block']} pl-6 pr-6 mb-4 mt-5 mr-2`} style={{width: width, height:height}} onClick={selectOrder}>
       <div className={`${styles['order-title']} mt-6`}>
         <p className="text text_type_main-medium">{`#${element.number}`}</p>
         <p className="text text_type_main-default text_color_inactive">{element.updatedAt}</p>
       </div>
-      <p className={`${styles['order-name']} text text_type_main-medium mt-6 mb-6`}>{element.name}</p>
+      <p className={`${styles['order-name']} text text_type_main-medium mt-6 ${!needStatus && 'mb-6'}`}>{element.name}</p>
+      {needStatus &&  <p className={`${styles.status} text text_type_main-default mt-2 mb-6`} 
+      style={element.status === 'done' ? {color: '#00CCCC'} : {color: '#F2F2F3'}}>
+        {`${element.status === 'done' ? 'Выполнен' : element.status === 'created' ? 'Создан': 'Готовится'}`}
+      </p>}
       <div className={`${styles['order-ingredients']} mb-6`}>
         <div className={`${styles['pic-ingredients-box']}`}>
           {element.ingredients.map((ingredient, index)=> {
