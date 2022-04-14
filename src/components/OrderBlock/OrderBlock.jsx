@@ -18,7 +18,7 @@ export const OrderBlock = ({element, toggleFeedOverlay}) => {
     toggleFeedOverlay()
     dispatch({type: WS_SELECT_ORDER, payload: element});
   }
-  console.log(element)
+
   return (
     <NavLink to={{pathname: `/feed/${element._id}`, state: {background: location}}} className={`${styles['order-block']} pl-6 pr-6 mb-4 mt-5 mr-2`} onClick={selectOrder}>
       <div className={`${styles['order-title']} mt-6`}>

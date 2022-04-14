@@ -20,6 +20,7 @@
   z-index: 2;
   box-sizing: border-box;
   cursor: pointer;
+  color: #F2F2F3;
 }
 
 .order-name {

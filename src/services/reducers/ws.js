@@ -4,6 +4,7 @@ import {
   WS_CONNECTION_SUCCESS, 
   WS_GET_MESSAGE,
   WS_SELECT_ORDER,
+  WS_CLOSE_ORDER,
 } from "../actions/wsActionTypes";
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   selectedOrder: [],
   total: 0,
   totalToday: 0,
-  error: undefined
+  error: undefined,
+  feedOverlay: false,
 }; 
 
 
@@ -48,7 +50,14 @@ export const wsReducer = (state = initialState, action) => {
     case WS_SELECT_ORDER: 
       return { 
         ...state,
-        selectedOrder: action.payload
+        selectedOrder: action.payload,
+        feedOverlay: true
+      }
+    case WS_CLOSE_ORDER: 
+      return {
+        ...state,
+        selectedOrder: [],
+        feedOverlay: false
       }
     default:
       return state;

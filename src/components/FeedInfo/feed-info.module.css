@@ -1,0 +1,71 @@
+.image {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  box-sizing: border-box;
+  object-fit: cover;
+  border: double 2px transparent;
+  border-radius: 100px;
+  background-image: linear-gradient(#131316, #131316), radial-gradient(circle at left, #801AB2,#4C4CFF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.main-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.number {
+  position: relative;
+  top: -45px;
+}
+
+.name {
+  width: 640px;
+}
+
+.status {
+  width: 640px;
+}
+
+.composition {
+  width: 640px;
+}
+
+.info-block {
+  width: 640px;
+  height: 312px;
+  overflow: auto;
+}
+
+.ingredient-price {
+  width: 160px;
+  text-align: right;
+  line-height: 64px;
+}
+
+.info-element {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info-block::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+}
+
+.info-block::-webkit-scrollbar-thumb {
+  background: #8585AD;
+}
+
+.date {
+  width: 556px;
+}

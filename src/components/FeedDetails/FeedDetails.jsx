@@ -5,19 +5,18 @@ import { useSelector } from "react-redux";
 import styles from './feed-details.module.css'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export const FeedDetails = ({updateFeedOverlay}) => {
+export const FeedDetails = () => {
   let orderPrice;
   let history = useHistory();
   let { id } = useParams();
+  const selected = []
   const {selectedOrder} = useSelector(state => state.ws)
-    if (selectedOrder === id) {
+    if (selectedOrder._id === id) {
       selected.push(selectedOrder)
     }
-  const selected = []
   const { standartIngredients,} = useSelector(state => state.ingredients);
   const selectedIngredient = []
   let iterations = 0;
-
   selectedOrder.ingredients.map((element, index) => {
     standartIngredients.map(standartIngredient => {
       if (standartIngredient._id === element){
@@ -71,11 +70,18 @@ export const FeedDetails = ({updateFeedOverlay}) => {
     })
   })
 
+  const updateFeedOverlay = () => {
+
+  }
+
   const back = e => {
     e.stopPropagation();
     updateFeedOverlay()
     history.goBack();
   };
+
+
+
   if (!selected[0]) return null;
   return (
     <Modal toggleModal={back}>
@@ -112,7 +118,3 @@ export const FeedDetails = ({updateFeedOverlay}) => {
     </Modal>
   )
 }
-
-FeedDetails.propTypes = {
-  updateFeedOverlay: PropTypes.func.isRequired
-};

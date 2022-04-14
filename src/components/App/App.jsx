@@ -3,13 +3,14 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import app from './app.module.css';
 import {AppHeader} from '../AppHeader/AppHeader';
-import { LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage, NotFound404, Profile, Feed, ProfileOrders} from '../../pages/index'
+import { LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage, NotFound404, Profile, Feed, ProfileOrders,} from '../../pages/index'
 import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { Ingredient } from '../Ingredient/Ingredient';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useSelector } from 'react-redux';
-import { FeedDetails } from '../FeedDetails/FeedDetails';
+import { FeedDetails } from "../FeedDetails/FeedDetails";
+import { FeedInfo } from "../FeedInfo/FeedInfo";
 
 const App = () => {
   return (
@@ -27,11 +28,7 @@ function ModalSwitch() {
   let location = useLocation();
   let background = location.state && location.state.background;
   const {isClick} = useSelector(state => state.ingredient)
-  const [feedOverlay, setFeedOverlay] = useState(false)
-
-  const toggleFeedOverlay = () => {
-    setFeedOverlay(!feedOverlay)
-  }
+  const {feedOverlay} = useSelector(state => state.ws)
 
   if(!isClick) {
     background = location
@@ -53,6 +50,18 @@ function ModalSwitch() {
         <Route path='/feed' exact={true}>
           <Feed />
         </Route>
+        {
+          !feedOverlay &&
+          <Route path='/feed/:id' exact={true}>
+            <FeedInfo />
+          </Route>
+        }
+        {
+          feedOverlay &&
+          <Route path='/feed/:id' exact={true}>
+            <Feed />
+          </Route>
+        }
         <Route path="/login" exact={true}>
           <LoginPage />
         </Route>
@@ -76,9 +85,9 @@ function ModalSwitch() {
         </Route>
       </Switch>
       {
-        feedOverlay && 
+        feedOverlay &&
         <Route path="/feed/:id" exact={true}>
-          <FeedDetails updateFeedOverlay={toggleFeedOverlay} />
+          <FeedDetails />
         </Route>
       }
       {

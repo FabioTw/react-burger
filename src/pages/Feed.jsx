@@ -3,18 +3,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { FeedDetails } from "../components/FeedDetails/FeedDetails";
 import { OrdersFeed } from "../components/OrdersFeed/OrdersFeed"
 import { StatsFeed } from "../components/StatsFeed/StatsFeed"
-import { WS_CONNECTION_START, WS_GET_MESSAGE } from "../services/actions/wsActionTypes";
+import { WS_CLOSE_ORDER, WS_CONNECTION_START, WS_GET_MESSAGE, WS_SELECT_ORDER } from "../services/actions/wsActionTypes";
 import { getIngredients } from "../services/thunk/getIngredients";
 import styles from './index.module.css';
 
 export const Feed = () => {
   const dispatch = useDispatch()
   const {standartIngredients} = useSelector(state => state.ingredients);
-  const { total, totalToday, orders, wsConnected} = useSelector(state => state.ws);
-  const [feedOverlay, setFeedOverlay] = useState(false)
+  const { total, totalToday, orders, wsConnected, feedOverlay} = useSelector(state => state.ws);
 
   const toggleFeedOverlay = () => {
-    setFeedOverlay(!feedOverlay)
+    if (feedOverlay) {
+      dispatch({type: WS_CLOSE_ORDER})
+    } else {
+      dispatch({type: WS_SELECT_ORDER})
+    }
   }
 
   React.useEffect(()=>{

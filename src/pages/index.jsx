@@ -8,4 +8,4 @@ import { Profile } from "./Profile";
 import { Feed } from './Feed'
 import { ProfileOrders } from './ProfileOrders'
 
-export {LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage, NotFound404, Profile, Feed, ProfileOrders}
+export {LoginPage, HomePage, RegisterPage, ForgotPage, ResetPage, NotFound404, Profile, Feed, ProfileOrders,}
