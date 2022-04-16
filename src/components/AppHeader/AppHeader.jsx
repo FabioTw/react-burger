@@ -24,7 +24,7 @@ export const AppHeader = () => {
       <Logo />
       <nav className={`${headerStyles["not-active"]} ${headerStyles["header-button"]} ${headerStyles.profile}`}>
         <div className={`mt-1 mr-2 ml-2`}>
-          <ProfileIcon type={`${location.pathname === '/profile'? 'primary' : 'secondary' }`} />
+          <ProfileIcon type={`${location.pathname === '/profile' || location.pathname === '/profile/orders'? 'primary' : 'secondary' }`} />
         </div>
         <Link to="/profile" className={`${headerStyles["link"]} ${location.pathname === '/profile'? headerStyles["active"] : null } text text_type_main-default`}>Личный кабинет</Link>
       </nav>

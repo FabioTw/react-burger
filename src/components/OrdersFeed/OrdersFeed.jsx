@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getIngredients } from "../../services/thunk/getIngredients";
@@ -8,7 +9,7 @@ export const OrdersFeed = ({toggleFeedOverlay}) => {
   const { standartIngredients,} = useSelector(state => state.ingredients);
   const {orders, } = useSelector(state => state.ws);
   const dispatch = useDispatch();
-
+  let status = false
   React.useEffect(()=>{
     if (standartIngredients[0] === undefined) {
       dispatch(getIngredients())
@@ -25,9 +26,13 @@ export const OrdersFeed = ({toggleFeedOverlay}) => {
         pathname={`/feed/${element._id}`} 
         width={'584px'}
         height={'214px'} 
-        status={false}
+        status={status}
         />
       })}
     </div>
   )
 }
+
+OrdersFeed.propTypes = {
+  toggleFeedOverlay: PropTypes.func.isRequired,
+};

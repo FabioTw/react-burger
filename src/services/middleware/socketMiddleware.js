@@ -1,3 +1,5 @@
+import { getCookie } from "../cookie";
+
 export const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
     let socket = null;
@@ -5,14 +7,16 @@ export const socketMiddleware = (wsUrl, wsActions) => {
     return next => action => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
-      const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, wsPrivateInit, onOpen, onClose, onError, onMessage,} = wsActions;
       if (type === wsInit) {
         socket = new WebSocket(wsUrl);
+      }
+      if (type === wsPrivateInit) {
+        socket = new WebSocket(`${wsUrl.slice(0,-4)}?token=${getCookie('token')}`);
       }
       if (socket) {
         socket.onopen = event => {
           dispatch({ type: onOpen, payload: event });
-          socket.send('test')
         }
 
         socket.onerror = event => {
@@ -31,7 +35,6 @@ export const socketMiddleware = (wsUrl, wsActions) => {
           dispatch({ type: onClose, payload: event });
         }
       }
-
       next(action);
     };
   };

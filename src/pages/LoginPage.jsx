@@ -18,7 +18,6 @@ export const LoginPage = () => {
   const [watchPass, setPassWatch] = React.useState(false)
   const history = useHistory();
   let location = useLocation();
-  console.log(location)
   const onIconClick = () => {
     setTimeout(() => passRef.current.focus(), 0)
     setPassWatch(!watchPass)

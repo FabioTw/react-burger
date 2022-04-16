@@ -8,7 +8,6 @@ export const NavigationProfile = () => {
   const dispatch = useDispatch();
   const history = useHistory()
   const {user} = useSelector(state => state.profile)
-  console.log(history.location === '/profile/orders')
 
   const profile = useCallback(
     () => {
@@ -52,13 +51,13 @@ export const NavigationProfile = () => {
           Выход
         </p>
       </div>
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <div className="text text_type_main-default text_color_inactive mt-20">
         {
           history.location.pathname === '/profile/orders' ?
           <p className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете <br/>просмотреть свою историю заказов </p> : 
           <p className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете <br/>изменить свои персональные данные</p>
         }
-      </p>
+      </div>
     </div>
   )
 }

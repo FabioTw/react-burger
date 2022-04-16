@@ -5,10 +5,12 @@ import {
   WS_GET_MESSAGE,
   WS_SELECT_ORDER,
   WS_CLOSE_ORDER,
+  WS_CLEAN_ORDERS
 } from "../actions/wsActionTypes";
 
 const initialState = {
   wsConnected: false,
+  wsPrivateConnected: false,
   orders: [],
   selectedOrder: [],
   total: 0,
@@ -37,7 +39,8 @@ export const wsReducer = (state = initialState, action) => {
       return {
         ...state,
         error: undefined,
-        wsConnected: false
+        wsConnected: false,
+        wsPrivateConnected: false,
       };
     case WS_GET_MESSAGE:
       return {
@@ -58,6 +61,17 @@ export const wsReducer = (state = initialState, action) => {
         ...state,
         selectedOrder: [],
         feedOverlay: false
+      }
+    case WS_CLEAN_ORDERS: 
+      return {
+        ...state,
+        wsConnected: false,
+        orders: [],
+        selectedOrder: [],
+        total: 0,
+        totalToday: 0,
+        error: undefined,
+        feedOverlay: false,
       }
     default:
       return state;

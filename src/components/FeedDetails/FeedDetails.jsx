@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import styles from './feed-details.module.css'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { convertDate } from "../../utils/convertDate";
 
 export const FeedDetails = () => {
   let orderPrice;
@@ -70,17 +71,12 @@ export const FeedDetails = () => {
     })
   })
 
-  const updateFeedOverlay = () => {
-
-  }
-
   const back = e => {
     e.stopPropagation();
-    updateFeedOverlay()
     history.goBack();
   };
 
-
+  let dateString = convertDate(selectedOrder.updatedAt);
 
   if (!selected[0]) return null;
   return (
@@ -109,7 +105,7 @@ export const FeedDetails = () => {
         })}
       </div>
       <div className={`${styles['info-element']} mt-10 mb-10`}>
-        <p className={`${styles.date} text text_type_main-default text_color_inactive`}>{selectedOrder.updatedAt}</p>
+        <p className={`${styles.date} text text_type_main-default text_color_inactive`}>{dateString}</p>
         <div className={styles.info}>
           <p className="text text_type_main-default mr-2">{`${orderPrice}`}</p>
           <CurrencyIcon type="primary" />

@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { WS_SELECT_ORDER } from "../../services/actions/wsActionTypes";
@@ -7,8 +8,10 @@ import {
   NavLink,
   useLocation,
 } from "react-router-dom";
+import { convertDate } from "../../utils/convertDate";
 
 export const OrderBlock = ({element, toggleFeedOverlay, pathname, width, height, status}) => {
+  const createdTime = 'Today, 16:20 i-GMT+3'
   let orderPrice = 0;
   const needStatus = status
   const dispatch = useDispatch();
@@ -19,12 +22,14 @@ export const OrderBlock = ({element, toggleFeedOverlay, pathname, width, height,
     toggleFeedOverlay()
     dispatch({type: WS_SELECT_ORDER, payload: element});
   }
-console.log(status)
+
+  let dateString = convertDate(element.updatedAt);
+
   return (
     <NavLink to={{pathname: `${pathname}`, state: {background: location}}} className={`${styles['order-block']} pl-6 pr-6 mb-4 mt-5 mr-2`} style={{width: width, height:height}} onClick={selectOrder}>
       <div className={`${styles['order-title']} mt-6`}>
         <p className="text text_type_main-medium">{`#${element.number}`}</p>
-        <p className="text text_type_main-default text_color_inactive">{element.updatedAt}</p>
+        <p className="text text_type_main-default text_color_inactive">{dateString}</p>
       </div>
       <p className={`${styles['order-name']} text text_type_main-medium mt-6 ${!needStatus && 'mb-6'}`}>{element.name}</p>
       {needStatus &&  <p className={`${styles.status} text text_type_main-default mt-2 mb-6`} 
@@ -77,3 +82,7 @@ console.log(status)
       </div>
     </NavLink>)
 }
+
+OrderBlock.propTypes = {
+  toggleFeedOverlay: PropTypes.func.isRequired,
+};

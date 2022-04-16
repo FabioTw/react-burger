@@ -7,21 +7,24 @@ import { OrderBlock } from "../OrderBlock/OrderBlock";
 import styles from './orders-profile.module.css'
 
 export const OrdersProfile = ({toggleFeedOverlay}) => {
-  const createdTime = 'Сегодня, 16:20 i-GMT+3'
   const { standartIngredients,} = useSelector(state => state.ingredients);
-  const ingredient = [standartIngredients[0], standartIngredients[4], standartIngredients[5], standartIngredients[6]]
-  const {orders, } = useSelector(state => state.ws);
+  const {orders, wsPrivateConnected} = useSelector(state => state.ws);
   let status = true
   const dispatch = useDispatch();
   React.useEffect(()=>{
     if (standartIngredients[0] === undefined) {
       dispatch(getIngredients())
     }
-  },[standartIngredients]);
+  },[standartIngredients, wsPrivateConnected]);
+  const sortedOrders = []
+  for (let index = orders.length-1; index >= 0; index--) {
+    let element = orders[index]
+    sortedOrders.push(element)
+ }
   if (standartIngredients[0] !== undefined) {
     return (
       <div className={`${styles.orders}`}>
-        {orders.map((element)=> {
+        {sortedOrders.map((element)=> {
           return <OrderBlock 
           key={element._id} 
           element={element} 

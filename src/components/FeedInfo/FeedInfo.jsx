@@ -5,6 +5,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import React from "react";
 import { WS_CONNECTION_START } from "../../services/actions/wsActionTypes";
 import { getIngredients } from "../../services/thunk/getIngredients";
+import { convertDate } from "../../utils/convertDate";
 
 export const FeedInfo = () => {
   let orderPrice;
@@ -32,7 +33,6 @@ export const FeedInfo = () => {
     })
     const selectedIngredient = []
     let iterations = 0;
-    console.log(selected)
     if (selected[0] !== undefined) {
       selected[0].ingredients.map((element, index) => {
         standartIngredients.map(standartIngredient => {
@@ -86,7 +86,9 @@ export const FeedInfo = () => {
           }
         })
       })
-    
+
+      let dateString = convertDate(selected[0].updatedAt);
+      
       return (
         <div className={`${styles['main-block']} mt-30`}>
           <p className={`${styles.number} text text_type_main-medium`}>{`#${selected[0].number}`}</p>
@@ -113,7 +115,7 @@ export const FeedInfo = () => {
             })}
           </div>
           <div className={`${styles['info-element']} mt-10 mb-10`}>
-            <p className={`${styles.date} text text_type_main-default text_color_inactive`}>{selected[0].updatedAt}</p>
+            <p className={`${styles.date} text text_type_main-default text_color_inactive`}>{dateString}</p>
             <div className={styles.info}>
               <p className="text text_type_main-default mr-2">{`${orderPrice}`}</p>
               <CurrencyIcon type="primary" />

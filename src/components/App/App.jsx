@@ -29,7 +29,6 @@ function ModalSwitch() {
   let background = location.state && location.state.background;
   const {isClick} = useSelector(state => state.ingredient)
   const {feedOverlay} = useSelector(state => state.ws)
-
   if(!isClick) {
     background = location
   }

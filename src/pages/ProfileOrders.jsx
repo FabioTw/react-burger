@@ -1,13 +1,15 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useHistory, useLocation } from 'react-router-dom'; 
 import { EditProfile } from "../components/EditProfile/EditProfile"
 import { NavigationProfile } from "../components/NavigationProfile/NavigationProfile"
 import { OrdersProfile } from "../components/OrdersProfile/OrdersProfile"
-import { WS_CLOSE_ORDER, WS_CONNECTION_START, WS_SELECT_ORDER } from "../services/actions/wsActionTypes"
+import { WS_CLEAN_ORDERS, WS_CLOSE_ORDER, WS_PRIVATE_CONNECTION_START, WS_SELECT_ORDER,WS_CONNECTION_CLOSED } from "../services/actions/wsActionTypes"
 
 export const ProfileOrders = () => {
   const dispatch = useDispatch();
-  const {feedOverlay, wsConnected} = useSelector(state => state.ws)
+  const history = useHistory();
+  const {feedOverlay, wsPrivateConnected} = useSelector(state => state.ws)
   const toggleFeedOverlay = () => {
     if (feedOverlay) {
       dispatch({type: WS_CLOSE_ORDER})
@@ -18,12 +20,15 @@ export const ProfileOrders = () => {
 
   React.useEffect(
     () => {
-      if(!wsConnected){
-        dispatch({ type: WS_CONNECTION_START });
-      }
+      dispatch({ type: WS_CLEAN_ORDERS })
+      if(!wsPrivateConnected){
+        dispatch({ type: WS_PRIVATE_CONNECTION_START });
+      } 
+      return () => dispatch({ type: WS_CONNECTION_CLOSED })
     },
-    [wsConnected]
+    [wsPrivateConnected]
   )
+  
   return (
     <>
       <NavigationProfile />
