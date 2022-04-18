@@ -8,7 +8,6 @@ import React from "react";
 
 export const Ingredient = () => {
   const { standartIngredients } = useSelector(state => state.ingredients);
-  const dispatch = useDispatch();
   let history = useHistory();
   let { id } = useParams();
   const selected = []
@@ -17,10 +16,6 @@ export const Ingredient = () => {
       selected.push(item)
     }
   })
-  
-  React.useEffect(()=> {
-    dispatch(getIngredients())
-  },[])
   
   if (!selected[0]) return null;
   return (

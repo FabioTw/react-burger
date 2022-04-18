@@ -4,7 +4,6 @@ import styles from './feed-info.module.css'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { WS_CONNECTION_START } from "../../services/actions/wsActionTypes";
-import { getIngredients } from "../../services/thunk/getIngredients";
 import { convertDate } from "../../utils/convertDate";
 
 export const FeedInfo = () => {
@@ -20,10 +19,7 @@ export const FeedInfo = () => {
       if(!wsConnected){
         dispatch({ type: WS_CONNECTION_START });
       }
-      if (standartIngredients[0] === undefined) {
-        dispatch(getIngredients())
-      }
-    },[wsConnected, standartIngredients]
+    },[wsConnected]
   )
   if (wsConnected){
     orders.map((element) => {

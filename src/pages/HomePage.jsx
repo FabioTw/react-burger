@@ -89,9 +89,6 @@ export const HomePage = () => {
         }
       }
     }
-    if (standartIngredients) {
-      dispatch(getIngredients())
-    }
   },[userFailed, tokenRequest, tokenFailed]);
 
   return (

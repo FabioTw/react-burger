@@ -8,11 +8,20 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-route
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { Ingredient } from '../Ingredient/Ingredient';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FeedDetails } from "../FeedDetails/FeedDetails";
 import { FeedInfo } from "../FeedInfo/FeedInfo";
+import { getIngredients } from '../../services/thunk/getIngredients';
 
 const App = () => {
+  const { standartIngredients,} = useSelector(state => state.ingredients);
+  const dispatch = useDispatch();
+  React.useEffect(()=>{
+    if (standartIngredients[0] === undefined) {
+      dispatch(getIngredients())
+    }
+  },[standartIngredients]);
+
   return (
     <>
         <DndProvider backend={HTML5Backend}>

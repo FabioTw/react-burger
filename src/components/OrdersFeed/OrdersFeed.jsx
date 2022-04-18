@@ -6,20 +6,12 @@ import { OrderBlock } from "../OrderBlock/OrderBlock";
 import styles from './orders-feed.module.css'
 
 export const OrdersFeed = ({toggleFeedOverlay}) => {
-  const { standartIngredients,} = useSelector(state => state.ingredients);
   const {orders, } = useSelector(state => state.ws);
-  const dispatch = useDispatch();
   let status = false
-  React.useEffect(()=>{
-    if (standartIngredients[0] === undefined) {
-      dispatch(getIngredients())
-    }
-  },[standartIngredients]);
-
   return (
     <div className={`${styles.orders}`}>
       {orders.map((element)=> {
-        return <OrderBlock 
+        return ( <OrderBlock 
         key={element._id} 
         element={element} 
         toggleFeedOverlay={toggleFeedOverlay} 
@@ -27,7 +19,7 @@ export const OrdersFeed = ({toggleFeedOverlay}) => {
         width={'584px'}
         height={'214px'} 
         status={status}
-        />
+        /> )
       })}
     </div>
   )

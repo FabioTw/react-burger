@@ -10,13 +10,11 @@ export const OrdersProfile = ({toggleFeedOverlay}) => {
   const { standartIngredients,} = useSelector(state => state.ingredients);
   const {orders, wsPrivateConnected} = useSelector(state => state.ws);
   let status = true
-  const dispatch = useDispatch();
-  React.useEffect(()=>{
-    if (standartIngredients[0] === undefined) {
-      dispatch(getIngredients())
-    }
-  },[standartIngredients, wsPrivateConnected]);
   const sortedOrders = []
+  if (orders.length === undefined)  {
+    return null
+  }
+
   for (let index = orders.length-1; index >= 0; index--) {
     let element = orders[index]
     sortedOrders.push(element)
@@ -25,7 +23,7 @@ export const OrdersProfile = ({toggleFeedOverlay}) => {
     return (
       <div className={`${styles.orders}`}>
         {sortedOrders.map((element)=> {
-          return <OrderBlock 
+          return ( <OrderBlock 
           key={element._id} 
           element={element} 
           toggleFeedOverlay={toggleFeedOverlay} 
@@ -33,10 +31,11 @@ export const OrdersProfile = ({toggleFeedOverlay}) => {
           width={'856px'}
           height={'246px'}
           status={status}
-        />
+        /> )
         })}
       </div>
     )
   }
   return null
 }
+
