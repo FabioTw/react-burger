@@ -89,7 +89,7 @@ export const HomePage = () => {
         }
       }
     }
-  },[userFailed, tokenRequest, tokenFailed]);
+  },[]);
 
   return (
     <>

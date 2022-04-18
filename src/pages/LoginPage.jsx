@@ -47,7 +47,7 @@ export const LoginPage = () => {
       setPassValue('');
       history.replace(location.state? location.state.from: {pathname: '/'})
     }
-  },[userFailed, user, history, tokenRequest, tokenFailed])
+  },[userFailed, user, history,])
 
   return (
     <form className={`${styles.field} mt-15`} onSubmit={login}>
