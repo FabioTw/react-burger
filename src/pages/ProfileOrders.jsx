@@ -25,11 +25,9 @@ export const ProfileOrders = () => {
         socket.close() //закрывает соединение, если по какой-либо причине оно не было закрыто до этого
       }
       dispatch({ type: WS_CLEAN_ORDERS })
-      setTimeout(()=>{
-        if(!wsPrivateConnected){
-          dispatch({ type: WS_PRIVATE_CONNECTION_START });
-        } 
-      },800) //задержка на случай если соединение не успело закрыться 
+      if(!wsPrivateConnected){
+        dispatch({ type: WS_PRIVATE_CONNECTION_START });
+      } 
       return () => {dispatch({ type: WS_CONNECTION_CLOSED }); socket.close();}
     },[]
   )

@@ -33,7 +33,7 @@ export function ProtectedRoute({ children, ...rest }) {
     } if (getCookie('token') === undefined) {
       history.replace({ pathname: '/login', state: { from: location } });
     }
-  },[user, tokenFailed]);
+  },[user, userFailed]);
 
   if (!isUserLoaded) {
     return null;

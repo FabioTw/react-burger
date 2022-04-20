@@ -4,6 +4,7 @@ import { OrdersFeed } from "../components/OrdersFeed/OrdersFeed"
 import { StatsFeed } from "../components/StatsFeed/StatsFeed"
 import { WS_CLEAN_ORDERS, WS_CLOSE_ORDER, WS_CONNECTION_CLOSED, WS_CONNECTION_START, WS_GET_MESSAGE, WS_SELECT_ORDER } from "../services/actions/wsActionTypes";
 import { socket } from "../services/middleware";
+import { wsUrl } from "../services/store";
 import styles from './index.module.css';
 
 export const Feed = () => {
@@ -25,11 +26,9 @@ export const Feed = () => {
         socket.close() //закрывает соединение, если по какой-либо причине оно не было закрыто до этого
       }
       dispatch({ type: WS_CLEAN_ORDERS })
-      setTimeout(()=>{
-        if(!wsConnected){
-          dispatch({ type: WS_CONNECTION_START });
-        }       
-      },800) //задержка на случай если соединение не успело закрыться 
+      if(!wsConnected || socket.url !== wsUrl){
+        dispatch({ type: WS_CONNECTION_START });
+      }       
       return () => {dispatch({ type: WS_CONNECTION_CLOSED }); socket.close();}
     },[]
   )

@@ -8,7 +8,7 @@ import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR,
 import {getCookie} from './cookie'
 import { useState } from 'react';
 
-const wsUrl = `wss://norma.nomoreparties.space/orders/all`;
+export const wsUrl = `wss://norma.nomoreparties.space/orders/all`;
 
 export let personalAccess = false;
 
