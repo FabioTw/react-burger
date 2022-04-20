@@ -26,7 +26,7 @@ export const AppHeader = () => {
         <div className={`mt-1 mr-2 ml-2`}>
           <ProfileIcon type={`${location.pathname === '/profile' || location.pathname === '/profile/orders'? 'primary' : 'secondary' }`} />
         </div>
-        <Link to="/profile" className={`${headerStyles["link"]} ${location.pathname === '/profile'? headerStyles["active"] : null } text text_type_main-default`}>Личный кабинет</Link>
+        <Link to="/profile" className={`${headerStyles["link"]} ${location.pathname === '/profile' || location.pathname === '/profile/orders'? headerStyles["active"] : null } text text_type_main-default`}>Личный кабинет</Link>
       </nav>
     </header>
   );

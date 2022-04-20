@@ -17,6 +17,7 @@ const initialState = {
   totalToday: 0,
   error: undefined,
   feedOverlay: false,
+  wsClosed: false
 }; 
 
 
@@ -27,6 +28,7 @@ export const wsReducer = (state = initialState, action) => {
         ...state,
         error: undefined,
         wsConnected: true,
+        wsClosed: false
       };
     case WS_CONNECTION_ERROR:
       return {
@@ -41,6 +43,7 @@ export const wsReducer = (state = initialState, action) => {
         error: undefined,
         wsConnected: false,
         wsPrivateConnected: false,
+        wsClosed: true
       };
     case WS_GET_MESSAGE:
       return {
@@ -65,7 +68,6 @@ export const wsReducer = (state = initialState, action) => {
     case WS_CLEAN_ORDERS: 
       return {
         ...state,
-        wsConnected: false,
         orders: [],
         selectedOrder: [],
         total: 0,
