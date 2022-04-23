@@ -18,7 +18,6 @@ export const LoginPage = () => {
   const [watchPass, setPassWatch] = React.useState(false)
   const history = useHistory();
   let location = useLocation();
-  console.log(location)
   const onIconClick = () => {
     setTimeout(() => passRef.current.focus(), 0)
     setPassWatch(!watchPass)
@@ -48,7 +47,7 @@ export const LoginPage = () => {
       setPassValue('');
       history.replace(location.state? location.state.from: {pathname: '/'})
     }
-  },[userFailed, user, history, tokenRequest, tokenFailed])
+  },[userFailed, user, history,])
 
   return (
     <form className={`${styles.field} mt-15`} onSubmit={login}>

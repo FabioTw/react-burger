@@ -13,7 +13,7 @@ export const BurgerIngredients = ({showIngredientDetailsModal}) => {
   const main = {name:'Начинки', array:[], selected:[]}
 
   React.useEffect(()=>{
-    function scroll() {
+    if (standartIngredients[0] !== undefined) {
       let options = {
         root: document.querySelector(`.${burgerIngredients["burger-ingredients"]}`),
         rootMargin: '0px 0px -500px 0px',
@@ -33,8 +33,7 @@ export const BurgerIngredients = ({showIngredientDetailsModal}) => {
         const scrollSections = [document.getElementById('bun'), document.getElementById('sauce'), document.getElementById('main')]
         scrollSections.forEach((section) => observer.observe(section))
     }
-    setTimeout(scroll, 1000)
-  },[])
+  },[standartIngredients])
 
   bun.selected[0] = selectedBun
   standartIngredients.forEach((item) => {

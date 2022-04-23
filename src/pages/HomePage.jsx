@@ -5,7 +5,6 @@ import {getOrder} from '../services/thunk/getOrder';
 import {BurgerIngredients} from '../components/BurgerIngredients/BurgerIngredients'
 import {BurgerConstructor} from '../components/BurgerConstructor/BurgerConstructor'
 import { OrderDetails } from '../components/OrderDetails/OrderDetails';
-import { IngredientDetails} from '../components/IngredientDetails/IngredientDetails';
 import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN } from '../services/actions/ingredients';
 import { CLOSE_INGREDIENT, SELECT_INGREDIENT } from '../services/actions/ingredient';
 import { v4 as uuidv4 } from 'uuid'
@@ -13,6 +12,7 @@ import { Route,useHistory, useLocation } from 'react-router-dom';
 import { getUser } from '../services/thunk/getUser';
 import { deleteCookie, getCookie } from '../services/cookie';
 import { updateToken } from '../services/thunk/updateToken';
+import { CLEAN_ORDER } from '../services/actions/order';
 
 export const HomePage = () => {
   const dispatch = useDispatch();
@@ -27,6 +27,7 @@ export const HomePage = () => {
     if (!user.name) {
       history.replace({ pathname: '/login', state: [{ path: '/', url: '/', title: 'Home' }] });
     } else {
+      dispatch({type: CLEAN_ORDER})
       toggleOrderOverlay(!orderOverlay);
       if (!orderOverlay) {
         dispatch(getOrder(constructorIngredients, selectedBun))
@@ -72,18 +73,6 @@ export const HomePage = () => {
     dispatch({type: SELECT_INGREDIENT, value:item})
   }
 
-  const init = async () => {
-    if (getCookie('token') !== undefined) {
-      dispatch(getUser())
-      if (userFailed) {
-        dispatch(updateToken())
-        if (!tokenRequest && !tokenFailed) {
-          dispatch(getUser())
-        }
-      }
-    }
-  };
-
   React.useEffect(()=>{
     if (!user.name){
       if (getCookie('token') !== undefined) {
@@ -100,12 +89,7 @@ export const HomePage = () => {
         }
       }
     }
-    if (standartIngredients) {
-      dispatch(getIngredients())
-    }
-  },[userFailed, tokenRequest, tokenFailed]);
-
-
+  },[]);
 
   return (
     <>

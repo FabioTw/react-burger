@@ -10,23 +10,23 @@ export const AppHeader = () => {
       <div className={`${headerStyles["left-header-buttons"]} mr-30`}>
         <nav className={`${headerStyles["header-button"]} ${headerStyles.constructor} ml-1`}>
           <div className={`mt-1 mr-2 ml-2`}>
-            <BurgerIcon type={`${location.pathname === '/profile'? 'secondary' : 'primary' }`} />
+            <BurgerIcon type={`${location.pathname === '/'? 'primary' : 'secondary' }`} />
           </div>
-          <Link to="/" className={`${headerStyles["link"]} ${location.pathname === '/profile'? null : headerStyles["active"]} text text_type_main-default`}>Конструктор</Link>
+          <Link to="/" className={`${headerStyles["link"]} ${location.pathname === '/'? headerStyles["active"] : null} text text_type_main-default`}>Конструктор</Link>
         </nav>
         <nav className={`${headerStyles["header-button"]} ${headerStyles["order-list"]} ${headerStyles["not-active"]} ml-2`}>
           <div className={`mt-1 mr-2 ml-2`}>
-            <ListIcon type="secondary" />
+            <ListIcon type={`${location.pathname === '/feed'? 'primary' : 'secondary' }`} />
           </div>
-          <p className="text text_type_main-default">Лента заказов</p>
+          <Link to="/feed" className={`${headerStyles["link"]} ${location.pathname === '/feed'? headerStyles["active"] : null} text text_type_main-default`}>Лента заказов</Link>
         </nav>
       </div>
       <Logo />
       <nav className={`${headerStyles["not-active"]} ${headerStyles["header-button"]} ${headerStyles.profile}`}>
         <div className={`mt-1 mr-2 ml-2`}>
-          <ProfileIcon type={`${location.pathname === '/profile'? 'primary' : 'secondary' }`} />
+          <ProfileIcon type={`${location.pathname === '/profile' || location.pathname === '/profile/orders'? 'primary' : 'secondary' }`} />
         </div>
-        <Link to="/profile" className={`${headerStyles["link"]} ${location.pathname === '/profile'? headerStyles["active"] : null } text text_type_main-default`}>Личный кабинет</Link>
+        <Link to="/profile" className={`${headerStyles["link"]} ${location.pathname === '/profile' || location.pathname === '/profile/orders'? headerStyles["active"] : null } text text_type_main-default`}>Личный кабинет</Link>
       </nav>
     </header>
   );
