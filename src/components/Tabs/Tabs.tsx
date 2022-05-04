@@ -1,10 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import tabs from './tabs.module.css'
 
+interface ITabs {
+  current: string;
+  setCurrent: () => null;
+}
 
-export const Tabs = ({current,setCurrent}) => {
+export const Tabs: FC<ITabs> = ({current,setCurrent}) => {
   return (
     <div className={`${tabs.tabs} mb-10`}>
       <a href="#bun">
@@ -24,9 +27,4 @@ export const Tabs = ({current,setCurrent}) => {
       </a>
     </div>
   );
-};
-
-Tabs.propTypes = {
-  current: PropTypes.string.isRequired,
-  setCurrent: PropTypes.func.isRequired,
 };

@@ -1,4 +1,4 @@
-import { useHistory, useParams} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './feed-info.module.css'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -8,7 +8,6 @@ import { convertDate } from "../../utils/convertDate";
 
 export const FeedInfo = () => {
   let orderPrice;
-  let history = useHistory();
   const dispatch = useDispatch();
   let { id } = useParams();
   const selected = []

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Card } from "../Card/Card";
-import { ingredientsPropType } from "../../utils/propTypes";
+import { TIngredients } from "../../utils/types";
 import cardList from "./card-list.module.css" 
 
 export const CardList = ({ data, showIngredientDetailsModal }) => {
@@ -35,10 +35,10 @@ export const CardList = ({ data, showIngredientDetailsModal }) => {
   )
 };
 
-CardList.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string,
-    array: ingredientsPropType
-  }).isRequired,
-  showIngredientDetailsModal: PropTypes.func.isRequired
-}
+// CardList.propTypes = {
+//   data: PropTypes.shape({
+//     name: PropTypes.string,
+//     array: ingredientsPropType
+//   }).isRequired,
+//   showIngredientDetailsModal: PropTypes.func.isRequired
+// }
