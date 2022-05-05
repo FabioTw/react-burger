@@ -1,10 +1,10 @@
-export const convertDate = (date) => {
+export const convertDate = (date: string) => {
   const upDate = new Date(date)
   const today = new Date();
   let yesterday = new Date();
   yesterday.setDate(today.getDate() -1);
 
-  let options = {
+  let options: {[name: string]: string} = {
     hour: 'numeric',
     minute: 'numeric',
   };
