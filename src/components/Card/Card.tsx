@@ -6,8 +6,26 @@ import {
   NavLink,
   useLocation,
 } from "react-router-dom";
-export const Card = ({id, img, price, text, type, onClick, counterList}) => {
-  let location = useLocation();
+import { FC } from "react";
+
+interface ILocationState {
+  from: {
+    pathname: string;
+  };
+}
+
+interface ICard {
+  id: string;
+  img: string;
+  price: number;
+  text: string;
+  type: string;
+  onClick: () => void;
+  counterList: Array<string>;
+}
+
+export const Card: FC<ICard> = ({id, img, price, text, type, onClick, counterList}) => {
+  let location = useLocation<ILocationState>();
   const [{ opacity }, dragRef] = useDrag({
     type: type,
     item: { id , type},
@@ -15,6 +33,7 @@ export const Card = ({id, img, price, text, type, onClick, counterList}) => {
       opacity: monitor.isDragging() ? 0.5 : 1
     })
   });
+
   return (
     <NavLink to={{pathname: `/ingredients/${id}`, state: {background: location}}} className={`${card.card} mt-6 mb-6 ml-3 mr-3`} ref={dragRef} style={{opacity}} onClick={onClick}>
       {counterList.length > 0 &&  (
@@ -30,14 +49,4 @@ export const Card = ({id, img, price, text, type, onClick, counterList}) => {
       <p className={`${card["card-name"]} text text_type_main-default`}>{text}</p>
     </NavLink>
   );
-};
-
-Card.propTypes = {
-  id: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  text: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  counterList: PropTypes.arrayOf(PropTypes.string),
 };

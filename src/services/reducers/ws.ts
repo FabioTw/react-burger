@@ -1,3 +1,6 @@
+import { TWebSocket, TWSOrder } from "../../types/types";
+import type { TWSActions } from "../actions/wsActionTypes";
+
 import { 
   WS_CONNECTION_CLOSED, 
   WS_CONNECTION_ERROR, 
@@ -8,11 +11,15 @@ import {
   WS_CLEAN_ORDERS
 } from "../actions/wsActionTypes";
 
-const initialState = {
+type TWSState = TWebSocket & { 
+  error: undefined | string;
+}  
+
+const initialState: TWSState = {
   wsConnected: false,
   wsPrivateConnected: false,
   orders: [],
-  selectedOrder: [],
+  selectedOrder: {},
   total: 0,
   totalToday: 0,
   error: undefined,
@@ -21,7 +28,7 @@ const initialState = {
 }; 
 
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state = initialState, action: TWSActions): TWSState => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
@@ -69,7 +76,7 @@ export const wsReducer = (state = initialState, action) => {
       return {
         ...state,
         orders: [],
-        selectedOrder: [],
+        selectedOrder: {},
         total: 0,
         totalToday: 0,
         error: undefined,

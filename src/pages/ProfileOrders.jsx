@@ -1,5 +1,5 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from '../services/hooks/hooks'
 import { useHistory, useLocation } from 'react-router-dom'; 
 import { EditProfile } from "../components/EditProfile/EditProfile"
 import { NavigationProfile } from "../components/NavigationProfile/NavigationProfile"

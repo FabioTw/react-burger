@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import elementCreator from "./element-creator.module.css";
-import { TIngredients } from "../../utils/types";
+import { TIngredients } from "../../types/types";
 import { DragSourceMonitor, DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { FC, useRef } from "react";
 

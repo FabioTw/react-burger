@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from 'react-router-dom';
 import styles from './index.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks/hooks';
 import { forgotPass } from '../services/thunk/resetProfilePass';
 
 export const ForgotPage = () => {

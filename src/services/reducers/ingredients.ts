@@ -1,3 +1,6 @@
+import { TConstructorIngredients, TIngredients } from '../../types/types';
+import type { TIngredientsActions } from '../actions/ingredients';
+
 import {
   GET_INGREDIENTS,
   GET_INGREDIENTS_SUCCESS,
@@ -5,9 +8,17 @@ import {
   CHANGE_CONSTRUCTOR_INGREDIENTS,
   SELECT_CONSTRUCTOR_BUN,
   CLEAR_INGREDIENTS
-} from '../actions/ingredients.js'
+} from '../actions/ingredients'
 
-const initialState = {
+type TIngredientsState = {
+  standartIngredients: ReadonlyArray<TIngredients>;
+  constructorIngredients: ReadonlyArray<TConstructorIngredients>;
+  selectedBun: string;
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+}
+
+const initialState: TIngredientsState = {
   standartIngredients: [],
   constructorIngredients: [],
   selectedBun: '',
@@ -15,7 +26,7 @@ const initialState = {
   ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state = initialState, action: TIngredientsActions): TIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS: {
       return {

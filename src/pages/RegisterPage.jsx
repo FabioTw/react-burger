@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import styles from './index.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../services/hooks/hooks';
 import { signUp } from "../services/thunk/registerProfile";
 import { getUser } from "../services/thunk/getUser";
 

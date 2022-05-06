@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { Card } from "../Card/Card";
-import { TIngredients } from "../../utils/types";
+import { TIngredients } from "../../types/types";
 import cardList from "./card-list.module.css" 
 
 export const CardList = ({ data, showIngredientDetailsModal }) => {

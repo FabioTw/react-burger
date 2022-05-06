@@ -1,6 +1,6 @@
 import React, { useCallback } from "react"
 import { getUser } from "../services/thunk/getUser";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../services/hooks/hooks';
 import styles from './index.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory, useLocation } from 'react-router-dom';

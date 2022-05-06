@@ -3,8 +3,14 @@ import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-dev
 import headerStyles from "./app-header.module.css";
 import { Link, useLocation } from 'react-router-dom';
 
+interface ILocationState {
+  from: {
+    pathname: string;
+  };
+}
+
 export const AppHeader = () => {
-  let location = useLocation();
+  let location = useLocation<ILocationState>();
   return (
     <header className={`${headerStyles["app-header"]} mt-4 mb-4`}>
       <div className={`${headerStyles["left-header-buttons"]} mr-30`}>

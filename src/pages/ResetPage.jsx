@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from 'react-router-dom';
 import styles from './index.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../services/hooks/hooks';
 import { resetPass } from '../services/thunk/resetProfilePass';
 
 export const ResetPage = () => {

@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route, useLocation } from 'react-route
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { Ingredient } from '../Ingredient/Ingredient';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import { FeedDetails } from "../FeedDetails/FeedDetails";
 import { FeedInfo } from "../FeedInfo/FeedInfo";
 import { getIngredients } from '../../services/thunk/getIngredients';

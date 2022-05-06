@@ -1,3 +1,4 @@
+import { TUser } from '../../types/types';
 import {
   GET_TOKEN,
   GET_TOKEN_SUCCESS,
@@ -23,10 +24,39 @@ import {
   PATCH_PROFILE,
   PATCH_PROFILE_SUCCESS,
   PATCH_PROFILE_FAILED,
+  TProfileActions,
 } from '../actions/profile';
 
+type TProfileState = {
+  user: TUser | {};
+  loginRequest: boolean;
+  loginFailed: boolean;
 
-const initialState = {
+  registerRequest: boolean;
+  registerFailed: boolean;
+
+  forgotRequest: boolean;
+  forgotFailed: boolean;
+
+  resetRequest: boolean;
+  resetFailed: boolean;
+
+  tokenRequest: boolean;
+  tokenFailed: boolean;
+
+  userRequest: boolean;
+  userFailed: boolean;
+
+  patchRequest: boolean;
+  patchFailed: boolean;
+
+  logoutRequest: boolean;
+  logoutFailed: boolean;
+  
+  emailSended: boolean;
+}
+
+const initialState: TProfileState = {
   user: {},
 
   loginRequest: false,
@@ -55,7 +85,7 @@ const initialState = {
   emailSended: false,
 };
 
-export const profileReducer = (state = initialState, action) => {
+export const profileReducer = (state = initialState, action: TProfileActions): TProfileState => {
   switch (action.type) {
     case GET_TOKEN: {
       return {

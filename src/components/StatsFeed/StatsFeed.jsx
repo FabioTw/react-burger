@@ -1,12 +1,13 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks/hooks';
 import styles from './stats-feed.module.css'
 import { v4 as uuidv4 } from 'uuid'
 
 export const StatsFeed = () => {
-  const { standartIngredients, constructorIngredients, selectedBun, constructorKeys } = useSelector(state => state.ingredients);
+  
   const { total, totalToday, orders, } = useSelector(state => state.ws);
   const dones = []
   const inWorks = []
+  console.log(orders)
   orders.forEach(element => {
     if(element.status === 'done') {
       if (dones.length <= 11) {dones.push(element.number)}

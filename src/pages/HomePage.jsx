@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../services/hooks/hooks';
 import { getIngredients } from '../services/thunk/getIngredients';
 import {getOrder} from '../services/thunk/getOrder';
 import {BurgerIngredients} from '../components/BurgerIngredients/BurgerIngredients'
