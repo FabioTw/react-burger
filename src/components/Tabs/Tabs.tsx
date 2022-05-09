@@ -4,7 +4,7 @@ import tabs from './tabs.module.css'
 
 interface ITabs {
   current: string;
-  setCurrent: () => null;
+  setCurrent: (current:string) => void;
 }
 
 export const Tabs: FC<ITabs> = ({current,setCurrent}) => {

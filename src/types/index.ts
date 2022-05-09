@@ -21,8 +21,8 @@ type TApplicationActions =
   | TProfileActions 
   | TWSActions; 
 
-  export type AppThunk<TReturn = void> = ActionCreator<
+export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>
 >; 
 
-export type AppDispatch = Dispatch<TApplicationActions>;
+export type AppDispatch = typeof store.dispatch;

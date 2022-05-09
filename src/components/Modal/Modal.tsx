@@ -8,7 +8,7 @@ const modalRoot: HTMLElement | null = document.getElementById('modal') as HTMLEl
 
 interface IModal {
   title?: string;
-  toggleModal: (event?: React.BaseSyntheticEvent<HTMLDivElement> | 
+  toggleModal: (event: React.BaseSyntheticEvent<HTMLDivElement> | 
     React.KeyboardEvent<HTMLDivElement> | 
     KeyboardEvent | 
     React.MouseEvent<HTMLDivElement> |

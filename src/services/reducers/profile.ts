@@ -28,7 +28,7 @@ import {
 } from '../actions/profile';
 
 type TProfileState = {
-  user: TUser | {};
+  user: TUser;
   loginRequest: boolean;
   loginFailed: boolean;
 
@@ -57,7 +57,7 @@ type TProfileState = {
 }
 
 const initialState: TProfileState = {
-  user: {},
+  user: {name: '', email: ''},
 
   loginRequest: false,
   loginFailed: false,
@@ -244,7 +244,7 @@ export const profileReducer = (state = initialState, action: TProfileActions): T
     case LOGOUT_PROFILE_SUCCESS: {
       return {
         ...state,
-        user: {},
+        user: {name: '', email: ''},
         logoutRequest: false,
         
       }

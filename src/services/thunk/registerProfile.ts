@@ -6,7 +6,7 @@ import {
   REGISTER_PROFILE_SUCCESS,
   REGISTER_PROFILE_FAILED,
 } from '../actions/profile';
-import { setCookie, getCookie } from '../cookie.js';
+import { setCookie, getCookie } from '../cookie';
 import { baseUrl, checkError } from "../apiSettings";
 import { AppDispatch, AppThunk } from '../../types';
 

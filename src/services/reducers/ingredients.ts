@@ -11,8 +11,8 @@ import {
 } from '../actions/ingredients'
 
 type TIngredientsState = {
-  standartIngredients: ReadonlyArray<TIngredients>;
-  constructorIngredients: ReadonlyArray<TConstructorIngredients>;
+  standartIngredients: Array<TIngredients>;
+  constructorIngredients: Array<TConstructorIngredients>;
   selectedBun: string;
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;

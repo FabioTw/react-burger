@@ -5,7 +5,6 @@ import {
 } from '../actions/profile';
 import { getCookie, setCookie } from '../cookie';
 import { baseUrl, checkError } from "../apiSettings";
-import { getUser } from './getUser';
 import { AppDispatch, AppThunk } from '../../types';
 
 export const updateToken: AppThunk = () => (dispatch: AppDispatch) => {

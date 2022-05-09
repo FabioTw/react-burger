@@ -9,9 +9,9 @@ interface IElementCreator {
   array: Array<TIngredients>;
   _id?: string;
   isTop?: boolean;
-  onRemoveItem?: ((id:string) => void)| any;
+  onRemoveItem?: ((id:string) => void);
   index?: number;
-  moveCard?: ((id: string, index?: number | undefined) => void) | any;
+  moveCard?: ((id: number, index: number) => void);
 }
 
 export const ElementCreator: FC<IElementCreator> = ({ array, _id, isTop, onRemoveItem, index, moveCard}) => {
@@ -27,11 +27,11 @@ export const ElementCreator: FC<IElementCreator> = ({ array, _id, isTop, onRemov
 
   const [, dropDragableItem] = useDrop({
     accept: 'ingredients',
-    drop(item: {_id:string; index?:number;}, monitor: DropTargetMonitor<{_id: string; index?: number | undefined;}, unknown>){
+    drop(item: {_id:number; index:number;}, monitor: DropTargetMonitor<{_id: string; index: number;}, unknown>){
       if (item) {
         setTimeout(() => {   
-          moveCard(item.index, index);
-          item.index = index;
+          moveCard?.(item.index, index!);
+          item.index = index!;
         });
       }
     },
@@ -71,7 +71,7 @@ export const ElementCreator: FC<IElementCreator> = ({ array, _id, isTop, onRemov
                 text={item.name}
                 price={item.price}
                 thumbnail={item.image}
-                handleClose={() => onRemoveItem(item._id)}
+                handleClose={() => onRemoveItem?.(item._id)}
               />
             </div>
           </div>

@@ -69,7 +69,7 @@ export const wsReducer = (state = initialState, action: TWSActions): TWSState =>
     case WS_CLOSE_ORDER: 
       return {
         ...state,
-        selectedOrder: [],
+        selectedOrder: {},
         feedOverlay: false
       }
     case WS_CLEAN_ORDERS: 

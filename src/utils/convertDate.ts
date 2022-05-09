@@ -1,4 +1,4 @@
-export const convertDate = (date: string) => {
+export const convertDate = (date: string): string => {
   const upDate = new Date(date)
   const today = new Date();
   let yesterday = new Date();
@@ -9,7 +9,7 @@ export const convertDate = (date: string) => {
     minute: 'numeric',
   };
 
-  let day;
+  let day: string;
 
   if (today.toDateString() === upDate.toDateString()) {                                                                
       day='Сегодня,'

@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import { FeedDetails } from "../FeedDetails/FeedDetails";
 import { FeedInfo } from "../FeedInfo/FeedInfo";
 import { getIngredients } from '../../services/thunk/getIngredients';
+import { TBackgroundState, TLocationState } from '../../types/types';
+import { RenameLocation } from 'typescript';
 
 const App = () => {
   const { standartIngredients,} = useSelector(state => state.ingredients);
@@ -34,8 +36,9 @@ const App = () => {
 }
 
 function ModalSwitch() {
-  let location = useLocation();
-  let background = location.state && location.state.background;
+  let location = useLocation<TLocationState>();
+  let background: any =  location.state && location.state.background;
+
   const {isClick} = useSelector(state => state.ingredient)
   const {feedOverlay} = useSelector(state => state.ws)
   if(!isClick) {

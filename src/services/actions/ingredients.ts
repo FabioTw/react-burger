@@ -17,12 +17,12 @@ export interface IGetIngredientsFailedAction {
 
 export interface IGetIngredientsSuccessAction {
   readonly type: typeof GET_INGREDIENTS_SUCCESS;
-  readonly ingredients: ReadonlyArray<TIngredients>;
+  readonly ingredients: Array<TIngredients>;
 }
 
 export interface IChangeConstructorIngredientsAction {
   readonly type: typeof CHANGE_CONSTRUCTOR_INGREDIENTS;
-  readonly value: ReadonlyArray<TConstructorIngredients>;
+  readonly value: Array<TConstructorIngredients>;
 }
 
 export interface ISelectConstructorBunAction {

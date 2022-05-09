@@ -1,13 +1,14 @@
 import styles from "./navigation-profile.module.css";
 import { NavLink, useHistory, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import { logOut } from "../../services/thunk/logoutProfile";
 import { useCallback } from "react";
+// import { TUser } from "../../types/types";
 
 export const NavigationProfile = () => {
   const dispatch = useDispatch();
   const history = useHistory()
-  const {user} = useSelector(state => state.profile)
+  const {user} = useSelector/*<{user: TUser}>*/(state => state.profile)
 
   const profile = useCallback(
     () => {

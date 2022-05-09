@@ -2,15 +2,10 @@ import React from "react";
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import headerStyles from "./app-header.module.css";
 import { Link, useLocation } from 'react-router-dom';
-
-interface ILocationState {
-  from: {
-    pathname: string;
-  };
-}
+import { TLocationState } from "../../types/types";
 
 export const AppHeader = () => {
-  let location = useLocation<ILocationState>();
+  let location = useLocation<TLocationState>();
   return (
     <header className={`${headerStyles["app-header"]} mt-4 mb-4`}>
       <div className={`${headerStyles["left-header-buttons"]} mr-30`}>
