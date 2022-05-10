@@ -13,6 +13,7 @@ export function setCookie(name:string, value:string, props?: {[name: string]: an
   }
   value = encodeURIComponent(value);
   let updatedCookie = name + '=' + value;
+  updatedCookie += '; path=/'
   for (const propName in props) {
     updatedCookie += '; ' + propName;
     const propValue = props[propName];
