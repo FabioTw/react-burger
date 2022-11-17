@@ -25,7 +25,7 @@ export const HomePage: FC = () => {
 
   const updateOrderOverlay = (): void => {
     if (!user.name) {
-      history.replace({ pathname: '/login', state: [{ path: '/', url: '/', title: 'Home' }] });
+      history.replace({ pathname: '/react-burger/login', state: [{ path: '/react-burger', url: '/react-burger', title: 'Home' }] });
     } else {
       dispatch({type: CLEAN_ORDER})
       toggleOrderOverlay(!orderOverlay);

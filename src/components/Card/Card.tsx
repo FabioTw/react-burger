@@ -35,7 +35,7 @@ export const Card: FC<ICard> = ({id, img, price, text, type, onClick, counterLis
   });
 
   return (
-    <NavLink to={{pathname: `/ingredients/${id}`, state: {background: location}}} className={`${card.card} mt-6 mb-6 ml-3 mr-3`} ref={dragRef} style={{opacity}} onClick={onClick}>
+    <NavLink to={{pathname: `/react-burger/ingredients/${id}`, state: {background: location}}} className={`${card.card} mt-6 mb-6 ml-3 mr-3`} ref={dragRef} style={{opacity}} onClick={onClick}>
       {counterList.length > 0 &&  (
         <div className={`${card.counter}`}>
           <Counter count={counterList.length} size="default" />

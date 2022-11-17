@@ -11,7 +11,7 @@ export const NotFound404: FC = () => {
       <p className="text text_type_main-default mb-4">
         Cтраница не найдена
       </p>
-      <Link to='/' className={styles.link}>Перейти в начало</Link>
+      <Link to='/react-burger/' className={styles.link}>Перейти в начало</Link>
     </div>
   );
 }; 

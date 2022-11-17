@@ -18,7 +18,7 @@ export const OrdersFeed: FC<IOrdersFeed> = ({toggleFeedOverlay}) => {
         key={element._id} 
         element={element} 
         toggleFeedOverlay={toggleFeedOverlay} 
-        pathname={`/feed/${element._id}`} 
+        pathname={`/react-burger/feed/${element._id}`} 
         width={'584px'}
         height={'214px'} 
         status={status}

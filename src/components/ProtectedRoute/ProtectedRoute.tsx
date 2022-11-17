@@ -31,7 +31,7 @@ export const ProtectedRoute: FC<{path: string; exact: boolean}> = ({exact, path,
     if (user.name) {
       setUserLoaded(true)
     } if (getCookie('token') === undefined) {
-      history.replace({ pathname: '/login', state: { from: location } });
+      history.replace({ pathname: '/react-burger/login', state: { from: location } });
     }
   },[user, userFailed]);
 
@@ -48,7 +48,7 @@ export const ProtectedRoute: FC<{path: string; exact: boolean}> = ({exact, path,
         (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: '/react-burger/login',
               state: { from: location }
             }}
           />
