@@ -27,7 +27,7 @@ export const ResetPage: FC = () => {
       if (passValue.length>1 && emailValue.length>5) {
         dispatch(resetPass({password:passValue, token:emailValue})) 
         if (!resetFailed && !resetRequest) {
-          history.replace({ pathname: '/login' });
+          history.replace({ pathname: '/react-burger/login' });
         }
       }
     },
@@ -36,7 +36,7 @@ export const ResetPage: FC = () => {
 
   React.useEffect(()=>{
     if (!emailSended) {
-      history.replace({ pathname: '/forgot-password' });
+      history.replace({ pathname: '/react-burger/forgot-password' });
     }
   },[emailSended])
   
@@ -77,7 +77,7 @@ export const ResetPage: FC = () => {
         Сохранить
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20 mb-4">
-        Вспомнили пароль? <Link to="/login" className={styles.link}>Войти</Link>
+        Вспомнили пароль? <Link to="/react-burger/login" className={styles.link}>Войти</Link>
       </p>
     </form>
   )

@@ -48,7 +48,7 @@ export const LoginPage: FC = () => {
     if (user.name !== '') {
       setEmailValue('');
       setPassValue('');
-      history.replace(location.state? location.state.from: {pathname: '/'})
+      history.replace(location.state? location.state.from: {pathname: '/react-burger'})
     }
   },[userFailed, user, history,])
 
@@ -89,10 +89,10 @@ export const LoginPage: FC = () => {
         Войти
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20 mb-4">
-        Вы - новый пользователь? <Link to="/register" className={styles.link}>Зарегистрироваться</Link>
+        Вы - новый пользователь? <Link to="/react-burger/register" className={styles.link}>Зарегистрироваться</Link>
       </p>
       <p className="text text_type_main-default text_color_inactive">
-        Забыли пароль? <Link to="/forgot-password" className={styles.link}>Восстановить пароль</Link>
+        Забыли пароль? <Link to="/react-burger/forgot-password" className={styles.link}>Восстановить пароль</Link>
       </p>
     </form>
   )

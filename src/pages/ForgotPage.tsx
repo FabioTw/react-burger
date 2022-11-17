@@ -26,7 +26,7 @@ export const ForgotPage: FC = () => {
 
   useEffect(()=> {
     if (emailSended) {
-      history.replace({ pathname: '/reset-password' });
+      history.replace({ pathname: '/react-burger/reset-password' });
     }
   },[emailSended])
 
@@ -52,7 +52,7 @@ export const ForgotPage: FC = () => {
         Восстановить
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20 mb-4">
-        Вспомнили пароль? <Link to="/login" className={styles.link}>Войти</Link>
+        Вспомнили пароль? <Link to="/react-burger/login" className={styles.link}>Войти</Link>
       </p>
     </form>
   )

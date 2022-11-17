@@ -52,54 +52,54 @@ function ModalSwitch() {
       <AppHeader />
       <main className={app.app}>
       <Switch location={background||location}>
-        <Route path="/" exact={true}>
+        <Route path="/react-burger" exact={true}>
           <HomePage />
         </Route>
-        <Route path="/ingredients/:id"  exact={true}>
+        <Route path="/react-burger/ingredients/:id"  exact={true}>
           <Ingredient />
         </Route>
-        <Route path='/feed' exact={true}>
+        <Route path='/react-burger/feed' exact={true}>
           <Feed />
         </Route>
         {
           !feedOverlay &&
-          <Route path='/feed/:id' exact={true}>
+          <Route path='/react-burger/feed/:id' exact={true}>
             <FeedInfo />
           </Route>
         }
         {
           feedOverlay &&
-          <Route path='/feed/:id' exact={true}>
+          <Route path='/react-burger/feed/:id' exact={true}>
             <Feed />
           </Route>
         }
-        <Route path="/login" exact={true}>
+        <Route path="/react-burger/login" exact={true}>
           <LoginPage />
         </Route>
-        <Route path="/register" exact={true}>
+        <Route path="/react-burger/register" exact={true}>
           <RegisterPage />
         </Route>
-        <Route path="/forgot-password" exact={true}>
+        <Route path="/react-burger/forgot-password" exact={true}>
           <ForgotPage />
         </Route>
-        <Route path="/reset-password" exact={true}>
+        <Route path="/react-burger/reset-password" exact={true}>
           <ResetPage />
         </Route>
-        <ProtectedRoute path="/profile" exact={true}>
+        <ProtectedRoute path="/react-burger/profile" exact={true}>
           <Profile />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile/orders" exact={true}>
+        <ProtectedRoute path="/react-burger/profile/orders" exact={true}>
           <ProfileOrders />
         </ProtectedRoute>
         {
           !feedOverlay &&
-          <ProtectedRoute path='/profile/orders/:id' exact={true}>
+          <ProtectedRoute path='/react-burger/profile/orders/:id' exact={true}>
             <FeedInfo />
           </ProtectedRoute>
         }
         {
           feedOverlay &&
-          <ProtectedRoute path='/profile/orders/:id' exact={true}>
+          <ProtectedRoute path='/react-burger/profile/orders/:id' exact={true}>
             <ProfileOrders />
           </ProtectedRoute>
         }
@@ -109,19 +109,19 @@ function ModalSwitch() {
       </Switch>
       {
         feedOverlay &&
-        <Route path="/feed/:id" exact={true}>
+        <Route path="/react-burger/feed/:id" exact={true}>
           <FeedDetails />
         </Route>
       }
       {
         feedOverlay &&
-        <Route path="/profile/orders/:id" exact={true}>
+        <Route path="/react-burger/profile/orders/:id" exact={true}>
           <FeedDetails />
         </Route>
       }
       {
         isClick && 
-        <Route path="/ingredients/:id" exact={true}>
+        <Route path="/react-burger/ingredients/:id" exact={true}>
           <IngredientDetails />
         </Route>
       }

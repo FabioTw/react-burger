@@ -29,7 +29,7 @@ export const OrdersProfile: FC<IOrdersProfile> = ({toggleFeedOverlay}) => {
           key={element._id} 
           element={element} 
           toggleFeedOverlay={toggleFeedOverlay} 
-          pathname={`/profile/orders/${element._id}`}
+          pathname={`/react-burger/profile/orders/${element._id}`}
           width={'856px'}
           height={'246px'}
           status={status}

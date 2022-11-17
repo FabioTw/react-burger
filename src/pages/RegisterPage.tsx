@@ -36,7 +36,7 @@ export const RegisterPage: FC = () => {
       setNameValue('');
       setEmailValue('');
       setPassValue('');
-      history.replace({ pathname: '/' })
+      history.replace({ pathname: '/react-burger' })
     }
   },[user, history])
 
@@ -90,7 +90,7 @@ export const RegisterPage: FC = () => {
         Зарегистрироваться
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20 mb-4">
-        Уже зарегистрированы? <Link to="/login" className={styles.link}>Войти</Link>
+        Уже зарегистрированы? <Link to="/react-burger/login" className={styles.link}>Войти</Link>
       </p>
     </form>
   )

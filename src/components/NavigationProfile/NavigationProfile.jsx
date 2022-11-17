@@ -13,7 +13,7 @@ export const NavigationProfile = () => {
   const profile = useCallback(
     () => {
       if (user.name) {
-        history.replace({ pathname: '/profile' });
+        history.replace({ pathname: '/react-burger/profile' });
       }
     },[history, user]
   );
@@ -21,7 +21,7 @@ export const NavigationProfile = () => {
   const story = useCallback(
     () => {
       if (user.name) {
-        history.replace({ pathname: '/profile/orders' });
+        history.replace({ pathname: '/react-burger/profile/orders' });
       }
     },[history, user]
   );
@@ -30,7 +30,7 @@ export const NavigationProfile = () => {
     () => {
       dispatch(logOut())
       if (!user.name) {
-        history.replace({ pathname: '/login' });
+        history.replace({ pathname: '/react-burger/login' });
       }
     },[history, user]
   );
