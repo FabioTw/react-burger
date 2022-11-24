@@ -9,11 +9,12 @@ interface IAction {
 export let socket: WebSocket|null = null;
 
 export const socketMiddleware = (wsUrl: string, wsActions: TWSActions) => {
+  // eslint-disable-next-line no-empty-pattern
   return (store: {getState: ()=>void; dispatch: ({})=>void}) => {
     
     return (next: (action: IAction)=> void) => (action: IAction) => {
-      const { dispatch, getState } = store;
-      const { type, payload } = action;
+      const { dispatch } = store;
+      const { type } = action;
       const { wsInit, wsPrivateInit, onOpen, onClose, onError, onMessage,} = wsActions;
       if (type === wsInit) {
         socket = new WebSocket(wsUrl);

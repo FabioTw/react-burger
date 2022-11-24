@@ -10,7 +10,7 @@ interface IOrdersProfile {
 
 export const OrdersProfile: FC<IOrdersProfile> = ({toggleFeedOverlay}) => {
   const { standartIngredients,} = useSelector(state => state.ingredients);
-  const {orders, wsPrivateConnected} = useSelector(state => state.ws);
+  const {orders} = useSelector(state => state.ws);
   let status = true
   const sortedOrders: TWSOrder[] = []
   if (orders.length === undefined)  {

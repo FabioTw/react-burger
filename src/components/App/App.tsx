@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import app from './app.module.css';
@@ -12,8 +12,7 @@ import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import { FeedDetails } from "../FeedDetails/FeedDetails";
 import { FeedInfo } from "../FeedInfo/FeedInfo";
 import { getIngredients } from '../../services/thunk/getIngredients';
-import { TBackgroundState, TLocationState } from '../../types/types';
-import { RenameLocation } from 'typescript';
+import { TLocationState } from '../../types/types';
 
 const App = () => {
   const { standartIngredients,} = useSelector(state => state.ingredients);
@@ -22,6 +21,7 @@ const App = () => {
     if (standartIngredients[0] === undefined) {
       dispatch(getIngredients())
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[standartIngredients]);
 
   return (

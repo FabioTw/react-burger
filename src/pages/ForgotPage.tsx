@@ -21,6 +21,7 @@ export const ForgotPage: FC = () => {
         dispatch(forgotPass({email:emailValue})) 
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [emailSended, history, emailValue, ]
   ); 
 
@@ -28,6 +29,7 @@ export const ForgotPage: FC = () => {
     if (emailSended) {
       history.replace({ pathname: '/react-burger/reset-password' });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[emailSended])
 
   return (

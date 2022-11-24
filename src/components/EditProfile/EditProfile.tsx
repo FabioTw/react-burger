@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, DetailedHTMLProps, FormEventHandler, FormHTMLAttributes } from "react"
+import React, { BaseSyntheticEvent } from "react"
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "../../services/hooks/hooks";
 import styles from "./edit-profile.module.css";

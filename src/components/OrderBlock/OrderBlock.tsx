@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "../../services/hooks/hooks";
 import { WS_SELECT_ORDER } from "../../services/actions/wsActionTypes";

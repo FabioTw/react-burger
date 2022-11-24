@@ -1,12 +1,9 @@
 import {
-  GET_TOKEN,
-  GET_TOKEN_SUCCESS,
-  GET_TOKEN_FAILED,
   REGISTER_PROFILE,
   REGISTER_PROFILE_SUCCESS,
   REGISTER_PROFILE_FAILED,
 } from '../actions/profile';
-import { setCookie, getCookie } from '../cookie';
+import { setCookie } from '../cookie';
 import { baseUrl, checkError } from "../apiSettings";
 import { AppDispatch, AppThunk } from '../../types';
 

@@ -7,7 +7,7 @@ import { OrderDetails } from '../components/OrderDetails/OrderDetails';
 import { CHANGE_CONSTRUCTOR_INGREDIENTS, SELECT_CONSTRUCTOR_BUN } from '../services/actions/ingredients';
 import { CLOSE_INGREDIENT, SELECT_INGREDIENT } from '../services/actions/ingredient';
 import { v4 as uuidv4 } from 'uuid'
-import { Route,useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getUser } from '../services/thunk/getUser';
 import { deleteCookie, getCookie } from '../services/cookie';
 import { updateToken } from '../services/thunk/updateToken';
@@ -89,6 +89,7 @@ export const HomePage: FC = () => {
         }
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
   return (

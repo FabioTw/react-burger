@@ -38,6 +38,7 @@ export const RegisterPage: FC = () => {
       setPassValue('');
       history.replace({ pathname: '/react-burger' })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user, history])
 
   return (

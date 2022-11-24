@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Card } from "../Card/Card";
 import { TCardIngredient, TIngredients } from "../../types/types";
 import cardList from "./card-list.module.css" 

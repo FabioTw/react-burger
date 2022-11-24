@@ -1,11 +1,11 @@
+/* eslint-disable array-callback-return */
 import { Modal } from "../Modal/Modal";
 import { useHistory, useParams} from "react-router-dom";
-import PropTypes from "prop-types";
 import { useSelector } from "../../services/hooks/hooks";
 import styles from './feed-details.module.css'
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { convertDate } from "../../utils/convertDate";
-import { BaseSyntheticEvent, SyntheticEvent } from "react";
+import { BaseSyntheticEvent } from "react";
 
 interface ISelectedIngredient {
   id: string; 
@@ -66,6 +66,7 @@ export const FeedDetails = () => {
             type: standartIngredient.type, 
             price: standartIngredient.price
           })
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           iterations+= 1
         }
         if (index === 0) {

@@ -26,6 +26,7 @@ export const ProfileOrders: FC = () => {
         dispatch({ type: WS_PRIVATE_CONNECTION_START });
       } 
       return () => {dispatch({ type: WS_CONNECTION_CLOSED }); socket?.close();}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]
   )
   

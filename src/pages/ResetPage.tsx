@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { BaseSyntheticEvent, FC, useCallback } from 'react'; 
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from 'react-router-dom';

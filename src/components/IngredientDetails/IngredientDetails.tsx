@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Modal } from "../Modal/Modal";
 import ingredientDetails from './ingredient-details.module.css'
 import { useSelector, useDispatch } from '../../services/hooks/hooks';

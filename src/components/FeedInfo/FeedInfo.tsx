@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import { useParams} from "react-router-dom";
 import { useDispatch, useSelector } from '../../services/hooks/hooks';
 import styles from './feed-info.module.css'
@@ -29,6 +30,7 @@ export const FeedInfo = () => {
       if(!wsConnected){
         dispatch({ type: WS_CONNECTION_START });
       }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[wsConnected]
   )
   if (wsConnected){
@@ -78,6 +80,7 @@ export const FeedInfo = () => {
                 type: standartIngredient.type, 
                 price: standartIngredient.price
               })
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
               iterations+= 1
             }
             if (index === 0) {

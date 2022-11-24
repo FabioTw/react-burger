@@ -5,8 +5,6 @@ import { socketMiddleware } from './middleware';
 import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, 
   WS_CONNECTION_START, WS_CONNECTION_SUCCESS, 
   WS_GET_MESSAGE, WS_PRIVATE_CONNECTION_START, } from './actions/wsActionTypes';
-import {getCookie} from './cookie'
-import { useState } from 'react';
 import { TWSActions } from '../types/types';
 
 export const wsUrl: string = `wss://norma.nomoreparties.space/orders/all`;

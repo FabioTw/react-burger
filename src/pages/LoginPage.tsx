@@ -7,7 +7,6 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { signIn } from "../services/thunk/loginProfile";
 import { getCookie } from "../services/cookie";
 import { updateToken } from "../services/thunk/updateToken";
-import { TLocationState } from "../types/types";
 
 export const LoginPage: FC = () => {
   const dispatch = useDispatch();
@@ -32,6 +31,7 @@ export const LoginPage: FC = () => {
         dispatch(signIn(form))
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [emailValue, passValue]
   );
 
@@ -50,6 +50,7 @@ export const LoginPage: FC = () => {
       setPassValue('');
       history.replace(location.state? location.state.from: {pathname: '/react-burger'})
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[userFailed, user, history,])
 
   return (

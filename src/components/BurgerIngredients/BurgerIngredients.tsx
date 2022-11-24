@@ -3,7 +3,7 @@ import { Tabs } from "../Tabs/Tabs";
 import { CardList } from "../CardList/CardList";
 import burgerIngredients from "./burger-ingredients.module.css";
 import { useSelector } from "../../services/hooks/hooks";
-import { TCardIngredient, TIngredients } from "../../types/types";
+import { TCardIngredient } from "../../types/types";
 
 interface IBurgerIngredients {
   showIngredientDetailsModal: () => void;

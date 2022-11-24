@@ -33,6 +33,7 @@ export const ProtectedRoute: FC<{path: string; exact: boolean}> = ({exact, path,
     } if (getCookie('token') === undefined) {
       history.replace({ pathname: '/react-burger/login', state: { from: location } });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user, userFailed]);
 
   if (!isUserLoaded) {

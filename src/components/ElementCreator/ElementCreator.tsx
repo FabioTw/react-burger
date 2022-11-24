@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import elementCreator from "./element-creator.module.css";
 import { TIngredients } from "../../types/types";

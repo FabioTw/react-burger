@@ -1,7 +1,6 @@
 
 import { ThunkAction } from 'redux-thunk';
 import { Action, ActionCreator } from 'redux';
-import { Dispatch } from 'react';
 
 import { store } from '../services/store';
 

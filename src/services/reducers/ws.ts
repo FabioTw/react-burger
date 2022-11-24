@@ -1,4 +1,4 @@
-import { TWebSocket, TWSOrder } from "../../types/types";
+import { TWebSocket } from "../../types/types";
 import type { TWSActions } from "../actions/wsActionTypes";
 
 import { 
